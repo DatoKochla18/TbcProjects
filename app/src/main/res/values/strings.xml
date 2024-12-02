@@ -1,3 +1,128 @@
 <resources>
     <string name="app_name">TbcExercises</string>
+<!--    ENGLISH-->
+    <string name="translate">Translate</string>
+    <string name="hint">Enter number from 1 - 1000</string>
+    
+    <!--    Digits-->
+    <string-array name="ErteulebiEN">
+        <item>One</item>
+        <item>Two</item>
+        <item>Three</item>
+        <item>Four</item>
+        <item>Five</item>
+        <item>Six</item>
+        <item>Seven</item>
+        <item>Eight</item>
+        <item>Nine</item>
+
+    </string-array>
+
+    <string-array name="TwoDigitsEN">
+
+        <item>eleven</item>
+        <item>twelve</item>
+        <item>thirteen</item>
+        <item>fourteen</item>
+        <item>fifteen</item>
+        <item>sixteen</item>
+        <item>seventeen</item>
+        <item>eighteen</item>
+        <item>nineteen</item>
+    </string-array>
+
+
+    <string-array name="AteulebiEn">
+
+        <item>ten</item>
+        <item>twenty</item>
+        <item>thirty</item>
+        <item>forty</item>
+        <item>fifty</item>
+        <item>sixty</item>
+        <item>seventy</item>
+        <item>eighty</item>
+        <item>ninety</item>
+    </string-array>
+
+
+    <string-array name="AseulebiEn">
+
+        <item>one hundred</item>
+        <item>two hundred</item>
+        <item>three hundred</item>
+        <item>for hundred</item>
+        <item>five hundred</item>
+        <item>six hundred</item>
+        <item>seven hundred</item>
+        <item>eight hundred</item>
+        <item>nine hundred</item>
+    </string-array>
+
+
+
+
+    <!--    GEORGIA-->
+    <string name="translate_ge">გადააქციე ტექსტად</string>
+    <string name="hint_ge">შეიყვანე ციფრი  1 - 1000</string>
+    <string name="numtowordapp">NumToWordApp\n</string>
+
+
+
+    <!--    Digits-->
+    <string-array name="ErteulebiGe">
+        <item>ერთი</item>
+        <item>ორი</item>
+        <item>სამი</item>
+        <item>ოთხი</item>
+        <item>ხუთი</item>
+        <item>ექვსი</item>
+        <item>შვიდი</item>
+        <item>რვა</item>
+        <item>ცხრა</item>
+
+    </string-array>
+
+    <string-array name="TwoDigitsGe">
+
+        <item>თერთმეტი</item>
+        <item>თორმეტი</item>
+        <item>ცამეტი</item>
+        <item>თოთხმეტი</item>
+        <item>თხუთმეტი</item>
+        <item>ტექსვმეტი</item>
+        <item>ჩვიდმეტი</item>
+        <item>თვრამეტი</item>
+        <item>ცხრამეტი</item>
+    </string-array>
+
+
+    <string-array name="AteulebiGe">
+
+        <item>ათი</item>
+        <item>ოცი</item>
+        <item>ოცდაათი</item>
+        <item>ორმოცი</item>
+        <item>ორმოცდაათი</item>
+        <item>სამოცი</item>
+        <item>სამოცდაათი</item>
+        <item>ოთხმოცი</item>
+        <item>ოთხომცდაათი</item>
+    </string-array>
+
+
+    <string-array name="AseulebiGe">
+
+        <item>ასი</item>
+        <item>ორასი</item>
+        <item>სამასი</item>
+        <item>ოთხასი</item>
+        <item>ხუთასი</item>
+        <item>ექვსასი</item>
+        <item>შვიდასი</item>
+        <item>რვაასი</item>
+        <item>ცხრაასი</item>
+    </string-array>
+
+
 </resources>
