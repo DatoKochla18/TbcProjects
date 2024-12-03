@@ -42,16 +42,18 @@ class MainActivity : AppCompatActivity() {
         tgbtLanguage.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 Translator = EnTranslate(this)
-                txtResult.text = Translator.translateNum(etNum.text.toString())
-
+                if (etNum.text.toString() != "") {
+                    txtResult.text = Translator.translateNum(etNum.text.toString())
+                }
                 btTranslate.text = getString(R.string.translate)
                 etNum.hint = getString(R.string.hint)
             } else {
                 Translator = GeoTranslate(this)
                 btTranslate.text = getString(R.string.translate_ge)
                 etNum.hint = getString(R.string.hint_ge)
-                txtResult.text = Translator.translateNum(etNum.text.toString())
-
+                if (etNum.text.toString() != "") {
+                    txtResult.text = Translator.translateNum(etNum.text.toString())
+                }
             }
         }
 
