@@ -1,25 +1,12 @@
 <resources>
     <string name="app_name">TbcExercises</string>
-    <string name="profile_info">Profile Info</string>
-    <string name="enter_email">Enter Email</string>
-    <string name="enter_username">Enter Username</string>
-    <string name="enter_firstname">Enter FirstName</string>
-    <string name="enter_last_name">Enter Last Name</string>
-    <string name="enter_age">Enter Age</string>
-    <string name="save">Save</string>
-    <string name="clear">Clear</string>
 
-    <string name="ValidEmptyFields">Fill the Field</string>
+    <string name="ValidEmptyFields">Field is Empty</string>
 
-    <string name="ValidAgeNegative">Age Cant be Negative</string>
+    <string name="ValidFullNameContainingWrongCharacters">Full Name only contains letter</string>
+    <string name="ValidFullNameShort">Full name at least is 7 characters</string>
 
-    <string name="ValidAgeOld">You Cant live more than 150!!!</string>
-
-    <string name="ValidFirstAndLastNameLength">Username should be at least 2 characters</string>
-    <string name="ValidFirstAndLastNameOnlyLetters">Only Letters Allowed</string>
-
-    <string name="ValidUserNameLength">Username should be at least 10 characters</string>
-
+    <string name="ValidAlreadyUsedEmail">Email has been used</string>
     <string name="ValidEmailNotContainingSymbol">Not Containing @</string>
     <string name="ValidEmailContainingMoreSymbol">Email Can Not Contain More than one @</string>
     <string name="ValidEmailCantContainSpecialChars">Can not contain special characters</string>
@@ -33,4 +20,12 @@
     <string name="ValidEmailSpaces">Email Can not contain Spaces</string>
 
     <string name="again">Again</string>
+    <string name="user_database">User Database</string>
+    <string name="default_user_count"><![CDATA[Users -> 0]]></string>
+    <string name="enter_full_name">Enter Full Name</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="add_user">Add User</string>
+    <string name="get_user">get user info</string>
+
+    <string name="UserNotFound">User Not Found</string>
 </resources>

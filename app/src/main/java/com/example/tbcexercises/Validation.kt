@@ -6,53 +6,17 @@ class Validation(private val context: Context) {
     private val resources = context.resources
 
 
-    fun validateAge(text: String): Result {
+    fun validateFullName(text:String):Result {
         return when {
             text.isEmpty() -> Result.Error(resources.getString(R.string.ValidEmptyFields))
-            (text.toInt() < 0) -> Result.Error(resources.getString(R.string.ValidAgeNegative))
-
-            (text.toInt() > 150) -> Result.Error(resources.getString(R.string.ValidAgeOld))
-
-            else -> return Result.Success()
-        }
-
-    }
-
-    fun validateFirstName(text: String): Result {
-        return when {
-            text.isEmpty() -> Result.Error(resources.getString(R.string.ValidEmptyFields))
-            text.any { !it.isLetter() } -> Result.Error(resources.getString(R.string.ValidFirstAndLastNameOnlyLetters))
-
-            text.length ==1 -> Result.Error(resources.getString(R.string.ValidFirstAndLastNameLength))
+            text.replace(" ","").any{it.isDigit() || !it.isLetter()} -> Result.Error(resources.getString(R.string.ValidFullNameContainingWrongCharacters))
+            text.length <6 -> Result.Error(resources.getString(R.string.ValidFullNameShort))
             else -> Result.Success()
         }
-
-
-    }
-
-    fun validateLastName(text: String): Result {
-        return when {
-            text.isEmpty() -> Result.Error(resources.getString(R.string.ValidEmptyFields))
-            text.any { !it.isLetter() } -> Result.Error(resources.getString(R.string.ValidFirstAndLastNameOnlyLetters))
-            text.length ==1 -> Result.Error(resources.getString(R.string.ValidFirstAndLastNameLength))
-            else -> Result.Success()
-        }
-
-
-    }
-
-    fun validateUserName(text: String): Result {
-        return when {
-            text.isEmpty() -> Result.Error(resources.getString(R.string.ValidEmptyFields))
-            text.length < 10 -> Result.Error(resources.getString(R.string.ValidUserNameLength))
-            else -> return Result.Success()
-        }
-
-
     }
 
 
-    fun validateEmail(text: String): Result {
+    fun validateEmail(text: String,emails:List<String> = listOf()): Result {
         return when {
             text.isEmpty() -> Result.Error(resources.getString(R.string.ValidEmptyFields))
             text[0].toString() == "." || text[text.length - 1].toString() == "." -> Result.Error(
@@ -70,8 +34,11 @@ class Validation(private val context: Context) {
             text.contains("@.") ->  Result.Error(resources.getString(R.string.ValidEmailContainingSymbolAndDotConsecutive))
 
             text.contains("..") -> Result.Error(resources.getString(R.string.ValidEmailConsecutiveDots))
+            text in emails -> Result.Error(resources.getString(R.string.ValidAlreadyUsedEmail))
             else -> Result.Success()
         }
 
     }
+
+
 }

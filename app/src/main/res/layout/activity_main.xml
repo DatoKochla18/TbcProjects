@@ -10,150 +10,131 @@
     tools:context=".MainActivity">
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8.dp"
-        android:text="@string/profile_info"
+        android:text="@string/user_database"
+        android:textSize="32.sp"
         android:textAlignment="center"
         android:textColor="@color/purple"
-        android:textSize="32sp" />
+        android:textStyle="bold"
+        android:layout_marginBottom="8.dp"
+        >
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+
+        android:id="@+id/txtUserCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/default_user_count"
+        android:textColor="@color/cyan"
+        android:textSize="24sp"
+        android:layout_margin="8.dp"
+
+        >
+
+    </androidx.appcompat.widget.AppCompatTextView>
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/EtEmail"
+        android:id="@+id/etFullName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4.dp"
+        android:textSize="24.sp"
+        android:textColor="@color/cyan"
+        android:hint="@string/enter_full_name"
+        android:textColorHint="@color/cyan"
+        android:layout_margin="8.dp"
+        >
+    </androidx.appcompat.widget.AppCompatEditText>
+    <androidx.appcompat.widget.AppCompatTextView
+
+        android:id="@+id/txtFullNameError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@color/red"
+        android:textSize="16sp"
+        android:layout_marginStart="8.dp"
+        android:layout_marginTop="4.dp">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etEmailForAdding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24.sp"
+        android:textColor="@color/cyan"
         android:hint="@string/enter_email"
-        android:textSize="24sp" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txEmailError"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/red" />
-
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/EtUsername"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4.dp"
-        android:hint="@string/enter_username"
-        android:textSize="24sp" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txUsernamError"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/red" />
-
-
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/EtFirstName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4.dp"
-        android:hint="@string/enter_firstname"
-        android:inputType="text"
-        android:textSize="24sp" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txFirstNameError"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/red" />
-
-
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/EtLastName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4.dp"
-        android:hint="@string/enter_last_name"
-        android:inputType="text"
-        android:textSize="24sp" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txLastNameError"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/red" />
-
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/EtAge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4.dp"
-        android:hint="@string/enter_age"
-        android:inputType="number"
-        android:textSize="24sp" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txAgeError"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/red" />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp">
-
-        <Button
-            android:id="@+id/btnSave"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/save" />
-
-        <Button
-            android:id="@+id/btnClear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/clear" />
-
-    </LinearLayout>
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txtResultEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:textColorHint="@color/cyan"
         android:layout_margin="8.dp"
-        android:textSize="24sp">
-    </androidx.appcompat.widget.AppCompatTextView>
+        >
+    </androidx.appcompat.widget.AppCompatEditText>
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txtResultUserName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_margin="8.dp"
-        android:textSize="24sp">
-    </androidx.appcompat.widget.AppCompatTextView>
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txtResultFullName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_margin="8.dp"
-        android:textSize="24sp">
-    </androidx.appcompat.widget.AppCompatTextView>
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txtResultAge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_margin="8.dp"
-        android:textSize="24sp">
-    </androidx.appcompat.widget.AppCompatTextView>
-    <Button
-        android:id="@+id/btnAgain"
+
+        android:id="@+id/txtEmailError"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/again"
-        android:visibility="gone"
+        android:text=""
+        android:textColor="@color/red"
+        android:textSize="16sp"
+        android:layout_marginStart="8.dp"
+        android:layout_marginTop="4.dp">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnAddUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_user"
         android:layout_margin="8.dp">
 
-    </Button>
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etEmailForSearching"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24.sp"
+        android:textColor="@color/cyan"
+        android:hint="@string/enter_email"
+        android:textColorHint="@color/cyan"
+        android:layout_margin="8.dp"
+        >
+    </androidx.appcompat.widget.AppCompatEditText>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/getUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/get_user"
+        android:layout_margin="8.dp">
+
+    </androidx.appcompat.widget.AppCompatButton>
+    <androidx.appcompat.widget.AppCompatTextView
+
+        android:id="@+id/txtEmailErrorForSearching"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@color/red"
+        android:textSize="16sp"
+        android:layout_marginStart="8.dp"
+        android:layout_marginTop="4.dp">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+    <androidx.appcompat.widget.AppCompatTextView
+
+        android:id="@+id/txtSearchResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@color/cyan"
+        android:textSize="18sp"
+        android:layout_margin="8.dp"
+
+        >
+
+    </androidx.appcompat.widget.AppCompatTextView>
 
 </LinearLayout>
