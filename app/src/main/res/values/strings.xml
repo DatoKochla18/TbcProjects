@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">TbcExercises</string>
+    <string name="save">Save</string>
+    <string name="output">OutPut</string>
+    <string name="clear">Clear</string>
+    <string name="enter_anagram">Enter Anagram</string>
+    <string name="connect_and_transfer">Connect and Transfer</string>
 </resources>

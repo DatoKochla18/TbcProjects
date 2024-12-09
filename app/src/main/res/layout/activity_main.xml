@@ -1,19 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
+    <EditText
+        android:id="@+id/etAnagram"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_anagram"
+        android:layout_marginBottom="8.dp"
+        android:textColor="@color/blue"
+        ></EditText>
+
+
+    <Button
+        android:id="@+id/btnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/save"
+        android:layout_margin="8.dp"></Button>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/btnOutPut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/output"
+        android:layout_margin="8.dp">
+    </Button>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="32.dp"
+        android:textSize="24sp"
+        android:textColor="@color/blue"
+        >
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <Button
+        android:id="@+id/btnClear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/clear"
+        android:layout_margin="8.dp"
+        >
+
+    </Button>
+
+    <Button
+        android:id="@+id/btnConnectTransfer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16.sp"
+        android:text="@string/connect_and_transfer"></Button>
+
+</LinearLayout>
