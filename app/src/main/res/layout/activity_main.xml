@@ -134,7 +134,6 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txtOverview"
-        android:text="@string/overview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -154,8 +153,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="46dp"
-        android:text="@string/details"
-        android:textColor="#991B1B1B"
+        android:textColor="@color/details_color"
         android:textSize="16sp"
         app:layout_constraintLeft_toRightOf="@id/txtOverview"
         app:layout_constraintTop_toBottomOf="@id/frameBox">
