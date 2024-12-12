@@ -238,8 +238,8 @@
         android:layout_marginTop="38dp"
         android:textSize="18sp"
         app:layout_constraintLeft_toRightOf="@+id/imStar"
-        app:layout_constraintTop_toBottomOf="@id/txtDetails"
-        app:layout_constraintRight_toRightOf="@id/frameBox">
+        app:layout_constraintRight_toRightOf="@id/frameBox"
+        app:layout_constraintTop_toBottomOf="@id/txtDetails">
 
     </androidx.appcompat.widget.AppCompatTextView>
 
@@ -248,8 +248,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="34dp"
-        android:textSize="18sp"
         android:maxLines="3"
+        android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="@id/frameBox"
         app:layout_constraintRight_toRightOf="@id/frameBox"
         app:layout_constraintTop_toBottomOf="@id/imCloud">
@@ -264,9 +264,9 @@
         android:layout_marginBottom="21.5dp"
         android:background="@drawable/book_now_rounded"
         android:drawableEnd="@drawable/send_icon"
-        android:gravity="center"
+        android:paddingLeft="118dp"
+        android:paddingEnd="120dp"
         android:textAlignment="center"
-        android:paddingEnd="100dp"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/main"
         app:layout_constraintLeft_toLeftOf="@id/frameBox"
