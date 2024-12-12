@@ -169,7 +169,9 @@
         android:background="@drawable/rounded_small_rectangle"
         android:scaleType="centerInside"
         android:src="@drawable/icon_clock"
-        app:layout_constraintLeft_toLeftOf="@id/txtOverview"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintLeft_toLeftOf="@id/frameBox"
+        app:layout_constraintRight_toLeftOf="@id/imCloud"
         app:layout_constraintTop_toBottomOf="@id/txtOverview" />
 
 
@@ -218,6 +220,7 @@
         android:layout_width="34dp"
         android:layout_height="34dp"
         android:layout_marginTop="32dp"
+        android:layout_marginRight="32dp"
         android:background="@drawable/rounded_small_rectangle"
         android:scaleType="centerInside"
         android:src="@drawable/star"
@@ -235,7 +238,8 @@
         android:layout_marginTop="38dp"
         android:textSize="18sp"
         app:layout_constraintLeft_toRightOf="@+id/imStar"
-        app:layout_constraintTop_toBottomOf="@id/txtDetails">
+        app:layout_constraintTop_toBottomOf="@id/txtDetails"
+        app:layout_constraintRight_toRightOf="@id/frameBox">
 
     </androidx.appcompat.widget.AppCompatTextView>
 
