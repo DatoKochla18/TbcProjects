@@ -5,15 +5,258 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
-    <TextView
+    <FrameLayout
+        android:id="@+id/frameBox"
+        android:layout_width="match_parent"
+        android:layout_height="460dp"
+        android:layout_margin="21.5dp"
+
+        app:layout_constraintLeft_toLeftOf="@id/main"
+        app:layout_constraintTop_toTopOf="@id/main">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imMainCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@drawable/mountainphoto"
+            app:shapeAppearanceOverlay="@style/roundedImage">
+
+        </com.google.android.material.imageview.ShapeableImageView>
+
+        <ImageButton
+            android:id="@+id/imbArrowBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/round_btn_shape"
+            android:src="@drawable/icon_arrow_left">
+
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/imbArchieve"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/round_btn_shape"
+            android:src="@drawable/archive">
+
+        </ImageButton>
+
+
+        <FrameLayout
+            android:id="@+id/detailCard"
+            android:layout_width="match_parent"
+            android:layout_height="104dp"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="21.5dp"
+            android:background="@drawable/detail_card_round"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/txtDetailLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="24dp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/txtPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:paddingTop="8dp"
+                android:textColor="@color/white"
+                android:textSize="16dp">
+
+            </TextView>
+
+            <ImageView
+                android:id="@+id/imgLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:src="@drawable/fi_rr_marker">
+
+            </ImageView>
+
+            <TextView
+                android:id="@+id/txtBroadLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:paddingStart="24dp"
+                android:textColor="@color/white"
+                android:textSize="18dp">
+
+            </TextView>
+
+
+            <TextView
+                android:id="@+id/txtWithDollarPriceValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:textSize="20dp">
+
+            </TextView>
+            <TextView
+                android:id="@+id/txtPriceValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+        </FrameLayout>
+    </FrameLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtOverview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="32dp"
+        android:textColor="@color/black"
 
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@id/frameBox"
+        app:layout_constraintTop_toBottomOf="@id/frameBox">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+
+        android:id="@+id/txtDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:textColor="#1B1B1B9E"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@id/txtOverview"
+        app:layout_constraintTop_toBottomOf="@id/frameBox">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+
+    <ImageView
+
+        android:id="@+id/imClock"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounded_small_rectangle"
+        android:scaleType="centerInside"
+        android:src="@drawable/icon_clock"
+        app:layout_constraintLeft_toLeftOf="@id/txtOverview"
+        app:layout_constraintTop_toBottomOf="@id/txtOverview" />
+
+
+    <TextView
+        android:id="@+id/txtHours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="18dp"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toRightOf="@id/imClock"
+        app:layout_constraintTop_toBottomOf="@+id/txtOverview"
+
+        >
+
+    </TextView>
+
+    <ImageView
+        android:id="@+id/imCloud"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounded_small_rectangle"
+        android:scaleType="centerInside"
+        android:src="@drawable/icon_cloud"
+        app:layout_constraintLeft_toRightOf="@id/imClock"
+        app:layout_constraintRight_toLeftOf="@id/imStar"
+        app:layout_constraintTop_toBottomOf="@id/txtOverview" />
+
+    <TextView
+        android:id="@+id/txtTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="18dp"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toRightOf="@id/imCloud"
+        app:layout_constraintTop_toBottomOf="@+id/txtOverview"
+
+        >
+
+    </TextView>
+
+    <ImageView
+        android:id="@+id/imStar"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounded_small_rectangle"
+        android:scaleType="centerInside"
+        android:src="@drawable/star"
+        app:layout_constraintLeft_toRightOf="@+id/imCloud"
+        app:layout_constraintRight_toRightOf="@+id/frameBox"
+        app:layout_constraintTop_toBottomOf="@id/txtDetails">
+
+    </ImageView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toRightOf="@+id/imStar"
+        app:layout_constraintTop_toBottomOf="@id/txtDetails">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtDescribe"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+
+        app:layout_constraintLeft_toLeftOf="@id/frameBox"
+        app:layout_constraintRight_toRightOf="@id/frameBox"
+        app:layout_constraintTop_toBottomOf="@id/imCloud">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnBookNow"
+        android:layout_width="0dp"
+        android:layout_height="66dp"
+        android:layout_marginBottom="21.5dp"
+        android:background="@drawable/book_now_rounded"
+        android:drawableEnd="@drawable/send_icon"
+        android:gravity="center"
+        android:paddingEnd="100dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/main"
+        app:layout_constraintLeft_toLeftOf="@id/frameBox"
+        app:layout_constraintRight_toRightOf="@id/frameBox">
+
+    </androidx.appcompat.widget.AppCompatButton>
 </androidx.constraintlayout.widget.ConstraintLayout>
