@@ -12,7 +12,7 @@
         android:id="@+id/frameBox"
         android:layout_width="match_parent"
         android:layout_height="460dp"
-        android:layout_margin="21.5dp"
+        android:layout_margin="28dp"
 
         app:layout_constraintLeft_toLeftOf="@id/main"
         app:layout_constraintTop_toTopOf="@id/main">
@@ -31,8 +31,8 @@
             android:id="@+id/imbArrowBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="18dp"
             android:background="@drawable/round_btn_shape"
             android:src="@drawable/icon_arrow_left">
 
@@ -43,8 +43,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="19dp"
             android:background="@drawable/round_btn_shape"
             android:src="@drawable/archive">
 
@@ -56,18 +56,19 @@
             android:layout_width="match_parent"
             android:layout_height="104dp"
             android:layout_gravity="bottom"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="21.5dp"
-            android:background="@drawable/detail_card_round"
-            android:padding="10dp">
+            android:layout_marginStart="21dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginBottom="29dp"
+            android:background="@drawable/detail_card_round">
 
             <TextView
                 android:id="@+id/txtDetailLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="18dp"
                 android:textColor="@color/white"
-                android:textSize="24dp">
+                android:textSize="24sp">
 
             </TextView>
 
@@ -76,8 +77,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:paddingTop="8dp"
-                android:textColor="@color/white"
+                android:paddingTop="26dp"
+                android:paddingEnd="22dp"
+                android:textColor="@color/color_price"
                 android:textSize="16dp">
 
             </TextView>
@@ -87,6 +89,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
+                android:layout_marginStart="14dp"
+                android:layout_marginBottom="18dp"
                 android:src="@drawable/fi_rr_marker">
 
             </ImageView>
@@ -96,9 +100,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:paddingStart="24dp"
+                android:layout_marginBottom="18dp"
+                android:paddingStart="42dp"
                 android:textColor="@color/white"
-                android:textSize="18dp">
+                android:textSize="18sp">
 
             </TextView>
 
@@ -108,55 +113,61 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
-                android:textSize="20dp">
+                android:layout_marginEnd="21dp"
+                android:layout_marginBottom="16dp"
+                android:textSize="20sp">
 
             </TextView>
+
             <TextView
                 android:id="@+id/txtPriceValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|bottom"
+                android:layout_marginEnd="21dp"
+                android:layout_marginBottom="16dp"
                 android:textColor="@color/white"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
         </FrameLayout>
     </FrameLayout>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txtOverview"
+        android:text="@string/overview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="40dp"
         android:textColor="@color/black"
-
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@id/frameBox"
         app:layout_constraintTop_toBottomOf="@id/frameBox">
 
     </androidx.appcompat.widget.AppCompatTextView>
 
+
     <androidx.appcompat.widget.AppCompatTextView
 
         android:id="@+id/txtDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:textColor="#1B1B1B9E"
-        android:textStyle="bold"
+        android:layout_marginTop="46dp"
+        android:text="@string/details"
+        android:textColor="#991B1B1B"
+        android:textSize="16sp"
         app:layout_constraintLeft_toRightOf="@id/txtOverview"
         app:layout_constraintTop_toBottomOf="@id/frameBox">
 
     </androidx.appcompat.widget.AppCompatTextView>
-
 
     <ImageView
 
         android:id="@+id/imClock"
         android:layout_width="34dp"
         android:layout_height="34dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/rounded_small_rectangle"
         android:scaleType="centerInside"
         android:src="@drawable/icon_clock"
@@ -169,7 +180,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="38dp"
         android:textSize="18sp"
         app:layout_constraintLeft_toRightOf="@id/imClock"
         app:layout_constraintTop_toBottomOf="@+id/txtOverview"
@@ -182,7 +193,7 @@
         android:id="@+id/imCloud"
         android:layout_width="34dp"
         android:layout_height="34dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/rounded_small_rectangle"
         android:scaleType="centerInside"
         android:src="@drawable/icon_cloud"
@@ -195,7 +206,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="35dp"
         android:textSize="18sp"
         app:layout_constraintLeft_toRightOf="@id/imCloud"
         app:layout_constraintTop_toBottomOf="@+id/txtOverview"
@@ -208,13 +219,13 @@
         android:id="@+id/imStar"
         android:layout_width="34dp"
         android:layout_height="34dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/rounded_small_rectangle"
         android:scaleType="centerInside"
         android:src="@drawable/star"
         app:layout_constraintLeft_toRightOf="@+id/imCloud"
         app:layout_constraintRight_toRightOf="@+id/frameBox"
-        app:layout_constraintTop_toBottomOf="@id/txtDetails">
+        app:layout_constraintTop_toBottomOf="@id/txtOverview">
 
     </ImageView>
 
@@ -223,7 +234,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="38dp"
         android:textSize="18sp"
         app:layout_constraintLeft_toRightOf="@+id/imStar"
         app:layout_constraintTop_toBottomOf="@id/txtDetails">
@@ -234,9 +245,9 @@
         android:id="@+id/txtDescribe"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="34dp"
         android:textSize="18sp"
-
+        android:maxLines="3"
         app:layout_constraintLeft_toLeftOf="@id/frameBox"
         app:layout_constraintRight_toRightOf="@id/frameBox"
         app:layout_constraintTop_toBottomOf="@id/imCloud">
@@ -252,6 +263,7 @@
         android:background="@drawable/book_now_rounded"
         android:drawableEnd="@drawable/send_icon"
         android:gravity="center"
+        android:textAlignment="center"
         android:paddingEnd="100dp"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/main"
