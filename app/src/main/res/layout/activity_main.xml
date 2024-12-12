@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            android:src="@drawable/mountainphoto"
+            android:src="@drawable/mountain_photo"
             app:shapeAppearanceOverlay="@style/roundedImage">
 
         </com.google.android.material.imageview.ShapeableImageView>
@@ -46,7 +46,7 @@
             android:layout_marginTop="18dp"
             android:layout_marginEnd="19dp"
             android:background="@drawable/round_btn_shape"
-            android:src="@drawable/archive">
+            android:src="@drawable/icon_archive">
 
         </ImageButton>
 
@@ -91,7 +91,7 @@
                 android:layout_gravity="bottom"
                 android:layout_marginStart="14dp"
                 android:layout_marginBottom="18dp"
-                android:src="@drawable/fi_rr_marker">
+                android:src="@drawable/icon_location">
 
             </ImageView>
 
@@ -223,7 +223,7 @@
         android:layout_marginRight="32dp"
         android:background="@drawable/rounded_small_rectangle"
         android:scaleType="centerInside"
-        android:src="@drawable/star"
+        android:src="@drawable/icon_star"
         app:layout_constraintLeft_toRightOf="@+id/imCloud"
         app:layout_constraintRight_toRightOf="@+id/frameBox"
         app:layout_constraintTop_toBottomOf="@id/txtOverview">
@@ -263,7 +263,7 @@
         android:layout_height="66dp"
         android:layout_marginBottom="21.5dp"
         android:background="@drawable/book_now_rounded"
-        android:drawableEnd="@drawable/send_icon"
+        android:drawableEnd="@drawable/icon_send"
         android:paddingLeft="118dp"
         android:paddingEnd="120dp"
         android:textAlignment="center"

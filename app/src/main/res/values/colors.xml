@@ -7,4 +7,5 @@
     <color name="color_price">#CAC8C8</color>
     <color name="details_color">#991B1B1B</color>
     <color name="color_small_rectangle">#EDEDED</color>
+    <color name="book_now_color">#1B1B1B</color>
 </resources>
