@@ -11,7 +11,7 @@ import com.example.tbcexercises.databinding.FragmentRegisterBinding
 import com.example.tbcexercises.databinding.FragmentRegisterSecondBinding
 
 
-class RegisterFragment : Fragment(R.layout.fragment_register) {
+class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
     private val registerSecondFragment = RegisterSecondFragment()
     override fun onCreateView(
@@ -19,14 +19,9 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding =
-            FragmentRegisterBinding.bind(
-                super.onCreateView(
-                    inflater,
-                    container,
-                    savedInstanceState
-                )!!
-            )
+            FragmentRegisterBinding.inflate(layoutInflater, container, false)
         listeners()
 
         return binding.root
