@@ -5,107 +5,18 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:background="@color/white"
     android:padding="16dp"
     tools:context=".MainActivity">
 
     <FrameLayout
-        android:id="@+id/frame"
+        android:id="@+id/flFragment"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toTopOf="@id/btnLogin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/main_background">
-
-        </androidx.appcompat.widget.AppCompatImageView>
-    </FrameLayout>
-
-    <LinearLayout
-        android:id="@+id/logoMain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/frame"
-        app:layout_constraintEnd_toEndOf="@id/frame"
-        app:layout_constraintStart_toStartOf="@id/frame"
-        app:layout_constraintTop_toTopOf="@id/frame">
-
-        <FrameLayout
-            android:id="@+id/logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-
-            >
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/logoPink"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/logo_pink" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/logoBlack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_gravity="center"
-                android:src="@drawable/logo_black" />
-        </FrameLayout>
-
-
-        <androidx.appcompat.widget.AppCompatTextView
-
-            android:id="@+id/txtPhoto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="20dp"
-            android:fontFamily="@font/Comfortaa"
-            android:text="@string/photo"
-            android:textSize="48sp" />
-    </LinearLayout>
-
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnLogin"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-
-        android:layout_marginRight="9dp"
-        android:background="@drawable/rounded_corner_white_rectangle"
-        android:fontFamily="@font/Roboto"
-        android:text="@string/log_in"
-        android:textSize="13sp"
-        app:layout_constraintBottom_toBottomOf="@id/main"
-        app:layout_constraintEnd_toStartOf="@id/btnRegister"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="@id/main">
-
-    </androidx.appcompat.widget.AppCompatButton>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnRegister"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@drawable/rounded_corner_black_rectangle"
-        android:fontFamily="@font/Roboto"
-        android:text="@string/register"
-        android:textColor="@color/white"
-        android:textSize="13sp"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="@id/main"
         app:layout_constraintEnd_toEndOf="@id/main"
-        app:layout_constraintStart_toEndOf="@id/btnLogin">
+        app:layout_constraintStart_toStartOf="@id/main"
+        app:layout_constraintTop_toTopOf="@id/main">
 
-    </androidx.appcompat.widget.AppCompatButton>
-
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

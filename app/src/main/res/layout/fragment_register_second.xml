@@ -3,13 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterSecondFragment"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    tools:context=".RegisterSecondFragment">
+
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btnArrowBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:src="@drawable/icon_back">
 
     </androidx.appcompat.widget.AppCompatImageButton>
@@ -19,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32.65dp"
-        android:fontFamily="@font/Comfortaa"
+        android:fontFamily="@font/comfortaa"
         android:text="@string/register"
         android:textColor="@color/super_black"
         android:textSize="36sp"
@@ -35,10 +37,10 @@
         android:layout_marginTop="32dp"
 
         android:background="@drawable/black_border_rectangle"
-        android:fontFamily="@font/Roboto"
-        android:padding="17dp"
-        android:text="jane@example.com"
+        android:fontFamily="@font/roboto"
         android:hint="@string/enter_username"
+        android:padding="17dp"
+        android:textColor="@color/super_black"
         android:textColorHint="@color/gray"
         android:textSize="15sp">
 
@@ -50,7 +52,7 @@
         android:layout_height="52dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/rounded_corner_black_rectangle"
-        android:fontFamily="@font/Roboto"
+        android:fontFamily="@font/roboto"
         android:text="@string/sign_up"
         android:textColor="@color/white"
         android:textSize="13sp">
@@ -60,12 +62,11 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/legal_text"
-        android:fontFamily="@font/Roboto"
-        android:textSize="13sp"
-        android:textColor="@color/super_black"
         android:layout_marginTop="32dp"
-        >
+        android:fontFamily="@font/roboto"
+        android:text="@string/legal_text"
+        android:textColor="@color/super_black"
+        android:textSize="13sp">
 
     </androidx.appcompat.widget.AppCompatTextView>
 </LinearLayout>

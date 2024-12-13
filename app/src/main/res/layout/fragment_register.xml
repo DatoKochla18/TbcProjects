@@ -11,7 +11,8 @@
         android:id="@+id/btnArrowBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/icon_back">
+        android:src="@drawable/icon_back"
+        android:background="@color/white">
 
     </androidx.appcompat.widget.AppCompatImageButton>
 
@@ -20,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32.65dp"
-        android:fontFamily="@font/Comfortaa"
+        android:fontFamily="@font/comfortaa"
         android:text="@string/register"
         android:textColor="@color/super_black"
         android:textSize="36sp"
@@ -36,10 +37,10 @@
         android:layout_marginTop="32dp"
 
         android:background="@drawable/black_border_rectangle"
-        android:fontFamily="@font/Roboto"
-        android:padding="17dp"
-        android:text="jane@example.com"
+        android:fontFamily="@font/roboto"
         android:hint="@string/enter_email"
+        android:padding="17dp"
+        android:textColor="@color/super_black"
         android:textColorHint="@color/gray"
         android:textSize="15sp">
 
@@ -52,12 +53,13 @@
         android:layout_marginTop="16dp"
 
         android:background="@drawable/black_border_rectangle"
-        android:fontFamily="@font/Roboto"
+        android:fontFamily="@font/roboto"
+        android:hint="@string/enter_password"
         android:inputType="textPassword"
         android:padding="17dp"
-        android:hint="@string/enter_password"
+        android:textColor="@color/super_black"
+
         android:textColorHint="@color/gray"
-        android:text="jane@example.com"
         android:textSize="15sp">
 
     </androidx.appcompat.widget.AppCompatEditText>
@@ -68,7 +70,7 @@
         android:layout_height="52dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/rounded_corner_black_rectangle"
-        android:fontFamily="@font/Roboto"
+        android:fontFamily="@font/roboto"
         android:text="@string/next"
         android:textColor="@color/white"
         android:textSize="13sp">
