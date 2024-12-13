@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterSecondFragment"
+    android:orientation="vertical"
+    android:padding="16dp">
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btnArrowBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_back">
+
+    </androidx.appcompat.widget.AppCompatImageButton>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32.65dp"
+        android:fontFamily="@font/Comfortaa"
+        android:text="@string/register"
+        android:textColor="@color/super_black"
+        android:textSize="36sp"
+
+        >
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etUserName"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="32dp"
+
+        android:background="@drawable/black_border_rectangle"
+        android:fontFamily="@font/Roboto"
+        android:padding="17dp"
+        android:text="jane@example.com"
+        android:hint="@string/enter_username"
+        android:textColorHint="@color/gray"
+        android:textSize="15sp">
+
+    </androidx.appcompat.widget.AppCompatEditText>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_corner_black_rectangle"
+        android:fontFamily="@font/Roboto"
+        android:text="@string/sign_up"
+        android:textColor="@color/white"
+        android:textSize="13sp">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/legal_text"
+        android:fontFamily="@font/Roboto"
+        android:textSize="13sp"
+        android:textColor="@color/super_black"
+        android:layout_marginTop="32dp"
+        >
+
+    </androidx.appcompat.widget.AppCompatTextView>
+</LinearLayout>
