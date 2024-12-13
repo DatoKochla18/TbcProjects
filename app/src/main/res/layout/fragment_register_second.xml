@@ -60,13 +60,15 @@
     </androidx.appcompat.widget.AppCompatButton>
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtTermsOfService"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:fontFamily="@font/roboto"
         android:text="@string/legal_text"
         android:textColor="@color/super_black"
-        android:textSize="13sp">
+        android:textSize="13sp"
+        android:clickable="true">
 
     </androidx.appcompat.widget.AppCompatTextView>
 </LinearLayout>
