@@ -1,3 +1,36 @@
 <resources>
     <string name="app_name">TbcExercises</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="register">Register</string>
+    <string name="next">Next</string>
+    <string name="log_in">Log In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="enter_username">Enter UserName</string>
+    <string name="legal_text">By signing up, you agree to Photo’s <u>Terms of Service</u> and
+<u>Privacy Policy</u>.</string>
+    <string name="photo">photo</string>
+    <string name="home_screen_entry_text"> is man utd fan NOW</string>
+
+
+    <string name="ValidEmailNotContainingSymbol">Not Containing @</string>
+    <string name="ValidEmailContainingMoreSymbol">Email Can Not Contain More than one @</string>
+    <string name="ValidEmailCantContainSpecialChars">Can not contain special characters</string>
+    <string name="ValidEmailDomain">In domain there should be No number</string>
+    <string name="ValidEmailShouldContainDot">It Should Contain Dot</string>
+
+    <string name="ValidEmailContainingSymbolAndDotConsecutive">After @ It should be Text </string>
+    <string name="ValidEmailConsecutiveDots">No Consecutive Dots</string>
+    <string name="ValidEmailDots">Cannot start or end with a dot</string>
+    <string name="ValidEmailMissingDots">There should be dot after @</string>
+    <string name="ValidEmailSpaces">Email Can not contain Spaces</string>
+    <string name="ValidEmptyFields">Fill the Field</string>
+    <string name="ValidEmailInUse">Email is Already Used</string>
+
+    <string name="ValidPasswordShort">Password should be at least 6 character long</string>
+
+    <string name="ValidUserNameShort"> Username should be at least 3 character long </string>
+    <string name="user_not_found">User Not Found</string>
 </resources>
