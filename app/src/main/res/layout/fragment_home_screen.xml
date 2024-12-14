@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeScreenFragment">
+
+    <ImageView
+        android:id="@+id/imBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/home_screen_background">
+
+    </ImageView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtEntry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/home_screen_entry_text"
+        android:textColor="@color/white"
+        android:textSize="24sp">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <ImageButton
+        android:id="@+id/btnsignOut"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:src="@drawable/icon_back">
+
+    </ImageButton>
+</FrameLayout>

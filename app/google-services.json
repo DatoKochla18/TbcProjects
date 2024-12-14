@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "12105906161",
+    "project_id": "tbcexercises",
+    "storage_bucket": "tbcexercises.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:12105906161:android:c703b11158ff0bdd553650",
+        "android_client_info": {
+          "package_name": "com.example.tbcexercises"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLFav17cteeWltho3YtQXbY65R34iSbqg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.tbcexercises.databinding.FragmentEntryBinding
 
-class EntryFragment : Fragment(R.layout.fragment_entry) {
+class EntryFragment : Fragment() {
     private lateinit var binding: FragmentEntryBinding
     private val loginFragment = LoginFragment()
     private val registerFragment = RegisterFragment()

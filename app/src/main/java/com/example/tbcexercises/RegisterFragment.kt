@@ -30,6 +30,16 @@ class RegisterFragment : Fragment() {
 
     private fun listeners() {
         binding.btnRegisterNext.setOnClickListener {
+            val email: String = binding.etRegisterEmail.text.toString()
+            val password: String = binding.etRegisterPassword.text.toString()
+
+            val bundle = Bundle()
+
+            bundle.putString("email", email)
+            bundle.putString("password", password)
+
+
+            registerSecondFragment.arguments = bundle
             parentFragmentManager.beginTransaction().apply {
                 replace(R.id.flFragment, registerSecondFragment)
                 addToBackStack(null)
