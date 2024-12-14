@@ -24,7 +24,7 @@ class HomeScreenFragment : Fragment() {
         firebaseAuth = FirebaseAuth.getInstance()
 
         binding.txtEntry.text =
-            firebaseAuth.currentUser?.displayName.toString() + context?.resources?.getString(R.string.home_screen_entry_text)
+            firebaseAuth.currentUser?.displayName.toString() + " " + context?.resources?.getString(R.string.home_screen_entry_text)
         listeners()
         return binding.root
     }

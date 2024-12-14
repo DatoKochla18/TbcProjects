@@ -46,6 +46,13 @@
 
     </androidx.appcompat.widget.AppCompatEditText>
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtEmailError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/red"
+        android:textSize="12sp" />
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/etLoginPassword"
         android:layout_width="match_parent"
@@ -63,6 +70,13 @@
 
     </androidx.appcompat.widget.AppCompatEditText>
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtPasswordError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/red"
+        android:textSize="12sp" />
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"

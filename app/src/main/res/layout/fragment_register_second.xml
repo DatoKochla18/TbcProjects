@@ -45,7 +45,15 @@
         android:textSize="15sp">
 
     </androidx.appcompat.widget.AppCompatEditText>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtUserNameError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/red"
+        android:textSize="12sp"
+        android:layout_marginTop="4dp">
 
+    </androidx.appcompat.widget.AppCompatTextView>
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnSignUp"
         android:layout_width="match_parent"
