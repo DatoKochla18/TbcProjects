@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     android:padding="16dp"
-    android:id="@+id/main"
-    tools:context=".RegisterActivity"
-    android:background="@color/white">
+    tools:context=".RegisterActivity">
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btnArrowBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@color/white"
         android:src="@drawable/icon_back">
 
@@ -22,6 +24,7 @@
         android:id="@+id/txtRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="32.65dp"
         android:fontFamily="@font/comfortaa"
         android:text="@string/register"
@@ -36,7 +39,9 @@
         android:id="@+id/etRegisterEmail"
         android:layout_width="match_parent"
         android:layout_height="52dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
 
         android:background="@drawable/black_border_rectangle"
         android:fontFamily="@font/roboto"
@@ -60,8 +65,10 @@
         android:id="@+id/etRegisterPassword"
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
 
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/black_border_rectangle"
         android:fontFamily="@font/roboto"
         android:hint="@string/enter_password"
@@ -86,7 +93,9 @@
         android:id="@+id/btnRegisterNext"
         android:layout_width="match_parent"
         android:layout_height="52dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/rounded_corner_black_rectangle"
         android:fontFamily="@font/roboto"
         android:text="@string/next"

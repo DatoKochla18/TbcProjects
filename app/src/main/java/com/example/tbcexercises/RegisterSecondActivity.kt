@@ -72,7 +72,9 @@ class RegisterSecondActivity : AppCompatActivity() {
 
                 firebaseAuth.currentUser?.updateProfile(updatedProfile)?.addOnCompleteListener {
                     val intent = Intent(this, HomeScreenActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                     startActivity(intent)
+                    finish()
                 }
             }
             if (it.exception is FirebaseAuthUserCollisionException) {

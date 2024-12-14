@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".HomeScreenActivity"
-    android:padding="16dp">
+    android:padding="16dp"
+    tools:context=".HomeScreenActivity">
 
     <ImageView
         android:id="@+id/imBackground"
@@ -32,6 +32,7 @@
         android:id="@+id/btnsignOut"
         android:layout_width="40dp"
         android:layout_height="40dp"
+
         android:background="@color/white"
         android:src="@drawable/icon_back">
 
