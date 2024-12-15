@@ -12,7 +12,8 @@ import com.google.firebase.auth.auth
 
 class HomeScreenFragment : Fragment() {
 
-    private lateinit var binding: FragmentHomeScreenBinding
+    private var _binding: FragmentHomeScreenBinding? = null
+    private val binding get() = _binding!!
     private lateinit var firebaseAuth: FirebaseAuth
     private val entryFragment = EntryFragment()
 
@@ -20,15 +21,26 @@ class HomeScreenFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentHomeScreenBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentHomeScreenBinding.inflate(layoutInflater, container, false)
         firebaseAuth = FirebaseAuth.getInstance()
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.txtEntry.text =
             firebaseAuth.currentUser?.displayName.toString() + " " + context?.resources?.getString(R.string.home_screen_entry_text)
         listeners()
-        return binding.root
+
     }
 
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
     private fun listeners() {
         binding.btnsignOut.setOnClickListener {

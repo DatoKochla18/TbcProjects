@@ -9,13 +9,19 @@ import com.example.tbcexercises.databinding.FragmentTermsOfServiceBinding
 
 class TermsOfServiceFragment : Fragment() {
 
-    private lateinit var binding: FragmentTermsOfServiceBinding
+    private var _binding: FragmentTermsOfServiceBinding? = null
+    private val binding  get()  = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-            binding = FragmentTermsOfServiceBinding.inflate(layoutInflater,container,false)
+        _binding = FragmentTermsOfServiceBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

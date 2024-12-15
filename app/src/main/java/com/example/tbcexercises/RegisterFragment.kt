@@ -12,7 +12,9 @@ import com.example.tbcexercises.databinding.FragmentRegisterSecondBinding
 
 
 class RegisterFragment : Fragment() {
-    private lateinit var binding: FragmentRegisterBinding
+    private var _binding: FragmentRegisterBinding? = null
+    private val binding get() = _binding!!
+
     private val registerSecondFragment = RegisterSecondFragment()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,13 +22,23 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding =
+        _binding =
             FragmentRegisterBinding.inflate(layoutInflater, container, false)
-        listeners()
 
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        listeners()
+
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
     private fun listeners() {
         binding.btnRegisterNext.setOnClickListener {

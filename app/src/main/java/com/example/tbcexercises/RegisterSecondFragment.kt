@@ -5,13 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import com.example.tbcexercises.databinding.FragmentRegisterSecondBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.userProfileChangeRequest
 
 class RegisterSecondFragment : Fragment() {
-    private lateinit var binding: FragmentRegisterSecondBinding
+    private var _binding: FragmentRegisterSecondBinding? = null
+    private val binding get() = _binding!!
     private lateinit var firebaseAuth: FirebaseAuth
 
     private val termsOfServiceFragment = TermsOfServiceFragment()
@@ -20,12 +22,22 @@ class RegisterSecondFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentRegisterSecondBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentRegisterSecondBinding.inflate(layoutInflater, container, false)
         firebaseAuth = FirebaseAuth.getInstance()
-        listeners()
+
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        listeners()
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
     private fun listeners() {
         binding.btnSignUp.setOnClickListener {
@@ -75,6 +87,10 @@ class RegisterSecondFragment : Fragment() {
                 firebaseAuth.currentUser?.updateProfile(updatedProfile)?.addOnCompleteListener {
 
                     val homeScreenFragment = HomeScreenFragment()
+                    parentFragmentManager.popBackStack(
+                        null,
+                        FragmentManager.POP_BACK_STACK_INCLUSIVE
+                    )
                     parentFragmentManager.beginTransaction().apply {
                         replace(R.id.flFragment, homeScreenFragment)
                         commit()

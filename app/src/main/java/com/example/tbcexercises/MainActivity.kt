@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
         val entryFragment = EntryFragment()
         supportFragmentManager.beginTransaction().apply {
-            replace(binding.flFragment.id, entryFragment)
+            replace(R.id.flFragment, entryFragment)
             commit()
         }
     }
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         if (currentUser != null) {
             val homeScreenFragment = HomeScreenFragment()
             supportFragmentManager.beginTransaction().apply {
-                replace(binding.flFragment.id, homeScreenFragment)
+                replace(R.id.flFragment, homeScreenFragment)
                 commit()
             }
         }

@@ -16,19 +16,31 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException
 
 
 class LoginFragment : Fragment() {
-    private lateinit var binding: FragmentLoginBinding
+    private var _binding: FragmentLoginBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var firebaseAuth: FirebaseAuth
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding =
+        _binding =
             FragmentLoginBinding.inflate(layoutInflater, container, false)
         firebaseAuth = FirebaseAuth.getInstance()
-        listeners()
+
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        listeners()
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun listeners() {

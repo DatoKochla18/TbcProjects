@@ -8,7 +8,10 @@ import android.view.ViewGroup
 import com.example.tbcexercises.databinding.FragmentEntryBinding
 
 class EntryFragment : Fragment() {
-    private lateinit var binding: FragmentEntryBinding
+
+    private var _binding: FragmentEntryBinding? = null
+
+    private val binding get() = _binding!!
     private val loginFragment = LoginFragment()
     private val registerFragment = RegisterFragment()
     override fun onCreateView(
@@ -16,10 +19,19 @@ class EntryFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding =
+        _binding =
             FragmentEntryBinding.inflate(layoutInflater, container, false)
-        listeners()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        listeners()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun listeners() {
