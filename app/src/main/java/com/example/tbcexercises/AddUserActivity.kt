@@ -3,11 +3,13 @@ package com.example.tbcexercises
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.tbcexercises.databinding.ActivityAddUserBinding
+import kotlin.time.Duration
 
 class AddUserActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddUserBinding
@@ -62,6 +64,7 @@ class AddUserActivity : AppCompatActivity() {
             }
 
             setResult(Activity.RESULT_OK, intent)
+            Toast.makeText(this,resources.getString(R.string.userAdded),Toast.LENGTH_SHORT).show()
             finish()
         } else {
             binding.txtFirstNameError.text = when (firstNameResult) {

@@ -3,6 +3,7 @@ package com.example.tbcexercises
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -64,6 +65,10 @@ class UpdateUserActivity : AppCompatActivity() {
             }
 
             setResult(Activity.RESULT_OK, intent)
+
+            Toast.makeText(this, resources.getString(R.string.userUpdated), Toast.LENGTH_SHORT)
+                .show()
+
             finish()
         } else {
             binding.txtFirstNameError.text = when (firstNameResult) {
@@ -93,7 +98,7 @@ class UpdateUserActivity : AppCompatActivity() {
             !intent.getStringArrayListExtra("emails")!!.toList()
                 .contains(text) -> Result.Error(resources.getString(R.string.userDontExits))
 
-                 else -> Result.Success()
+            else -> Result.Success()
         }
 
     }

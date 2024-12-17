@@ -3,6 +3,7 @@ package com.example.tbcexercises
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -41,6 +42,7 @@ class RemoveActivity : AppCompatActivity() {
             }
 
             setResult(Activity.RESULT_OK, sendIntent)
+            Toast.makeText(this,resources.getString(R.string.userDeleted),Toast.LENGTH_SHORT).show()
             finish()
         } else {
             binding.txtEmailNameError.text = resources.getString(R.string.userDontExits)

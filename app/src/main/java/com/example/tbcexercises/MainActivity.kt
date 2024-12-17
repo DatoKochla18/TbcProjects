@@ -16,6 +16,7 @@ import java.util.ArrayList
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
     //val data = mutableListOf<User>()
     private val userData = mutableListOf(
         User(firstName = "dato", lastName = "kochla", 19, "dato@gmail.com"),
@@ -78,9 +79,10 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         binding.txtActiveUsers.text = userData.size.toString()
         binding.txtRemovedUsers.text = removedUser.toString()
+        Log.d("UserData", userData.toString())
     }
 
-    private fun  listeners(){
+    private fun listeners() {
         binding.btnUserAdd.setOnClickListener {
             val intent = Intent(this, AddUserActivity::class.java)
             intent.putExtra(

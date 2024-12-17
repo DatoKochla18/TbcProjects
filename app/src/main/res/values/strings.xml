@@ -32,6 +32,8 @@
 
     <string name="userExits">User already exists</string>
     <string name="userAdded"> User added successfully</string>
-    <string name="userDeleted">“User deleted successfully</string>
+    <string name="userUpdated"> User Updated successfully</string>
+
+    <string name="userDeleted">User deleted successfully</string>
     <string name="userDontExits">User does not exits</string>
 </resources>
