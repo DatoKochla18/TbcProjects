@@ -36,24 +36,88 @@ class UpdateUserActivity : AppCompatActivity() {
     }
 
     private fun update() {
-        val emails: List<String> =
-            intent.getStringArrayListExtra("emails")?.toList() ?: mutableListOf()
+        val firstName = binding.etFirstName.text.toString()
+        val lastName = binding.etLastName.text.toString()
+        val age = binding.etAge.text.toString()
         val email = binding.etEmail.text.toString()
-        if (email in emails) {
-            val firstName = binding.etFirstName.text.toString()
-            val lastName = binding.etLastName.text.toString()
-            val age = binding.etAge.text.toString().toInt()
 
+        val firstNameResult = validateName(firstName)
+        val lastNameResult = validateName(lastName)
+        val ageResult = validateAge(age)
+        val emailResult = validateEmail(email)
+
+        if (firstNameResult is Result.Success &&
+            lastNameResult is Result.Success &&
+            ageResult is Result.Success &&
+            emailResult is Result.Success
+        ) {
             val newUser =
-                User(email = email, firstName = firstName, lastName = lastName, age = age)
-            val sendIntent = Intent().apply {
+                User(
+                    firstName = firstName,
+                    lastName = lastName,
+                    age = age.toInt(),
+                    email = email
+                )
+
+            val intent = Intent().apply {
                 putExtra("user", newUser)
             }
 
-            setResult(Activity.RESULT_OK, sendIntent)
+            setResult(Activity.RESULT_OK, intent)
             finish()
         } else {
-            binding.txtEmailNameError.text = resources.getString(R.string.userDontExits)
+            binding.txtFirstNameError.text = when (firstNameResult) {
+                is Result.Success -> ""
+                is Result.Error -> firstNameResult.error
+            }
+            binding.txtLastNameError.text = when (lastNameResult) {
+                is Result.Success -> ""
+                is Result.Error -> lastNameResult.error
+            }
+            binding.txtAgeError.text = when (ageResult) {
+                is Result.Success -> ""
+                is Result.Error -> ageResult.error
+            }
+            binding.txtEmailNameError.text = when (emailResult) {
+                is Result.Success -> ""
+                is Result.Error -> emailResult.error
+            }
+
+        }
+    }
+
+    // Code copied from Task4
+    private fun validateEmail(text: String): Result {
+        return when {
+            text.isEmpty() -> Result.Error(resources.getString(R.string.ValidEmptyFields))
+            !intent.getStringArrayListExtra("emails")!!.toList()
+                .contains(text) -> Result.Error(resources.getString(R.string.userDontExits))
+
+                 else -> Result.Success()
+        }
+
+    }
+
+    private fun validateAge(age: String): Result {
+        return when {
+            age.isEmpty() -> Result.Error(resources.getString(R.string.ValidEmptyFields))
+
+            (age.toInt() < 1) || (age.toInt() > 150) -> Result.Error(
+                resources.getString(R.string.ValidAge)
+            )
+
+            else -> Result.Success()
+
+        }
+    }
+
+    private fun validateName(name: String): Result {
+        return when {
+            name.isEmpty() -> Result.Error(resources.getString(R.string.ValidEmptyFields))
+            (name.length < 2) -> Result.Error(resources.getString(R.string.ValidName))
+
+            else -> Result.Success()
+
         }
     }
 
