@@ -1,3 +1,37 @@
 <resources>
     <string name="app_name">TbcExercises</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="enter_first_name">Enter First Name</string>
+    <string name="enter_last_name">Enter Last Name</string>
+    <string name="enter_age">Enter Age</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="users">Users</string>
+    <string name="remove_user">Remove User</string>
+
+
+    <string name="ValidEmailNotContainingSymbol">Not Containing @</string>
+    <string name="ValidEmailContainingMoreSymbol">Email Can Not Contain More than one @</string>
+    <string name="ValidEmailCantContainSpecialChars">Can not contain special characters</string>
+    <string name="ValidEmailDomain">In domain there should be No number</string>
+    <string name="ValidEmailShouldContainDot">It Should Contain Dot</string>
+
+    <string name="ValidEmailContainingSymbolAndDotConsecutive">After @ It should be Text </string>
+    <string name="ValidEmailConsecutiveDots">No Consecutive Dots</string>
+    <string name="ValidEmailDots">Cannot start or end with a dot</string>
+    <string name="ValidEmailMissingDots">There should be dot after @</string>
+    <string name="ValidEmailSpaces">Email Can not contain Spaces</string>
+    <string name="ValidEmptyFields">Fill the Field</string>
+    <string name="ValidEmailInUse">Email is Already Used</string>
+
+    <string name="ValidAge">Age Should be between 1 and 150</string>
+
+    <string name="ValidUserNameShort"> Username should be at least 3 character long </string>
+
+    <string name="ValidName">Name should be At least 2 character long</string>
+
+    <string name="userExits">User already exists</string>
+    <string name="userAdded"> User added successfully</string>
+    <string name="userDeleted">“User deleted successfully</string>
+    <string name="userDontExits">User does not exits</string>
 </resources>

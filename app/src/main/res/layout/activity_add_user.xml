@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/qiziyi"
+    android:orientation="vertical"
+    tools:context=".AddUserActivity">
+
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etFirstName"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginBottom="8dp"
+        android:background="@android:color/transparent"
+        android:hint="@string/enter_first_name"
+        android:maxLines="1"
+        android:paddingStart="8dp"
+
+        android:textColor="@color/black"
+        android:textSize="24sp">
+
+    </androidx.appcompat.widget.AppCompatEditText>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtFirstNameError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:paddingStart="8dp"
+        android:textColor="@color/red"
+
+        android:textSize="12sp">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etLastName"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginBottom="8dp"
+        android:background="@android:color/transparent"
+        android:hint="@string/enter_last_name"
+        android:maxLines="1"
+        android:paddingStart="8dp"
+
+        android:textColor="@color/black"
+        android:textSize="24sp">
+
+    </androidx.appcompat.widget.AppCompatEditText>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtLastNameError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:paddingStart="8dp"
+        android:textColor="@color/red"
+
+        android:textSize="12sp">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etAge"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginBottom="8dp"
+        android:background="@android:color/transparent"
+        android:hint="@string/enter_age"
+        android:inputType="number"
+        android:maxLines="1"
+        android:paddingStart="8dp"
+        android:textColor="@color/black"
+        android:textSize="24sp">
+
+    </androidx.appcompat.widget.AppCompatEditText>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtAgeError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:paddingStart="8dp"
+        android:textColor="@color/red"
+
+        android:textSize="12sp">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginBottom="8dp"
+        android:background="@android:color/transparent"
+        android:hint="@string/enter_email"
+        android:maxLines="1"
+        android:paddingStart="8dp"
+        android:textColor="@color/black"
+        android:textSize="24sp">
+
+    </androidx.appcompat.widget.AppCompatEditText>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtEmailNameError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:paddingStart="8dp"
+        android:textColor="@color/red"
+
+        android:textSize="12sp">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btnApprovedUser"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/white"
+        android:scaleType="centerCrop"
+        android:src="@drawable/check_circle">
+
+    </androidx.appcompat.widget.AppCompatImageButton>
+
+</LinearLayout>
