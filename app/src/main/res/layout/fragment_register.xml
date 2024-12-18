@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".RegisterFragment">
 
 
@@ -24,7 +25,7 @@
         android:id="@+id/imgRegister"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="64dp"
 
         android:src="@drawable/register"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,10 +56,13 @@
         android:background="@drawable/dark_bordered_rectangle"
         android:drawableStart="@drawable/inbox"
         android:drawablePadding="8dp"
-        android:drawableTint="@color/gray"
+        android:drawableTint="@drawable/icon_color_changer"
+        android:focusable="true"
         android:hint="@string/email"
         android:maxLines="1"
         android:paddingStart="16dp"
+
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtCreateAccount">
@@ -71,12 +75,17 @@
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/dark_bordered_rectangle"
+
         android:drawableStart="@drawable/lock"
         android:drawablePadding="8dp"
-        android:drawableTint="@color/gray"
+        android:drawableTint="@drawable/icon_color_changer"
+        android:focusable="true"
         android:hint="@string/password"
+        android:inputType="textPassword"
         android:maxLines="1"
         android:paddingStart="16dp"
+        android:textColor="@color/black"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etEmail">
