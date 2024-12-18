@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginFragment">
+
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btnArrowBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:src="@drawable/arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.appcompat.widget.AppCompatImageButton>
+
+    <ImageView
+        android:id="@+id/imgRegister"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="16dp"
+
+        android:src="@drawable/register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnArrowBack" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtLoginAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/login_to_your_account"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgRegister">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etEmail"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/dark_bordered_rectangle"
+        android:drawableStart="@drawable/inbox"
+        android:drawablePadding="8dp"
+        android:drawableTint="@color/gray"
+        android:hint="@string/email"
+        android:maxLines="1"
+        android:paddingStart="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtLoginAccount">
+
+    </androidx.appcompat.widget.AppCompatEditText>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etPassword"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/dark_bordered_rectangle"
+        android:drawableStart="@drawable/lock"
+        android:drawablePadding="8dp"
+        android:drawableTint="@color/gray"
+        android:hint="@string/password"
+        android:maxLines="1"
+        android:paddingStart="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etEmail">
+
+    </androidx.appcompat.widget.AppCompatEditText>
+
+    <CheckBox
+        android:id="@+id/cbRememberMe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="@string/remember_me"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etPassword">
+
+    </CheckBox>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+
+        android:id="@+id/btnSignIn"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/large_rectangle_black"
+        android:text="@string/sing_in"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cbRememberMe">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <TextView
+        android:id="@+id/txtForgotPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/forgot_the_password"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnSignIn">
+
+    </TextView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtContinue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/or_continue_with"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtForgotPassword">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btnFacebook"
+        android:layout_width="64dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/large_rectangle_white"
+        android:src="@drawable/facebook"
+        app:layout_constraintEnd_toStartOf="@id/btnGoogle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtContinue" />
+
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btnGoogle"
+        android:layout_width="64dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/large_rectangle_white"
+        android:src="@drawable/google"
+        app:layout_constraintEnd_toStartOf="@id/btnApple"
+        app:layout_constraintStart_toEndOf="@id/btnFacebook"
+        app:layout_constraintTop_toBottomOf="@id/txtContinue" />
+
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btnApple"
+        android:layout_width="64dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/large_rectangle_white"
+        android:src="@drawable/apple"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnGoogle"
+        app:layout_constraintTop_toBottomOf="@id/txtContinue" />
+
+
+    <TextView
+        android:id="@+id/txtDontHaveAccount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/don_t_have_account"
+        android:textAlignment="textEnd"
+        android:textColor="@color/gray"
+        app:layout_constraintEnd_toStartOf="@id/txtSignUp"
+
+        app:layout_constraintHorizontal_weight="1.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnFacebook">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/txtSignUp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingStart="4dp"
+        android:text="@string/sign_up"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/txtDontHaveAccount"
+        app:layout_constraintTop_toBottomOf="@id/btnFacebook">
+
+    </TextView>
+</androidx.constraintlayout.widget.ConstraintLayout>
