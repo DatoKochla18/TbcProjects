@@ -7,7 +7,7 @@
     <string name="continue_with_google">Continue with Google</string>
     <string name="continue_with_apple">Continue with Apple</string>
     <string name="or">or</string>
-    <string name="sing_in_with_password">Sing in with password</string>
+    <string name="sing_in_with_password">Sign in with password</string>
     <string name="don_t_have_account">Don\'t have account?</string>
     <string name="sign_up">Sign up</string>
     <string name="create_your_account">Create your Account</string>
@@ -18,6 +18,27 @@
     <string name="already_have_account">Already have account?</string>
     <string name="sign_in">Sign in</string>
     <string name="login_to_your_account">Login to your Account</string>
-    <string name="sing_in">Sing in</string>
     <string name="forgot_the_password">Forgot the password?</string>
+    <string name="sign_out">Sign Out</string>
+
+    <string name="user_not_found">User Not Found</string>
+    <string name="ValidEmptyFields">Fill the Field</string>
+    <string name="welcome_back">Welcome Back</string>
+
+
+    <string name="ValidEmailNotContainingSymbol">Not Containing @</string>
+    <string name="ValidEmailContainingMoreSymbol">Email Can Not Contain More than one @</string>
+    <string name="ValidEmailCantContainSpecialChars">Can not contain special characters</string>
+    <string name="ValidEmailDomain">In domain there should be No number</string>
+    <string name="ValidEmailShouldContainDot">It Should Contain Dot</string>
+
+    <string name="ValidEmailContainingSymbolAndDotConsecutive">After @ It should be Text </string>
+    <string name="ValidEmailConsecutiveDots">No Consecutive Dots</string>
+    <string name="ValidEmailDots">Cannot start or end with a dot</string>
+    <string name="ValidEmailMissingDots">There should be dot after @</string>
+    <string name="ValidEmailSpaces">Email Can not contain Spaces</string>
+    <string name="ValidEmailInUse">Email is Already Used</string>
+
+    <string name="ValidPasswordShort">Password should be at least 6 character long</string>
+
 </resources>

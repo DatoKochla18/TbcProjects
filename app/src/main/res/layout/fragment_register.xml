@@ -63,11 +63,26 @@
         android:paddingStart="16dp"
 
         android:textColor="@color/black"
+
+        android:textColorHint="@color/light_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtCreateAccount">
 
     </androidx.appcompat.widget.AppCompatEditText>
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtEmailError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/red"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etEmail">
+
+    </androidx.appcompat.widget.AppCompatTextView>
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/etPassword"
@@ -79,18 +94,32 @@
         android:drawableStart="@drawable/lock"
         android:drawablePadding="8dp"
         android:drawableTint="@drawable/icon_color_changer"
+
         android:focusable="true"
         android:hint="@string/password"
         android:inputType="textPassword"
         android:maxLines="1"
         android:paddingStart="16dp"
         android:textColor="@color/black"
+        android:textColorHint="@color/light_gray"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etEmail">
+        app:layout_constraintTop_toBottomOf="@id/txtEmailError">
 
     </androidx.appcompat.widget.AppCompatEditText>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtPasswordError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/red"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etPassword">
+
+    </androidx.appcompat.widget.AppCompatTextView>
 
     <CheckBox
         android:id="@+id/cbRememberMe"
@@ -102,7 +131,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etPassword">
+        app:layout_constraintTop_toBottomOf="@id/txtPasswordError">
 
     </CheckBox>
 

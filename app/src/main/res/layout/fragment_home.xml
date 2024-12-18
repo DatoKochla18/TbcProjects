@@ -5,12 +5,20 @@
     android:layout_height="match_parent"
     tools:context=".HomeFragment">
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSignOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_out">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
     <TextView
         android:id="@+id/txtWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome Backk"
         android:layout_gravity="center"
+
         android:textSize="32sp" />
 
 </FrameLayout>
