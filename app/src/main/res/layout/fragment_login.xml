@@ -47,22 +47,24 @@
 
     </androidx.appcompat.widget.AppCompatTextView>
 
+
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/etEmail"
         android:layout_width="0dp"
-        android:layout_height="48dp"
+        android:layout_height="56dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/dark_bordered_rectangle"
         android:drawableStart="@drawable/inbox"
-        android:drawablePadding="8dp"
+        android:drawablePadding="16dp"
         android:drawableTint="@drawable/icon_color_changer"
         android:focusable="true"
         android:hint="@string/email"
         android:maxLines="1"
         android:paddingStart="16dp"
-
         android:textColor="@color/black"
+
         android:textColorHint="@color/light_gray"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtLoginAccount">
@@ -73,7 +75,7 @@
         android:id="@+id/txtEmailError"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="16dp"
         android:textColor="@color/red"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,27 +83,35 @@
 
     </androidx.appcompat.widget.AppCompatTextView>
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/etPassword"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/dark_bordered_rectangle"
-        android:drawableStart="@drawable/lock"
-        android:drawablePadding="8dp"
-        android:drawableTint="@drawable/icon_color_changer"
-        android:focusable="true"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:maxLines="1"
-        android:paddingStart="16dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/light_gray"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hintEnabled="false"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtEmailError">
+        app:layout_constraintTop_toBottomOf="@id/txtEmailError"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/black"
 
-    </androidx.appcompat.widget.AppCompatEditText>
+        app:startIconDrawable="@drawable/lock"
+        app:startIconTint="@drawable/icon_color_changer">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/dark_bordered_rectangle"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:maxLines="1"
+
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray"
+            android:textSize="16sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txtPasswordError"
@@ -111,7 +121,7 @@
         android:textColor="@color/red"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etPassword">
+        app:layout_constraintTop_toBottomOf="@id/passwordContainer">
 
     </androidx.appcompat.widget.AppCompatTextView>
 

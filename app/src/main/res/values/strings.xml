@@ -41,4 +41,5 @@
 
     <string name="ValidPasswordShort">Password should be at least 6 character long</string>
 
+    <string name="default_web_client_id">12105906161-g5c4sklbhdsnmtskfe2h8ege0c7q4pff.apps.googleusercontent.com</string>
 </resources>
