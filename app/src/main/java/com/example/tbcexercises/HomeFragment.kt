@@ -28,12 +28,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
-        firebaseAuth = FirebaseAuth.getInstance()
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build()
-
-        googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
-
+        setUp()
         return binding.root
     }
 
@@ -49,17 +44,22 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
+    private fun setUp() {
+        firebaseAuth = FirebaseAuth.getInstance()
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build()
+
+        googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
+
+    }
+
     private fun listeners() {
         binding.btnSignOut.setOnClickListener {
             firebaseAuth.signOut()
             parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
             navigateToFragment(EntryFragment())
             googleSignInClient.signOut().addOnCompleteListener {
-                googleSignInClient.revokeAccess().addOnCompleteListener {
-                    // Successfully signed out and revoked access
-                    Log.d("SignOut", "User logged out and access revoked")
-                    // Redirect to login screen or update UI accordingly
-                }
+                googleSignInClient.revokeAccess()
             }
         }
 

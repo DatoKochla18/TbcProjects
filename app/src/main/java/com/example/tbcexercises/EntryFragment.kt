@@ -27,17 +27,16 @@ class EntryFragment : Fragment() {
 
     private lateinit var firebaseAuth: FirebaseAuth
 
-    private val TAG = "GoogleFragment"
     val googleSingInIntent =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
                 try {
                     val account = task.getResult(ApiException::class.java)!!
-                    Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
+                    Log.d(GOOGLE_TAG, "firebaseAuthWithGoogle:" + account.id)
                     firebaseAuthWithGoogle(account.idToken!!)
                 } catch (e: ApiException) {
-                    Log.d(TAG, "Google sign in failed", e)
+                    Log.d(GOOGLE_TAG, "Google sign in failed", e)
                 }
             }
         }
@@ -84,7 +83,7 @@ class EntryFragment : Fragment() {
                     navigateToFragment(HomeFragment())
                 } else {
 
-                    Log.d("GoogleSignIn", "Sign in Error")
+                    Log.d(GOOGLE_TAG, "Sign in Error")
                 }
             }
     }

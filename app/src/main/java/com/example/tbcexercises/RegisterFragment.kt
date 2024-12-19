@@ -28,8 +28,6 @@ class RegisterFragment : Fragment() {
 
     private lateinit var firebaseAuth: FirebaseAuth
 
-    private val TAG = "GoogleFragment"
-
 
     val googleSingInIntent =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -37,10 +35,10 @@ class RegisterFragment : Fragment() {
                 val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
                 try {
                     val account = task.getResult(ApiException::class.java)!!
-                    Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
+                    Log.d(GOOGLE_TAG, "firebaseAuthWithGoogle:" + account.id)
                     firebaseAuthWithGoogle(account.idToken!!)
                 } catch (e: ApiException) {
-                    Log.d(TAG, "Google sign in failed", e)
+                    Log.d(GOOGLE_TAG, "Google sign in failed", e)
                 }
             }
         }
@@ -50,10 +48,7 @@ class RegisterFragment : Fragment() {
     ): View? {
 
         _binding = FragmentRegisterBinding.inflate(layoutInflater, container, false)
-        firebaseAuth = FirebaseAuth.getInstance()
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build()
-        googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
+        setUp()
         return binding.root
     }
 
@@ -65,6 +60,13 @@ class RegisterFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setUp() {
+        firebaseAuth = FirebaseAuth.getInstance()
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build()
+        googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
     }
 
     private fun listeners() {

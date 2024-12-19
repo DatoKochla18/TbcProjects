@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity() {
     private fun navigateToFragment(
         fragment: Fragment,
         addToBackStack: Boolean = false,
-        tag: String? = null
     ) {
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.container, fragment)
