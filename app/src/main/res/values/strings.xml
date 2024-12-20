@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">TbcExercises</string>
+    <string name="enter_text">Enter Text</string>
+    <string name="add_new_user">Add New User</string>
+    <string name="user_not_found">User not Found</string>
+    <string name="enter_firstname">Enter Firstname</string>
+    <string name="confirm">Confirm</string>
+    <string name="enter_lastname">Enter Lastname</string>
+    <string name="enter_birthday">Enter Birthday</string>
+    <string name="enter_adress">Enter Adress</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="enter_id">Enter ID</string>
+    <string name="field_should_not_be_empty">Field should Not be Empty</string>
+    <string name="enter_desc">Enter desc</string>
 </resources>
