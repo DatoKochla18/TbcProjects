@@ -3,7 +3,6 @@ package com.example.tbcexercises
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
@@ -12,9 +11,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.doAfterTextChanged
 import com.example.tbcexercises.databinding.ActivityMainBinding
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -86,8 +82,7 @@ class MainActivity : AppCompatActivity() {
                     user.email == searchText
                     )
         }
-        Log.d("userBirtday", searchText.lowercase())
-        Log.d("user", data[0].birthday.toTextDate())
+
 
         if (result.isEmpty()) {
             binding.btnAddNewUser.visibility = View.VISIBLE
