@@ -41,7 +41,13 @@ class AddNewUserActivity : AppCompatActivity() {
         val address = binding.etAddress.text.toString().lowercase()
         val desc = binding.etdesc.text.toString().lowercase()
 
-        if (firstName.isNotEmpty() && lastName.isNotEmpty() && email.isNotEmpty() && birthday.isNotEmpty() && address.isNotEmpty()) {
+        if (firstName.isNotEmpty() &&
+            lastName.isNotEmpty() &&
+            email.isNotEmpty() &&
+            birthday.isNotEmpty() &&
+            address.isNotEmpty() &&
+            desc.isEmpty()
+        ) {
 
             val data = User(
                 id = id.toInt(),

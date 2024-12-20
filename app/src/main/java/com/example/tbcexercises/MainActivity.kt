@@ -91,31 +91,40 @@ class MainActivity : AppCompatActivity() {
                     )
         }
 
+        if (searchText.isEmpty()) {
+            binding.apply {
+                txtNoUser.visibility = View.GONE
+                btnAddNewUser.visibility = View.GONE
+            }
 
-        if (result.isEmpty()) {
-            binding.btnAddNewUser.visibility = View.VISIBLE
-            binding.txtNoUser.visibility = View.VISIBLE
-            binding.txtUserEmail.visibility = View.GONE
-            binding.txtUserAdress.visibility = View.GONE
-            binding.txtUserFirstname.visibility = View.GONE
-            binding.txtUserLastname.visibility = View.GONE
-            binding.txtUserBirthday.visibility = View.GONE
+        } else if (result.isEmpty()) {
+            binding.apply {
+                btnAddNewUser.visibility = View.VISIBLE
+                txtNoUser.visibility = View.VISIBLE
+                txtUserEmail.visibility = View.GONE
+                txtUserAdress.visibility = View.GONE
+                txtUserFirstname.visibility = View.GONE
+                txtUserLastname.visibility = View.GONE
+                txtUserBirthday.visibility = View.GONE
+            }
 
         } else {
+            binding.apply {
+                btnAddNewUser.visibility = View.GONE
+                txtNoUser.visibility = View.GONE
+                txtUserEmail.visibility = View.VISIBLE
+                txtUserAdress.visibility = View.VISIBLE
+                txtUserFirstname.visibility = View.VISIBLE
+                txtUserLastname.visibility = View.VISIBLE
+                txtUserBirthday.visibility = View.VISIBLE
 
-            binding.btnAddNewUser.visibility = View.GONE
-            binding.txtNoUser.visibility = View.GONE
-            binding.txtUserEmail.visibility = View.VISIBLE
-            binding.txtUserAdress.visibility = View.VISIBLE
-            binding.txtUserFirstname.visibility = View.VISIBLE
-            binding.txtUserLastname.visibility = View.VISIBLE
-            binding.txtUserBirthday.visibility = View.VISIBLE
+                txtUserEmail.text = result.first().email
+                txtUserFirstname.text = result.first().firstName
+                txtUserLastname.text = result.first().lastName
+                txtUserAdress.text = result.first().address
+                txtUserBirthday.text = result.first().birthday.toTextDate()
 
-            binding.txtUserEmail.text = result.first().email
-            binding.txtUserFirstname.text = result.first().firstName
-            binding.txtUserLastname.text = result.first().lastName
-            binding.txtUserAdress.text = result.first().address
-            binding.txtUserBirthday.text = result.first().birthday.toTextDate()
+            }
 
         }
     }
