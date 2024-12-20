@@ -30,6 +30,14 @@ class MainActivity : AppCompatActivity() {
             birthday = "1711947701641",
             address = "bodbe",
             email = "gio@gmail.com"
+        ),
+        User(
+            id = 2,
+            firstName = "stalini",
+            lastName = "kochla",
+            birthday = "17119437701641",
+            address = "qiziyi",
+            email = "stalini@beria.ru"
         )
     )
 
