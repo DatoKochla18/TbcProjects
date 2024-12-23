@@ -2,4 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="btntxtColorUnSelected">#96A7AF</color>
+    <color name="btnBackGroundColorUnSelected">#30444E</color>
+    <color name="btnBackGroundColorSelected">#3ED598</color>
+     <color name="cardBackground">#EDF1FA</color>
+    <color name="applicationBackground">#1F2E35</color>
+    <color name="cardTextColor">#96A7AF</color>
 </resources>
