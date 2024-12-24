@@ -13,8 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_rectangle_btn"
-        android:drawablePadding="8dp"
         android:padding="8dp"
+        android:drawableStart="@drawable/party"
         android:textAllCaps="false"
         android:textColor="@drawable/btn_text_selector"
         android:textSize="18sp" />

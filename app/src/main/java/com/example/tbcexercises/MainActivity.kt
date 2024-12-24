@@ -13,51 +13,9 @@ import com.example.tbcexercises.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var photoAdapter: PhotoAdapter
-    private val categories = listOf(
-        Category(1, null, "All"),
-        Category(2, R.drawable.party, "Party"),
-        Category(3, R.drawable.mountain, "Camping"),
-        Category(4, null, "Category1"),
-        Category(5, null, "Category2"),
-        Category(6, null, "Category3"),
-    )
+    private val categories = getCategories()
 
-    private val data = listOf(
-        Photo(
-            id = 1, image = R.drawable.img1, categoryType = "Party", price = 123, title = "opaaaa"
-        ),
-        Photo(
-            id = 2,
-            image = R.drawable.img1,
-            categoryType = "Camping",
-            price = 234234,
-            title = "opaaa343243423a"
-        ),
-        Photo(
-            id = 3, image = R.drawable.img2, categoryType = "Party", price = 10003, title = "nike"
-        ),
-        Photo(
-            id = 4, image = R.drawable.img3, categoryType = "Camping", price = 123, title = "adidas"
-        ),
-        Photo(
-            id = 3, image = R.drawable.img4, categoryType = "Party", price = 10003, title = "nike"
-        ),
-        Photo(
-            id = 4, image = R.drawable.img2, categoryType = "Camping", price = 123, title = "adidas"
-        ),
-        Photo(
-            id = 3, image = R.drawable.img3, categoryType = "Party", price = 10003, title = "nike"
-        ),
-        Photo(
-            id = 4, image = R.drawable.img1, categoryType = "Camping", price = 123, title = "adidas"
-        ),
-        Photo(
-            id = 3, image = R.drawable.img1, categoryType = "Party", price = 10003, title = "nike"
-        ),
-        Photo(
-            id = 4, image = R.drawable.img1, categoryType = "Camping", price = 123, title = "adidas"
-        ),
-    )
+    private val data = getPhotos()
 
     private var selectedCategory: String = "All"
 
@@ -72,6 +30,11 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        setUp()
+
+    }
+
+    private fun setUp() {
 
         val photosLayoutManager: RecyclerView.LayoutManager = GridLayoutManager(this, 2)
         val categoriesLayoutManager: RecyclerView.LayoutManager =
@@ -84,11 +47,10 @@ class MainActivity : AppCompatActivity() {
             rvPhotos.adapter = photoAdapter
 
             rvCategories.layoutManager = categoriesLayoutManager
-            rvCategories.adapter = CategoryAdapter(categories = categories,
-                onCategoryClick = { category ->
+            rvCategories.adapter =
+                CategoryAdapter(categories = categories, onCategoryClick = { category ->
                     onCategorySelected(category)
-                }
-            )
+                })
         }
     }
 

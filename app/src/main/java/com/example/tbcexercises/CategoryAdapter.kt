@@ -1,6 +1,5 @@
 package com.example.tbcexercises
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +14,7 @@ class CategoryAdapter(
         val idx = categories.indexOfFirst {
             it.name.lowercase() == "all"
         }
-        if (idx == -1) 0 else idx // if category list dont have categori with all name it will return first one so first one will be default selected category
+        if (idx == -1) 0 else idx // if category list don't have category with all name it will return first one so first one will be default selected category
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
@@ -48,9 +47,11 @@ class CategoryAdapter(
                     notifyItemChanged(previousPosition)
                     notifyItemChanged(selectedPosition)
                     onCategoryClick(category.name)
-                    Log.d("button Clicked", category.name)
                 }
             }
+
         }
+
+
     }
 }
