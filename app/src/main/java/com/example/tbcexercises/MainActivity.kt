@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
 
     private val data = getPhotos()
 
-    private var selectedCategory: String = "All"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +54,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onCategorySelected(category: String) {
-        selectedCategory = category
         val filteredData =
             if (category.lowercase() == "all") data else data.filter { it.categoryType == category }
         photoAdapter.photos = filteredData
