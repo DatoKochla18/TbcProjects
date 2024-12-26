@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import com.example.tbcexercises.databinding.FragmentAddEditBinding
 
@@ -55,17 +56,23 @@ class AddEditFragment : Fragment() {
         val addressDetailedLocation = binding.etDetailedLocation.text.toString()
         val img = R.drawable.office
 
-        val address = Address(
-            id = System.currentTimeMillis().toInt(),
-            img = img,
-            title = addressTitle,
-            detailedLocation = addressDetailedLocation
-        )
+        if (addressTitle.isEmpty() || addressDetailedLocation.isEmpty()) {
+            Toast.makeText(requireContext(), "Fields should not be empty", Toast.LENGTH_SHORT)
+                .show()
+        } else {
 
-        val result = bundleOf(NEW_ADDRESS_KEY to address)
-        parentFragmentManager.setFragmentResult(NEW_ADDRESS_REQUEST_KEY, result)
+            val address = Address(
+                id = System.currentTimeMillis().toInt(),
+                img = img,
+                title = addressTitle,
+                detailedLocation = addressDetailedLocation
+            )
 
-        parentFragmentManager.popBackStack()
+            val result = bundleOf(NEW_ADDRESS_KEY to address)
+            parentFragmentManager.setFragmentResult(NEW_ADDRESS_REQUEST_KEY, result)
+
+            parentFragmentManager.popBackStack()
+        }
     }
 
     private fun editAddress(oldAddress: Address) {
@@ -73,17 +80,22 @@ class AddEditFragment : Fragment() {
         val addressDetailedLocation = binding.etDetailedLocation.text.toString()
         val img = R.drawable.office
 
-        val address = Address(
-            id = oldAddress.id,
-            img = img,
-            title = addressTitle,
-            detailedLocation = addressDetailedLocation
-        )
+        if (addressTitle.isEmpty() || addressDetailedLocation.isEmpty()) {
+            Toast.makeText(requireContext(), "Fields should not be empty", Toast.LENGTH_SHORT)
+                .show()
+        } else {
+            val address = Address(
+                id = oldAddress.id,
+                img = img,
+                title = addressTitle,
+                detailedLocation = addressDetailedLocation
+            )
 
-        val result = bundleOf(CHANGED_ADDRESS_KEY to address)
-        parentFragmentManager.setFragmentResult(CHANGED_ADDRESS_REQUEST_KEY, result)
+            val result = bundleOf(CHANGED_ADDRESS_KEY to address)
+            parentFragmentManager.setFragmentResult(CHANGED_ADDRESS_REQUEST_KEY, result)
 
-        parentFragmentManager.popBackStack()
+            parentFragmentManager.popBackStack()
+        }
     }
 
 }

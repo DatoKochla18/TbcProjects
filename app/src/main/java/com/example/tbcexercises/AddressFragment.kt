@@ -66,9 +66,6 @@ class AddressFragment : Fragment() {
             }
         }
 
-        binding.btnArrowBack.setOnClickListener {
-            parentFragmentManager.popBackStack()
-        }
     }
 
     override fun onDestroyView() {
@@ -84,7 +81,7 @@ class AddressFragment : Fragment() {
             addToBackStack(null)
             commit()
         }
-        Log.d("edit","executed")
+        Log.d("edit", "executed")
         parentFragmentManager.setFragmentResultListener(
             CHANGED_ADDRESS_REQUEST_KEY, this
         ) { _, bundle ->
