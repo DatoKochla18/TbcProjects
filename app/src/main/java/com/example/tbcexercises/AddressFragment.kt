@@ -55,7 +55,7 @@ class AddressFragment : Fragment() {
 
     private fun listeners() {
         binding.btnAddNewUser.setOnClickListener {
-            parentFragmentManager.beginTransaction().apply {
+            parentFragmentManager.beginTransaction().run {
                 replace(R.id.fvContainer, AddEditFragment())
                 addToBackStack(null)
                 commit()
@@ -70,7 +70,7 @@ class AddressFragment : Fragment() {
     }
 
     private fun editAddress(address: Address) {
-        parentFragmentManager.beginTransaction().apply {
+        parentFragmentManager.beginTransaction().run {
             val bundle = bundleOf(OLD_ADDRESS_KEY to address)
             val addressFragment = AddEditFragment().apply { arguments = bundle }
             replace(R.id.fvContainer, addressFragment)

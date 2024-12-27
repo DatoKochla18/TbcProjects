@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        supportFragmentManager.beginTransaction().apply {
+        supportFragmentManager.beginTransaction().run {
             val addressFragment = AddressFragment()
             replace(binding.fvContainer.id, addressFragment)
             commit()
