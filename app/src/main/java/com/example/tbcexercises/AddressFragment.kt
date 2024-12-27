@@ -25,6 +25,11 @@ class AddressFragment : Fragment() {
         )
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setUpFragmentListeners()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -46,15 +51,6 @@ class AddressFragment : Fragment() {
         addressAdapter.submitList(data.toList())
         listeners()
 
-        parentFragmentManager.setFragmentResultListener(
-            NEW_ADDRESS_REQUEST_KEY,
-            this
-        ) { _, bundle ->
-            val address = bundle.getParcelable<Address>(NEW_ADDRESS_KEY)!!
-
-            data.add(0, address)
-            addressAdapter.submitList(data.toList())
-        }
     }
 
     private fun listeners() {
@@ -82,6 +78,11 @@ class AddressFragment : Fragment() {
             commit()
         }
         Log.d("edit", "executed")
+
+    }
+
+    private fun setUpFragmentListeners() {
+        //Edit listener
         parentFragmentManager.setFragmentResultListener(
             CHANGED_ADDRESS_REQUEST_KEY, this
         ) { _, bundle ->
@@ -89,6 +90,18 @@ class AddressFragment : Fragment() {
             val idx = data.indexOfFirst { it.id == changedAddress.id }
 
             data[idx] = changedAddress
+            addressAdapter.submitList(data.toList())
+        }
+
+        //Add listener
+
+        parentFragmentManager.setFragmentResultListener(
+            NEW_ADDRESS_REQUEST_KEY,
+            this
+        ) { _, bundle ->
+            val address = bundle.getParcelable<Address>(NEW_ADDRESS_KEY)!!
+
+            data.add(0, address)
             addressAdapter.submitList(data.toList())
         }
     }
