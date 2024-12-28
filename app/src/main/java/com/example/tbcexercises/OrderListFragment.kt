@@ -6,9 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tbcexercises.databinding.FragmentOrderListBinding
+import com.example.tbcexercises.order.Order
+import com.example.tbcexercises.order.OrderAdapter
+import com.example.tbcexercises.orderCategory.OrderCategoryAdapter
+import com.example.tbcexercises.orderCategory.OrderStatus
 
 class OrderListFragment : Fragment() {
     private var _binding: FragmentOrderListBinding? = null
@@ -16,13 +19,30 @@ class OrderListFragment : Fragment() {
 
     private val orderData = generateOrderData()
 
-    private val orderCategoryData = generateOrderStatusData()
+    private var orderCategoryData : MutableList<OrderStatus> = generateOrderStatusData()
 
+    private var firstLoad = true
     private val orderAdapter: OrderAdapter by lazy {
-        OrderAdapter()
+        OrderAdapter(goToDetail = { order -> launchOrderDetail(order) })
     }
+
     private val orderCategoryAdapter: OrderCategoryAdapter by lazy {
-        OrderCategoryAdapter()
+        OrderCategoryAdapter(filter = { category ->
+            filterOrderData(category)
+        })
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        parentFragmentManager.setFragmentResultListener("order", this) { _, bundle ->
+            val order = bundle.getParcelable<Order>("orderChanged")!!
+            val idx = orderData.indexOfFirst { it.id == order.id }
+            orderData[idx] = order
+            orderAdapter.submitList(orderData.toList())
+        }
+        savedInstanceState?.let {
+            firstLoad = it.getBoolean("firstLoad")
+        }
     }
 
 
@@ -45,10 +65,32 @@ class OrderListFragment : Fragment() {
         Log.d("orderData", orderData.toString())
 
         binding.rvButtonStatus.layoutManager =
-            LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.rvButtonStatus.adapter = orderCategoryAdapter
-        orderCategoryAdapter.submitList(orderCategoryData)
+        if (firstLoad) {
+            orderCategoryAdapter.submitList(orderCategoryData)
+            firstLoad = false
+        }
+    }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean("firstLoad", firstLoad)
+    }
+    private fun filterOrderData(orderStatus: OrderStatus) {
+        val result = orderData.filter { it.status.name.lowercase() == orderStatus.name.lowercase() }
+        orderAdapter.submitList(result.toList())
+        Log.d("resultList", result.toString())
+        Log.d("currentList", orderAdapter.currentList.toString())
     }
 
+    private fun launchOrderDetail(order: Order) {
+        parentFragmentManager.beginTransaction().apply {
+            replace(
+                R.id.frContainer, OrderDetailFragment.newInstance(order)
+            )
+            addToBackStack(null)
+            commit()
+        }
+    }
 
 }

@@ -1,5 +1,8 @@
 package com.example.tbcexercises
 
+import com.example.tbcexercises.order.Order
+import com.example.tbcexercises.orderCategory.OrderStatus
+
 val PENDING = OrderStatus(1, "PENDING", R.color.orange)
 val DELIVERED = OrderStatus(2, "DELIVERED", R.color.green)
 val CANCELLED = OrderStatus(3, "CANCELLED", R.color.red)

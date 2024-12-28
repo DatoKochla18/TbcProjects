@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OrderDetailFragment">
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btnArrowBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:src="@drawable/arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.appcompat.widget.AppCompatImageButton>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtOrderNumberHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="18px"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnArrowBack"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imBanner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="47.31dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@id/txtOrderNumber"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtOrderNumberHeader"
+        app:srcCompat="@drawable/banner_pending" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtOrderNumberName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="42dp"
+        android:text="@string/order_number"
+        android:textColor="@color/cardTextColor"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imBanner" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtOrderNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="42dp"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imBanner" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtTrackingNumberName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:text="@string/tracking_number"
+        android:textColor="@color/cardTextColor"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtOrderNumberName" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtTrackingNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtOrderNumber" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtDeliveryAddressName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:text="@string/delivery_address"
+        android:textColor="@color/cardTextColor"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtTrackingNumberName" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtDeliveryAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtTrackingNumber" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtSubtotalName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:text="@string/subtotal"
+        android:textColor="@color/cardTextColor"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtDeliveryAddress" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtSubTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtDeliveryAddress" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnConfirmDelivered"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/btn_details_background"
+        android:drawableStart="@drawable/approve"
+        android:drawablePadding="2dp"
+        android:paddingStart="48dp"
+        android:paddingEnd="32dp"
+        android:text="@string/delivered"
+        app:layout_constraintEnd_toStartOf="@id/btnConfirmCanceled"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtSubTotal">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnConfirmCanceled"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/btn_details_background"
+        android:drawableStart="@drawable/cancel"
+        android:drawablePadding="8dp"
+        android:paddingStart="40dp"
+        android:paddingEnd="32dp"
+
+        android:text="@string/canceled"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnConfirmDelivered"
+        app:layout_constraintTop_toBottomOf="@id/txtSubTotal">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
