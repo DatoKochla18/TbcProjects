@@ -22,7 +22,7 @@ class OrderAdapter(val goToDetail: (Order) -> Unit) :
         holder.onBind(getItem(position))
     }
 
-    inner class OrderViewHolder(val binding: OrderItemBinding) : ViewHolder(binding.root) {
+    inner class OrderViewHolder(private val binding: OrderItemBinding) : ViewHolder(binding.root) {
         fun onBind(order: Order) {
             binding.apply {
                 txtOrderNumber.text = "#" + order.orderNumber.toString()

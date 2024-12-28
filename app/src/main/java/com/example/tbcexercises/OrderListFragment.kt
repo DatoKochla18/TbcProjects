@@ -19,7 +19,7 @@ class OrderListFragment : Fragment() {
 
     private val orderData = generateOrderData()
 
-    private var orderCategoryData : MutableList<OrderStatus> = generateOrderStatusData()
+    private var orderCategoryData: MutableList<OrderStatus> = generateOrderStatusData()
 
     private var firstLoad = true
     private val orderAdapter: OrderAdapter by lazy {
@@ -36,9 +36,7 @@ class OrderListFragment : Fragment() {
         super.onCreate(savedInstanceState)
         parentFragmentManager.setFragmentResultListener("order", this) { _, bundle ->
             val order = bundle.getParcelable<Order>("orderChanged")!!
-            val idx = orderData.indexOfFirst { it.id == order.id }
-            orderData[idx] = order
-            orderAdapter.submitList(orderData.toList())
+            updateOrder(order)
         }
         savedInstanceState?.let {
             firstLoad = it.getBoolean("firstLoad")
@@ -56,13 +54,16 @@ class OrderListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUp()
+    }
+
+    private fun setUp() {
         binding.rvOrders.layoutManager =
             LinearLayoutManager(requireContext())
         binding.rvOrders.adapter = orderAdapter
 
         orderAdapter.submitList(orderData)
 
-        Log.d("orderData", orderData.toString())
 
         binding.rvButtonStatus.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -72,15 +73,22 @@ class OrderListFragment : Fragment() {
             firstLoad = false
         }
     }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putBoolean("firstLoad", firstLoad)
     }
+
     private fun filterOrderData(orderStatus: OrderStatus) {
         val result = orderData.filter { it.status.name.lowercase() == orderStatus.name.lowercase() }
         orderAdapter.submitList(result.toList())
-        Log.d("resultList", result.toString())
-        Log.d("currentList", orderAdapter.currentList.toString())
+
+    }
+
+    private fun updateOrder(order: Order) {
+        val idx = orderData.indexOfFirst { it.id == order.id }
+        orderData[idx] = order
+        orderAdapter.submitList(orderData.toList())
     }
 
     private fun launchOrderDetail(order: Order) {

@@ -25,17 +25,13 @@ class OrderCategoryAdapter(val filter: (OrderStatus) -> Unit) :
             binding.btnOrder.apply {
                 text = orderStatus.name
                 isSelected = orderStatus.isSelected
-
-
-
                 setOnClickListener {
                     val currentList = currentList.map {
                         it.copy(isSelected = it.id == orderStatus.id)
                     }
                     submitList(currentList)
-
                 }
-                if (isSelected){
+                if (isSelected) {
                     filter(orderStatus)
                 }
             }
