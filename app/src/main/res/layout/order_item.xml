@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp"
+    android:background="@drawable/order_card_background"
+    android:paddingStart="25dp"
+    android:paddingTop="18dp"
+    android:paddingEnd="12dp"
+    android:paddingBottom="22dp">
+
+    <TextView
+        android:id="@+id/txtOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/order"
+
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </TextView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtOrderNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/txtOrder"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <TextView
+        android:id="@+id/txtTrackingNumberName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/tracking_number"
+        android:textColor="@color/cardTextColor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtOrder">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/txtTrackingNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="24dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/txtTrackingNumberName"
+        app:layout_constraintTop_toBottomOf="@id/txtOrder">
+
+    </TextView>
+
+
+    <TextView
+        android:id="@+id/txtQuantityName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/quantity"
+        android:textColor="@color/cardTextColor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtTrackingNumberName">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/txtQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="24dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/txtQuantityName"
+        app:layout_constraintTop_toBottomOf="@id/txtTrackingNumberName">
+
+    </TextView>
+
+
+    <TextView
+        android:id="@+id/txtOrderStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="31dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtQuantityName">
+
+    </TextView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/cardTextColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtSubTotalName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="3dp"
+        android:text="@string/subtotal"
+        android:textColor="@color/cardTextColor"
+        app:layout_constraintBottom_toBottomOf="@id/txtQuantityName"
+        app:layout_constraintEnd_toStartOf="@id/txtSubTotal"
+        app:layout_constraintTop_toTopOf="@id/txtQuantityName">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtSubTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/txtSubTotalName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/txtSubTotalName">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:background="@drawable/btn_details_background"
+        android:text="@string/details"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtSubTotal" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

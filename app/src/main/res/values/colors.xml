@@ -2,4 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="btn_selected">#43484B</color>
+    <color name="card_background">#F9F9F9</color>
+    <color name="orange">#CF6212</color>
+    <color name="green">#009254</color>
+    <color name="red">#C50000</color>
+    <color name="orderStatusBtnColor">#43484B</color>
+    <color name="cardTextColor">#777E90</color>
 </resources>
