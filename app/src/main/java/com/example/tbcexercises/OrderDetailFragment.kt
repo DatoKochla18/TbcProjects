@@ -50,7 +50,7 @@ class OrderDetailFragment : Fragment() {
             txtTrackingNumber.text = order.id
             txtSubTotal.text = "$${order.subTotal}"
             txtDeliveryAddress.text = order.address
-
+            imBanner.setImageResource(getImgForBanner(order))
             btnConfirmCanceled.visibility = if (order.status != PENDING) View.GONE else View.VISIBLE
             btnConfirmDelivered.visibility =
                 if (order.status != PENDING) View.GONE else View.VISIBLE
@@ -79,6 +79,15 @@ class OrderDetailFragment : Fragment() {
             setFragmentResult("order", bundle)
             parentFragmentManager.popBackStack()
 
+        }
+    }
+
+    private fun getImgForBanner(order: Order): Int {
+        return when (order.status) {
+            PENDING -> R.drawable.banner_pending
+            DELIVERED -> R.drawable.banner_delivered
+            CANCELLED -> R.drawable.banner_cancelled
+            else -> 0
         }
     }
 

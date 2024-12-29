@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:textSize="18px"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btnArrowBack"
@@ -37,8 +37,7 @@
         app:layout_constraintBottom_toTopOf="@id/txtOrderNumber"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtOrderNumberHeader"
-        app:srcCompat="@drawable/banner_pending" />
+        app:layout_constraintTop_toBottomOf="@id/txtOrderNumberHeader" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txtOrderNumberName"
@@ -143,6 +142,8 @@
         android:paddingStart="48dp"
         android:paddingEnd="32dp"
         android:text="@string/delivered"
+        android:textColor="@color/black"
+
         app:layout_constraintEnd_toStartOf="@id/btnConfirmCanceled"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtSubTotal">
@@ -159,8 +160,9 @@
         android:drawablePadding="8dp"
         android:paddingStart="40dp"
         android:paddingEnd="32dp"
-
         android:text="@string/canceled"
+
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btnConfirmDelivered"
         app:layout_constraintTop_toBottomOf="@id/txtSubTotal">
