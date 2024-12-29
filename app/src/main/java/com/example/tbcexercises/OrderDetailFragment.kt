@@ -39,6 +39,11 @@ class OrderDetailFragment : Fragment() {
 
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun setUp() {
         binding.apply {
             txtOrderNumber.text = "#" + order.orderNumber.toString()
@@ -70,15 +75,18 @@ class OrderDetailFragment : Fragment() {
     private fun changeOrderStatus(orderStatus: OrderStatus) {
         val orderCopy = order.copy(status = orderStatus)
         val bundle = bundleOf("orderChanged" to orderCopy)
-        parentFragmentManager.setFragmentResult("order", bundle)
-        parentFragmentManager.popBackStack()
+        parentFragmentManager.run {
+            setFragmentResult("order", bundle)
+            parentFragmentManager.popBackStack()
+
+        }
     }
 
     companion object {
 
-        fun newInstance(param1: Order) = OrderDetailFragment().apply {
+        fun newInstance(order: Order) = OrderDetailFragment().apply {
             arguments = Bundle().apply {
-                putParcelable("order", param1)
+                putParcelable("order", order)
             }
         }
     }

@@ -19,7 +19,7 @@ class OrderCategoryAdapter(val filter: (OrderStatus) -> Unit) :
         holder.onBind(getItem(position))
     }
 
-    inner class OrderCategoryViewHolder(val binding: OrderStatusItemBinding) :
+    inner class OrderCategoryViewHolder(private val binding: OrderStatusItemBinding) :
         ViewHolder(binding.root) {
         fun onBind(orderStatus: OrderStatus) {
             binding.btnOrder.apply {

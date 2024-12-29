@@ -45,8 +45,7 @@ class OrderListFragment : Fragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentOrderListBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -57,17 +56,25 @@ class OrderListFragment : Fragment() {
         setUp()
     }
 
-    private fun setUp() {
-        binding.rvOrders.layoutManager =
-            LinearLayoutManager(requireContext())
-        binding.rvOrders.adapter = orderAdapter
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
+    private fun setUp() {
+
+
+        binding.apply {
+            rvOrders.layoutManager = LinearLayoutManager(requireContext())
+            rvOrders.adapter = orderAdapter
+
+            rvButtonStatus.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            rvButtonStatus.adapter = orderCategoryAdapter
+        }
         orderAdapter.submitList(orderData)
 
 
-        binding.rvButtonStatus.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.rvButtonStatus.adapter = orderCategoryAdapter
         if (firstLoad) {
             orderCategoryAdapter.submitList(orderCategoryData)
             firstLoad = false
@@ -92,7 +99,7 @@ class OrderListFragment : Fragment() {
     }
 
     private fun launchOrderDetail(order: Order) {
-        parentFragmentManager.beginTransaction().apply {
+        parentFragmentManager.beginTransaction().run {
             replace(
                 R.id.frContainer, OrderDetailFragment.newInstance(order)
             )

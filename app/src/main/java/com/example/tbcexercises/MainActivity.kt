@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        supportFragmentManager.beginTransaction().apply {
+        supportFragmentManager.beginTransaction().run {
             replace(R.id.frContainer, OrderListFragment())
             commit()
         }
