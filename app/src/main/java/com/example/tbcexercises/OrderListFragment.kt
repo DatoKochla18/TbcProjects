@@ -72,7 +72,7 @@ class OrderListFragment : Fragment() {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             rvButtonStatus.adapter = orderCategoryAdapter
         }
-        orderAdapter.submitList(orderData)
+        orderAdapter.submitList(orderData.sortedBy { it.date })
 
 
         if (firstLoad) {
@@ -88,14 +88,14 @@ class OrderListFragment : Fragment() {
 
     private fun filterOrderData(orderStatus: OrderStatus) {
         val result = orderData.filter { it.status.name.lowercase() == orderStatus.name.lowercase() }
-        orderAdapter.submitList(result.toList())
+        orderAdapter.submitList(result.sortedBy { it.date })
 
     }
 
     private fun updateOrder(order: Order) {
         val idx = orderData.indexOfFirst { it.id == order.id }
         orderData[idx] = order
-        orderAdapter.submitList(orderData.toList())
+        orderAdapter.submitList(orderData.sortedBy { it.date })
     }
 
     private fun launchOrderDetail(order: Order) {
