@@ -8,13 +8,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tbcexercises.Models.Message
 import com.example.tbcexercises.databinding.FragmentMessageBinding
+import java.util.Calendar
 
 
 class MessageFragment : Fragment() {
     private var _binding: FragmentMessageBinding? = null
     private val binding get() = _binding!!
 
-    private val messageData = mutableListOf<Message>(
+    private val messageData = mutableListOf(
+        Message(text = "jooo", dateTime = Calendar.getInstance().apply {
+            add(Calendar.DAY_OF_YEAR, -1)
+        }.timeInMillis)
     )
     private val messageAdapter by lazy {
         MessageAdapter()
