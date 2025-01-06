@@ -17,11 +17,12 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-        supportFragmentManager.beginTransaction().run {
-            replace(R.id.main, MessageFragment())
-            setReorderingAllowed(true)
-            commit()
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction().run {
+                replace(R.id.main, MessageFragment())
+                setReorderingAllowed(true)
+                commit()
+            }
         }
     }
 }
