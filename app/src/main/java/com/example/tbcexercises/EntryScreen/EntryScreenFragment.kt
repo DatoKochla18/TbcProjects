@@ -1,4 +1,4 @@
-package com.example.tbcexercises
+package com.example.tbcexercises.EntryScreen
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.tbcexercises.GameScreen.GameScreenFragment
+import com.example.tbcexercises.R
 import com.example.tbcexercises.databinding.FragmentEntryScreenBinding
 
 

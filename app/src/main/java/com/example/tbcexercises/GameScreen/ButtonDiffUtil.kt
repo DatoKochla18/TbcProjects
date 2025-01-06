@@ -1,6 +1,7 @@
-package com.example.tbcexercises
+package com.example.tbcexercises.GameScreen
 
 import androidx.recyclerview.widget.DiffUtil
+import com.example.tbcexercises.Models.ButtonData
 
 object ButtonDiffUtil  : DiffUtil.ItemCallback<ButtonData>() {
     override fun areItemsTheSame(oldItem: ButtonData, newItem: ButtonData): Boolean {

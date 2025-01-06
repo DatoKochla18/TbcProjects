@@ -1,12 +1,15 @@
-package com.example.tbcexercises
+package com.example.tbcexercises.GameScreen
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tbcexercises.Models.ButtonData
 import com.example.tbcexercises.databinding.ItemGameCardBinding
 
-class GameAdapter (val onClick: (ButtonData) -> Unit) : ListAdapter<ButtonData, GameAdapter.GameViewHolder>(ButtonDiffUtil) {
+class GameAdapter (val onClick: (ButtonData) -> Unit) : ListAdapter<ButtonData, GameAdapter.GameViewHolder>(
+    ButtonDiffUtil
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameViewHolder {
         val binding =
