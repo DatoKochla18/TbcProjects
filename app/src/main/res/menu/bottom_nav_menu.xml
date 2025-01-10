@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/NotImplementedHome"
+        android:icon="@drawable/home_order"
+        android:title="@string/home" />
+    <item
+        android:id="@+id/NotImplementedCart"
+        android:icon="@drawable/cart"
+        android:title="@string/cart"
+        />
+    <item
+        android:id="@+id/orderFragment"
+        android:icon="@drawable/orders"
+        android:title="@string/orders" />
+    <item
+        android:id="@+id/NotImplementedWallet"
+        android:icon="@drawable/wallet"
+        android:title="@string/wallet" />
+    <item
+        android:id="@+id/NotImplementedProfile"
+        android:icon="@drawable/profile"
+        android:title="@string/profile" />
+
+</menu>
