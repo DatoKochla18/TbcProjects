@@ -9,4 +9,5 @@
     <color name="lightGray">#9D9D9E</color>
     <color name="lightBlue">#35383F</color>
     <color name="backgroundColor">#181A20</color>
+    <color name="reviewBackgroundColor">#1F222A</color>
 </resources>

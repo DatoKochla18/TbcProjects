@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/order_review_background"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    tools:context=".orderReviewScreen.OrderReviewFragment">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtLeaveReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/leave_a_review"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/spacer1"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/lightBlue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtLeaveReview" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgCardBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/order_card_background_dark"
+        app:layout_constraintBottom_toTopOf="@id/space2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spacer1" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgOrderBackground"
+        android:layout_width="140dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/order_photo_background"
+        app:layout_constraintStart_toStartOf="@id/imgCardBackground"
+        app:layout_constraintTop_toBottomOf="@id/spacer1" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgOrder"
+        android:layout_width="72dp"
+        android:layout_height="92dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@id/imgOrderBackground"
+        app:layout_constraintEnd_toEndOf="@id/imgOrderBackground"
+        app:layout_constraintStart_toStartOf="@id/imgOrderBackground"
+        app:layout_constraintTop_toTopOf="@id/imgOrderBackground"
+        app:srcCompat="@drawable/brown_chair" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtOrderName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/imgOrderBackground"
+        app:layout_constraintTop_toTopOf="@id/imgOrderBackground" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgOrderColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@id/imgOrderBackground"
+        app:layout_constraintTop_toBottomOf="@id/txtOrderName"
+        app:srcCompat="@drawable/circle" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtOrderColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/lightGray"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/imgOrderColor"
+        app:layout_constraintTop_toBottomOf="@id/txtOrderName" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtSeparator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/colorQuantitySeparator"
+        android:textColor="@color/lightGray"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/txtOrderColor"
+        app:layout_constraintTop_toBottomOf="@id/txtOrderName" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/lightGray"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/txtSeparator"
+        app:layout_constraintTop_toBottomOf="@id/txtOrderName" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtOrderStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+
+        android:background="@drawable/order_status_rounded"
+        android:padding="8dp"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@id/imgOrderBackground"
+        app:layout_constraintTop_toBottomOf="@id/imgOrderColor" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtOrderPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/imgOrderBackground"
+        app:layout_constraintStart_toEndOf="@id/imgOrderBackground" />
+
+
+    <View
+        android:id="@+id/space2"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/lightBlue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgOrderBackground" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtHowIsYourOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/how_is_your_order"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/space2" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/please_give_your_rating_amp_also_your_review"
+        android:textColor="@color/lightGray"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtHowIsYourOrder" />
+
+    <androidx.appcompat.widget.AppCompatRatingBar
+        android:id="@+id/rbRatings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:numStars="5"
+        android:progressTint="@color/white"
+        android:stepSize="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtReview" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etReviewAnswer"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edit_text_review_background"
+        android:drawableEnd="@drawable/reviewicon"
+        android:paddingStart="20dp"
+        android:paddingEnd="24dp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rbRatings" />
+
+    <View
+        android:id="@+id/space3"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/lightBlue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etReviewAnswer" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnCancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/btn_action_rounded"
+        android:text="@string/cancel"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnSubmit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/space3" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSubmit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/btn_white_rounded"
+        android:text="@string/submit"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnCancel"
+        app:layout_constraintTop_toBottomOf="@id/space3" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

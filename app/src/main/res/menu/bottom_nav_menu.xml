@@ -2,9 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/NotImplementedHome"
-        android:icon="@drawable/home_order"
-        android:title="@string/home" />
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/home"
+        android:title="@string/home"
+        />
     <item
         android:id="@+id/NotImplementedCart"
         android:icon="@drawable/cart"

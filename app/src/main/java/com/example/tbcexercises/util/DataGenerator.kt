@@ -5,8 +5,8 @@ import com.example.tbcexercises.model.Order
 import com.example.tbcexercises.model.OrderColor
 import com.example.tbcexercises.model.OrderStatus
 
-fun generateData(): List<Order> {
-    return listOf(
+fun generateData(): MutableList<Order> {
+    return mutableListOf(
         Order(
             img = R.drawable.brown_chair,
             name = "Brown Chair",
@@ -27,7 +27,7 @@ fun generateData(): List<Order> {
 
         Order(
             img = R.drawable.chair_white,
-            name = "Yellow Chair",
+            name = "White Chair",
             orderColor = OrderColor.WHITE,
             orderStatus = OrderStatus.COMPLETED,
             price = 1120.00f,

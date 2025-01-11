@@ -26,6 +26,11 @@ class OrderFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUp()
+
+    }
+
+    private fun setUp() {
         orderPagerAdapter = OrderPagerAdapter(this)
         binding.viewPager.adapter = orderPagerAdapter
 
