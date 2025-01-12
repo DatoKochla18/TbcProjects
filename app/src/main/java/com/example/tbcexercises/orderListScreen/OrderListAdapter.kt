@@ -1,8 +1,6 @@
 package com.example.tbcexercises.orderListScreen
 
-import android.view.GestureDetector
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -28,14 +26,6 @@ class OrderListAdapter(val onOrderClick: (Order) -> Unit) :
 
     inner class OrderViewHolder(private val binding: ItemOrderCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        private val gestureDetector = GestureDetector(binding.root.context,
-            object : GestureDetector.SimpleOnGestureListener() {
-                override fun onDoubleTap(e: MotionEvent): Boolean {
-                    val order = getItem(adapterPosition)
-                    onOrderClick(order)
-                    return true
-                }
-            })
 
         fun onBind() {
             val order = getItem(adapterPosition)
@@ -53,11 +43,14 @@ class OrderListAdapter(val onOrderClick: (Order) -> Unit) :
 
                 txtQuantity.text =
                     root.context.getString(R.string.orderQuantity, order.quantity.toString())
-                if (order.orderStatus == OrderStatus.COMPLETED) {
-                    binding.root.setOnTouchListener { v, event ->
-                        v.performClick() //this solved first warning
-                        gestureDetector.onTouchEvent(event) // Second Warning Can't Correct
+
+                if (order.orderStatus == OrderStatus.COMPLETED
+                    && order.ratingStars == null
+                ) {
+                    root.setOnClickListener {
+                        onOrderClick(order)
                     }
+
                 }
 
             }
