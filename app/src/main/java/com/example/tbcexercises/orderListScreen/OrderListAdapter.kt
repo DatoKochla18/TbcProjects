@@ -53,10 +53,9 @@ class OrderListAdapter(val onOrderClick: (Order) -> Unit) :
 
                 txtQuantity.text =
                     root.context.getString(R.string.orderQuantity, order.quantity.toString())
-
                 if (order.orderStatus == OrderStatus.COMPLETED) {
                     binding.root.setOnTouchListener { v, event ->
-                        v.performClick()
+                        v.performClick() //this solved first warning
                         gestureDetector.onTouchEvent(event) // Second Warning Can't Correct
                     }
                 }

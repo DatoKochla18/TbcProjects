@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
+import androidx.navigation.fragment.navArgs
 import com.example.tbcexercises.R
 import com.example.tbcexercises.databinding.FragmentOrderReviewBinding
 import com.example.tbcexercises.extensions.setTint
@@ -19,59 +20,65 @@ class OrderReviewFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentOrderReviewBinding? = null
     private val binding get() = _binding!!
 
-    private var order: Order? = null
-
-    companion object {
-        const val TAG = "OrderReviewBottomSheet"
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        order = arguments?.getParcelable("order")
-    }
+    private val args: OrderReviewFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentOrderReviewBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        bottomSheetSetUp()
+        viewSetUp()
+        listeners()
+    }
+
+    private fun viewSetUp() {
+        binding.apply {
+            imgOrder.setImageResource(args.order.img)
+
+            imgOrderColor.setTint(args.order.orderColor.value)
+            txtOrderColor.text = args.order.orderColor.names
+
+            txtOrderStatus.text = args.order.orderStatus.names
+            txtOrderName.text = args.order.name
+
+            txtOrderPrice.text = getString(R.string.orderPrice, args.order.price.toString())
+            txtQuantity.text = getString(R.string.orderQuantity, args.order.quantity.toString())
+        }
+    }
+
+    private fun bottomSheetSetUp() {
         val bottomSheetBehavior = BottomSheetBehavior.from(binding.root.parent as View)
 
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+    }
+
+    private fun listeners() {
         binding.apply {
-            imgOrder.setImageResource(order!!.img)
-            imgOrderColor.setTint(order!!.orderColor.value)
-            txtOrderColor.text = order!!.orderColor.names
+            btnSubmit.setOnClickListener {
+                sendOrder()
 
-            txtOrderStatus.text = order!!.orderStatus.names
-            txtOrderName.text = order!!.name
-            txtOrderPrice.text = "$" + order!!.price.toString()
-
-            txtQuantity.text = "Qty = " + order!!.quantity.toString()
-
+            }
+            btnCancel.setOnClickListener {
+                dismiss()
+            }
         }
+    }
 
-        binding.btnSubmit.setOnClickListener {
-            val reviewText = binding.etReviewAnswer.text.toString()
-            val reviewRating = binding.rbRatings.rating.toInt()
+    private fun sendOrder() {
+        val reviewText = binding.etReviewAnswer.text.toString()
+        val reviewRating = binding.rbRatings.rating.toInt()
 
-            val newOrder = order!!.copy(ratingText = reviewText, ratingStars = reviewRating)
+        val newOrder = args.order.copy(ratingText = reviewText, ratingStars = reviewRating)
 
-            setFragmentResult("updatedOrder", bundleOf("newOrder" to newOrder))
-            Log.d("updatedOrder", newOrder.toString())
-            dismiss()
-        }
-        binding.btnCancel.setOnClickListener {
-            dismiss()
-        }
-
-
+        setFragmentResult("updatedOrder", bundleOf("newOrder" to newOrder))
+        Log.d("updatedOrder", newOrder.toString())
+        dismiss()
     }
 
     override fun onDestroyView() {

@@ -118,6 +118,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/btn_action_rounded"
         android:padding="4dp"
+        android:textSize="12sp"
+        android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/imgOrderBackground"
         app:layout_constraintEnd_toEndOf="parent"
