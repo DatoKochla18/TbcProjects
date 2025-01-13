@@ -2,4 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="screenName">#121420</color>
+    <color name="lightGray">#7A869A99</color>
+    <color name="blue">#172B4D</color>
+    <color name="darkerWhite">#FCFCFC</color>
+    <color name="brown">#343434</color>
+    <color name="red">#ED0006</color>
+    <color name="lightBlack">#33302E</color>
 </resources>
