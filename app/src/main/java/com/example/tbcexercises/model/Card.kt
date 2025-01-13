@@ -1,4 +1,4 @@
-package com.example.tbcexercises.Model
+package com.example.tbcexercises.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

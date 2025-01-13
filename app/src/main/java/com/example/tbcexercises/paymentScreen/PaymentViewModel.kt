@@ -1,8 +1,8 @@
 package com.example.tbcexercises.paymentScreen
 
 import androidx.lifecycle.ViewModel
-import com.example.tbcexercises.Model.Card
-import com.example.tbcexercises.Model.CardType
+import com.example.tbcexercises.model.Card
+import com.example.tbcexercises.model.CardType
 
 class PaymentViewModel : ViewModel() {
     val data = mutableListOf(
@@ -31,7 +31,7 @@ class PaymentViewModel : ViewModel() {
     )
 
     fun addCard(card: Card) {
-        data.add(0,card)
+        data.add(card)
     }
 
     fun removeCard(uuid: String) {

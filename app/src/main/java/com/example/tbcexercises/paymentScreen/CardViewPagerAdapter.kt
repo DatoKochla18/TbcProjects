@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tbcexercises.Model.Card
+import com.example.tbcexercises.model.Card
 import com.example.tbcexercises.databinding.ItemCardBinding
 import com.example.tbcexercises.extensions.toCardNumber
 

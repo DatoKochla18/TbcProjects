@@ -29,6 +29,6 @@
         tools:layout="@layout/fragment_remove_card" >
         <argument
             android:name="card"
-            app:argType="com.example.tbcexercises.Model.Card" />
+            app:argType="com.example.tbcexercises.model.Card" />
     </dialog>
 </navigation>

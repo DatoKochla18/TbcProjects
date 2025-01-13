@@ -4,8 +4,8 @@ package com.example.tbcexercises.addNewCardScreen
 import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
 import androidx.navigation.fragment.findNavController
-import com.example.tbcexercises.Model.Card
-import com.example.tbcexercises.Model.CardType
+import com.example.tbcexercises.model.Card
+import com.example.tbcexercises.model.CardType
 import com.example.tbcexercises.R
 import com.example.tbcexercises.databinding.FragmentAddNewCardBinding
 import com.example.tbcexercises.extensions.toCardNumber
@@ -23,6 +23,9 @@ class AddNewCardFragment :
 
         binding.btnAddCard.setOnClickListener {
             addCard()
+        }
+        binding.btnArrowBack.setOnClickListener {
+            findNavController().popBackStack()
         }
 
     }
@@ -45,6 +48,7 @@ class AddNewCardFragment :
                     else -> binding.imgCard.setImageResource(R.drawable.visa_card)
                 }
             }
+
         }
     }
 

@@ -1,7 +1,7 @@
 package com.example.tbcexercises.paymentScreen
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.tbcexercises.Model.Card
+import com.example.tbcexercises.model.Card
 
 object CardDiffUtil : DiffUtil.ItemCallback<Card>() {
     override fun areItemsTheSame(oldItem: Card, newItem: Card): Boolean {
