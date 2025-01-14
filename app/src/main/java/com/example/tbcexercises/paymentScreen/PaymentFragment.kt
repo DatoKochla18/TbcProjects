@@ -20,8 +20,9 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding>(FragmentPaymentBind
 
     override fun start() {
         binding.pager.adapter = cardAdapter
-
-        cardAdapter.submitList(viewModel.data.toList())
+        cardAdapter.submitList(viewModel.data.toList()){
+            binding.pager.setCurrentItem(0, true)
+        }
     }
 
     override fun listeners() {
@@ -38,11 +39,12 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding>(FragmentPaymentBind
             val card = bundle.getCard("newCard")!!
 
             viewModel.addCard(card)
-            cardAdapter.submitList(viewModel.data.toList()){
-                binding.pager.setCurrentItem(viewModel.data.lastIndex, true)
+            cardAdapter.submitList(viewModel.data.toMutableList()){
+                binding.pager.setCurrentItem(0, true)
             }
 
         }
+
 
         parentFragmentManager.setFragmentResultListener("removeCard", this) { _, bundle ->
             val uuid = bundle.getString("oldCardId")!!

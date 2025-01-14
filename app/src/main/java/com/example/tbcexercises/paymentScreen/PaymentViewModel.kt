@@ -31,7 +31,7 @@ class PaymentViewModel : ViewModel() {
     )
 
     fun addCard(card: Card) {
-        data.add(card)
+        data.add(0,card)
     }
 
     fun removeCard(uuid: String) {
