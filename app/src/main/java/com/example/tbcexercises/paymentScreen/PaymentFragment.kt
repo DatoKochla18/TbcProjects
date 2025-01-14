@@ -20,7 +20,7 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding>(FragmentPaymentBind
 
     override fun start() {
         binding.pager.adapter = cardAdapter
-        cardAdapter.submitList(viewModel.data.toList()){
+        cardAdapter.submitList(viewModel.data.toList()) {
             binding.pager.setCurrentItem(0, true)
         }
     }
@@ -35,11 +35,15 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding>(FragmentPaymentBind
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        resultListeners()
+    }
+
+    private fun resultListeners() {
         parentFragmentManager.setFragmentResultListener("addCard", this) { _, bundle ->
             val card = bundle.getCard("newCard")!!
 
             viewModel.addCard(card)
-            cardAdapter.submitList(viewModel.data.toMutableList()){
+            cardAdapter.submitList(viewModel.data.toMutableList()) {
                 binding.pager.setCurrentItem(0, true)
             }
 
