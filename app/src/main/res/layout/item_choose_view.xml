@@ -5,6 +5,7 @@
     android:background="@color/white"
     android:orientation="vertical"
     android:padding="8dp">
+    <!--im nesting in linear layout because visibility does not work as expected if i did not  -->
 
 
     <Spinner

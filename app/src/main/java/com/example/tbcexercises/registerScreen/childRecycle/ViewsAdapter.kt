@@ -20,20 +20,20 @@ class ViewsAdapter(val onChangedText: (Int, String?) -> Unit) :
     companion object {
         private const val INPUT = 1
         private const val CHOOSER = 2
+        private val gender = arrayOf("Choose Gender", "Male", "Female", "Two Spirited Penguin")
+        private val dates = arrayOf(
+            "Choose Date", "2001/09/11", "1878/04/24", "2005/05/11", "2005/05/12", "2005/05/13"
+        )
+
     }
 
-    val gender = arrayOf("Choose Gender", "Male", "Female", "Two Spirited Penguin")
-    val dates =
-        arrayOf("Choose Date", "2001/09/11", "1878/04/24", "2005/05/11", "2005/05/12", "2005/05/13")
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             INPUT -> {
                 InputViewHolder(
                     ItemInputViewBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
+                        LayoutInflater.from(parent.context), parent, false
                     )
                 )
             }
@@ -41,9 +41,7 @@ class ViewsAdapter(val onChangedText: (Int, String?) -> Unit) :
             else -> {
                 ChooserViewHolder(
                     ItemChooseViewBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
+                        LayoutInflater.from(parent.context), parent, false
                     )
                 )
             }
@@ -70,6 +68,7 @@ class ViewsAdapter(val onChangedText: (Int, String?) -> Unit) :
         fun onBind() {
             val item = getItem(adapterPosition)
             val data = if (item.fieldId == 89) dates else gender
+
             val arrayAdapter = ArrayAdapter(
                 binding.root.context, R.layout.spinner_layout, data
             )
@@ -77,20 +76,21 @@ class ViewsAdapter(val onChangedText: (Int, String?) -> Unit) :
 
             binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
+                    parent: AdapterView<*>?, view: View?, position: Int, id: Long
                 ) {
                     if (position == 0) {
                         onChangedText(item.fieldId, null)
                     } else {
-                        onChangedText(item.fieldId, null)
+                        onChangedText(item.fieldId, data[position])
                     }
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                 }
+
+            }
+            if (!item.isActive) {
+                binding.spinner.visibility = View.GONE
             }
         }
     }
@@ -100,20 +100,27 @@ class ViewsAdapter(val onChangedText: (Int, String?) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind() {
             val view = getItem(adapterPosition)
+            if (!view.isActive)
+                binding.etInput.visibility = View.GONE
 
-            val inputType = when (view.keyboard) {
+
+            val viewInputType = when (view.keyboard) {
                 "text" -> InputType.TYPE_CLASS_TEXT
                 "number" -> InputType.TYPE_CLASS_NUMBER
                 else -> InputType.TYPE_NULL
             }
 
-            binding.etInput.hint = view.hint
-            binding.etInput.inputType = inputType
+            binding.etInput.apply {
+                hint = view.hint
+                inputType = viewInputType
 
-            binding.etInput.doAfterTextChanged {
-                onChangedText(view.fieldId, it.toString())
+                doAfterTextChanged {
+                    onChangedText(view.fieldId, it.toString())
+
+                }
 
             }
+
 
         }
     }
