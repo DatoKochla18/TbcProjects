@@ -4,10 +4,9 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:layout_marginTop="12dp">
     <!--im nesting in linear layout because visibility does not work as expected if i did not  -->
-
-
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="match_parent"

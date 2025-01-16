@@ -118,6 +118,9 @@ class ViewsAdapter(val onChangedText: (Int, String?) -> Unit) :
                     onChangedText(view.fieldId, it.toString())
 
                 }
+                if (adapterPosition == itemCount - 1) {
+                    background = null
+                }
 
             }
 
