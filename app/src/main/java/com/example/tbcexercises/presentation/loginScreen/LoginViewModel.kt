@@ -1,6 +1,5 @@
 package com.example.tbcexercises.presentation.loginScreen
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbcexercises.data.request.AuthRequest
@@ -9,7 +8,6 @@ import com.example.tbcexercises.data.source.remote.RetrofitInstance
 import com.example.tbcexercises.util.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
@@ -17,7 +15,8 @@ class LoginViewModel(
 ) : ViewModel() {
 
     private val _loginResponse = MutableStateFlow<Response<LoginResponse>?>(null)
-    val loginResponse: StateFlow<Response<LoginResponse>?> = _loginResponse
+    //val loginResponse: StateFlow<Response<LoginResponse>?> = _loginResponse
+    // Normally you do this but it is not needed here
 
     private fun login(authRequest: AuthRequest, onError: (String) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {

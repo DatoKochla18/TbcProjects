@@ -1,6 +1,5 @@
 package com.example.tbcexercises.presentation.registerScreen
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbcexercises.data.request.AuthRequest
@@ -9,14 +8,13 @@ import com.example.tbcexercises.data.source.remote.RetrofitInstance
 import com.example.tbcexercises.util.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class RegisterViewModel : ViewModel() {
 
     private val _registerResponse = MutableStateFlow<Response<RegisterResponse>?>(null)
-    val registerResponse: StateFlow<Response<RegisterResponse>?> = _registerResponse
+    // val registerResponse: StateFlow<Response<RegisterResponse>?> = _registerResponse
 
     private fun register(authRequest: AuthRequest, onError: (String) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
