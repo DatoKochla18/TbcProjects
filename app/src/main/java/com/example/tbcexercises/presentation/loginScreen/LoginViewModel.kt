@@ -9,6 +9,7 @@ import com.example.tbcexercises.util.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Response
 
 class LoginViewModel(
@@ -18,36 +19,39 @@ class LoginViewModel(
     //val loginResponse: StateFlow<Response<LoginResponse>?> = _loginResponse
     // Normally you do this but it is not needed here
 
-    private fun login(authRequest: AuthRequest, onError: (String) -> Unit) {
+    fun login(
+        authRequest: AuthRequest,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val response = RetrofitInstance.api.login(authRequest)
                 _loginResponse.value = response
+                if (response.isSuccessful) {
+                    withContext(Dispatchers.Main) { onSuccess() }
+                } else {
+                    withContext(Dispatchers.Main) {
+                        onError(response.message())
+                    }
+                }
             } catch (e: Exception) {
-                onError(e.message.toString())
+                withContext(Dispatchers.Main) {
+                    onError(e.message.toString())
+                }
             }
         }
     }
 
-    fun validateFields(email: String, password: String, onException: (String) -> Unit): Result {
+    fun validateFields(email: String, password: String): Result {
         if (email.isEmpty() || password.isEmpty()) {
             return Result.Error("Field must not be empty")
-        }
-
-        if (email == "eve.holt@reqres.in" && password.length > 6) {
-            return Result.Success(
-                login(
-                    AuthRequest(email = email, password = password),
-                    onException
-                )
-            )
-
         }
 
         if (password.length <= 6) return Result.Error("Password Length Should be Greater than 6")
         if (email != "eve.holt@reqres.in") return Result.Error("For Today Login only Works for there email eve.holt@reqres.in")
 
-        return Result.Error("Unexpected Error Sorry Please Try Again")
+        return Result.Success()
     }
 
 }
