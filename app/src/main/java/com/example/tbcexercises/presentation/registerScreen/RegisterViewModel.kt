@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbcexercises.data.request.AuthRequest
 import com.example.tbcexercises.data.response.RegisterResponse
-import com.example.tbcexercises.data.source.remote.RetrofitInstance
 import com.example.tbcexercises.util.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,7 +23,7 @@ class RegisterViewModel : ViewModel() {
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val response = RetrofitInstance.api.register(authRequest)
+                val response = RegisterService.register(authRequest)
                 _registerResponse.value = response
                 if (response.isSuccessful) {
                     withContext(Dispatchers.Main) { onSuccess() }

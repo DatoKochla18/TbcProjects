@@ -5,8 +5,8 @@ import com.example.tbcexercises.data.response.LoginResponse
 import com.example.tbcexercises.data.source.remote.RetrofitInstance
 import retrofit2.Response
 
-class LoginService(authRequest: AuthRequest) {
-    suspend operator fun invoke(authRequest: AuthRequest): Response<LoginResponse> {
+object LoginService {
+    suspend  fun login(authRequest: AuthRequest): Response<LoginResponse> {
        return RetrofitInstance.api.login(authRequest)
     }
 }
