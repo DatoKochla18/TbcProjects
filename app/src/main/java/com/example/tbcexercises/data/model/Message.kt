@@ -1,9 +1,7 @@
 package com.example.tbcexercises.data.model
 
 import com.squareup.moshi.Json
-import kotlinx.serialization.Serializable
 
-@Serializable
 data class Message(
     val id: Int,
     val image: String?,
@@ -14,7 +12,11 @@ data class Message(
     @Json(name = "is_typing") val isTyping: Boolean,
     @Json(name = "laste_message_type") val lastMessageType: String,
 ) {
-    val messageType = if (lastMessageType == "text") {
-        MessageType.TEXT
-    } else if (lastMessageType == "voice") MessageType.VOICE else MessageType.FILE
+    val messageType = when (lastMessageType) {
+        "text" -> {
+            MessageType.TEXT
+        }
+        "voice" -> MessageType.VOICE
+        else -> MessageType.FILE
+    }
 }

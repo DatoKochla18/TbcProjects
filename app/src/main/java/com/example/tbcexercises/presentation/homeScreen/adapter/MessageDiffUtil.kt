@@ -1,4 +1,4 @@
-package com.example.tbcexercises.presentation
+package com.example.tbcexercises.presentation.homeScreen.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.tbcexercises.data.model.Message

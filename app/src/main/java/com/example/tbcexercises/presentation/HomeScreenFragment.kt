@@ -1,21 +1,21 @@
 package com.example.tbcexercises.presentation
 
-import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.tbcexercises.BaseFragment
+import com.example.tbcexercises.data.util.BaseFragment
 import com.example.tbcexercises.databinding.FragmentHomeScreenBinding
+import com.example.tbcexercises.presentation.homeScreen.adapter.MessageAdapter
 
 
 class HomeScreenFragment :
     BaseFragment<FragmentHomeScreenBinding>(FragmentHomeScreenBinding::inflate) {
+
     private val viewModel: HomeScreenViewModel by viewModels()
     private val messageAdapter by lazy {
         MessageAdapter()
     }
 
     override fun start() {
-        Log.d("tag", viewModel.decodedData.toString())
         binding.rvContainer.apply {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)

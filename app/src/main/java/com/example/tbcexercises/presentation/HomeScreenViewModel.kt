@@ -1,11 +1,10 @@
 package com.example.tbcexercises.presentation
 
 import androidx.lifecycle.ViewModel
-import com.example.tbcexercises.data.model.Message
 import com.example.tbcexercises.data.remote.MoshiInstance
 
 class HomeScreenViewModel : ViewModel() {
-    val jsonData = "[\n" +
+    private val jsonData = "[\n" +
             "{\n" +
             "\"id\":1,\n" +
             "\"image\":\"https://www.alia.ge/wp-content/uploads/2022/09/grisha.jpg\",\n" +
@@ -49,7 +48,4 @@ class HomeScreenViewModel : ViewModel() {
             "]"
 
     val decodedData = MoshiInstance.adapter.fromJson(jsonData)
-
-
-
 }

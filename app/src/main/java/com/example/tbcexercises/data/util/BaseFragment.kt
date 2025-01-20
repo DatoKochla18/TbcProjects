@@ -1,4 +1,4 @@
-package com.example.tbcexercises
+package com.example.tbcexercises.data.util
 
 
 import android.os.Bundle

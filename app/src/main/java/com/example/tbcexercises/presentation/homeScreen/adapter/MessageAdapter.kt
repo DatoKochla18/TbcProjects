@@ -1,4 +1,4 @@
-package com.example.tbcexercises.presentation
+package com.example.tbcexercises.presentation.homeScreen.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -66,15 +66,32 @@ class MessageAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(MessageDiff
         RecyclerView.ViewHolder(binding.root) {
         fun onBind() {
             val message = getItem(adapterPosition)
-            binding.txtMessage.text = message.lastMessage
-            binding.txtUnreadMessage.text = message.unreadMessages.toString()
-            binding.txtProfileName.text = message.owner
-            binding.txtMessageDate.text = message.lastActive
+            getUnreadMessage(message.isTyping, message.unreadMessages)
+
+            binding.apply {
+                txtMessage.text = message.lastMessage
+                txtProfileName.text = message.owner
+                txtMessageDate.text = message.lastActive
+            }
             Glide.with(binding.imgProfilePhoto.context)
                 .load(message.image)
                 .placeholder(R.drawable.white_girl)
                 .error(R.drawable.profile_photo)
                 .into(binding.imgProfilePhoto)
+        }
+
+        private fun getUnreadMessage(typing: Boolean, value: Int) {
+            if (typing) {
+                binding.txtUnreadMessage.apply {
+                    text = binding.root.context.getString(R.string.typing_text)
+                    background = null
+                    setTextColor(
+                        binding.root.context.resources.getColor(R.color.green, null)
+                    )
+                }
+            } else {
+                binding.txtUnreadMessage.text = value.toString()
+            }
         }
     }
 
@@ -83,14 +100,31 @@ class MessageAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(MessageDiff
         RecyclerView.ViewHolder(binding.root) {
         fun onBind() {
             val message = getItem(adapterPosition)
-            binding.txtUnreadMessage.text = message.unreadMessages.toString()
-            binding.txtProfileName.text = message.owner
-            binding.txtMessageDate.text = message.lastActive
+            getUnreadMessage(message.isTyping, message.unreadMessages)
+
+            binding.apply {
+                txtProfileName.text = message.owner
+                txtMessageDate.text = message.lastActive
+            }
             Glide.with(binding.imgProfilePhoto.context)
                 .load(message.image)
                 .placeholder(R.drawable.white_girl)
                 .error(R.drawable.profile_photo)
                 .into(binding.imgProfilePhoto)
+        }
+
+        private fun getUnreadMessage(typing: Boolean, value: Int) {
+            if (typing) {
+                binding.txtUnreadMessage.apply {
+                    text = binding.root.context.getString(R.string.typing_text)
+                    background = null
+                    setTextColor(
+                        binding.root.context.resources.getColor(R.color.green, null)
+                    )
+                }
+            } else {
+                binding.txtUnreadMessage.text = value.toString()
+            }
         }
     }
 
@@ -98,16 +132,34 @@ class MessageAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(MessageDiff
         RecyclerView.ViewHolder(binding.root) {
         fun onBind() {
             val message = getItem(adapterPosition)
-            binding.txtUnreadMessage.text = message.unreadMessages.toString()
-            binding.txtProfileName.text = message.owner
-            binding.txtMessageDate.text = message.lastActive
 
+            getUnreadMessage(message.isTyping, message.unreadMessages)
+
+            binding.apply {
+                txtProfileName.text = message.owner
+                txtMessageDate.text = message.lastActive
+            }
             Glide.with(binding.imgProfilePhoto.context)
                 .load(message.image)
                 .placeholder(R.drawable.white_girl)
                 .error(R.drawable.profile_photo)
                 .into(binding.imgProfilePhoto)
         }
+
+        private fun getUnreadMessage(typing: Boolean, value: Int) {
+            if (typing) {
+                binding.txtUnreadMessage.apply {
+                    text = binding.root.context.getString(R.string.typing_text)
+                    background = null
+                    setTextColor(
+                        binding.root.context.resources.getColor(R.color.green, null)
+                    )
+                }
+            } else {
+                binding.txtUnreadMessage.text = value.toString()
+            }
+        }
     }
+
 
 }

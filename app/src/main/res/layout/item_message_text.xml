@@ -6,6 +6,15 @@
     android:layout_margin="20dp"
     android:background="@color/blue">
 
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgBackground"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/round_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgProfilePhoto"
         android:layout_width="22dp"
@@ -15,14 +24,6 @@
         app:layout_constraintEnd_toEndOf="@id/imgBackground"
         app:layout_constraintStart_toStartOf="@id/imgBackground"
         app:layout_constraintTop_toTopOf="@id/imgBackground" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/imgBackground"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:background="@drawable/round_background"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txtProfileName"
@@ -67,7 +68,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:background="@drawable/circle"
-        android:text="3"
+        android:paddingEnd="6dp"
+        android:paddingStart="6dp"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/imgBackground"
         app:layout_constraintEnd_toEndOf="parent" />
