@@ -6,8 +6,9 @@ import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.squareup.moshi.Types
+import com.squareup.moshi.adapter
 
-@JsonClass(generateAdapter = true)
+//@kotlin.ExperimentalStdlibApi
 object MoshiInstance {
 
     private val moshi = Moshi.Builder()
