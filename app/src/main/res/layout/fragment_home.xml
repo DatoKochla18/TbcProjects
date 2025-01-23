@@ -26,7 +26,7 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/rounded_cyan_button"
         android:text="@string/log_out"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
