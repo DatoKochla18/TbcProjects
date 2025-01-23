@@ -40,13 +40,16 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     }
 
     override fun listeners() {
-        binding.btnLogin.setOnClickListener {
-            loginController()
+        binding.apply {
+            btnLogin.setOnClickListener {
+                loginController()
+            }
+            txtRegister.setOnClickListener {
+                findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
+            }
         }
 
-        binding.txtRegister.setOnClickListener {
-            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
-        }
+
     }
 
     private fun loginController() {

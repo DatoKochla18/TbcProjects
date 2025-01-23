@@ -1,7 +1,6 @@
 package com.example.tbcexercises.presentation.launcherScreen
 
 
-import android.util.Log
 import androidx.navigation.fragment.findNavController
 import com.example.tbcexercises.base.BaseFragment
 import com.example.tbcexercises.databinding.FragmentLauncherBinding
