@@ -1,4 +1,4 @@
-package com.example.tbcexercises
+package com.example.tbcexercises.base
 
 
 import android.os.Bundle
@@ -17,7 +17,6 @@ abstract class BaseFragment<VB : ViewBinding>(private val inflate: (LayoutInflat
     abstract fun listeners()
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,8 +28,10 @@ abstract class BaseFragment<VB : ViewBinding>(private val inflate: (LayoutInflat
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         start()
         listeners()
+
     }
 
 
