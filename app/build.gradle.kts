@@ -61,4 +61,6 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.datastore.core)
     implementation (libs.androidx.datastore)
+    implementation(libs.glide)
+
 }

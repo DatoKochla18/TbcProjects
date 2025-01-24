@@ -25,6 +25,7 @@ class LauncherFragment : BaseFragment<FragmentLauncherBinding>(FragmentLauncherB
         }
     }
 
+
     override fun listeners() {
     }
 

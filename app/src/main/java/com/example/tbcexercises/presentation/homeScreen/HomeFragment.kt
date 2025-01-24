@@ -1,42 +1,55 @@
 package com.example.tbcexercises.presentation.homeScreen
 
 
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
+import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tbcexercises.base.BaseFragment
 import com.example.tbcexercises.databinding.FragmentHomeBinding
+import com.example.tbcexercises.presentation.homeScreen.adapter.UserAdapter
 import com.example.tbcexercises.utils.exntension.collectLastState
-import com.example.tbcexercises.utils.exntension.dataStore
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
+import com.example.tbcexercises.utils.exntension.toast
 
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
+    private val viewModel: HomeViewModel by viewModels()
+
+    private val homeAdapter by lazy {
+        UserAdapter()
+    }
 
     override fun start() {
-        collectLastState(requireContext().dataStore.data.map { it.email }) { email ->
-            binding.txtEmail.text = email
-        }
+        binding.rvContainer.apply {
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
+            adapter = homeAdapter
+        }
+        collectLastState(viewModel.homeState) { homeState ->
+            showLoadingScreen(homeState.loading)
+            homeState.success?.let {
+                homeAdapter.submitList(it.data.toList())
+            }
+            homeState.error?.let { toast(it) }
+        }
     }
 
     override fun listeners() {
-        binding.btnLogOut.setOnClickListener {
-            viewLifecycleOwner.lifecycleScope.launch {
-                repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    setSession(false, "")
-                    findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToNavigation())
-                }
-            }
+        binding.imgMyProfile.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
         }
     }
 
-    private suspend fun setSession(rememberMe: Boolean, email: String) {
-        requireContext().dataStore.updateData {
-            it.copy(rememberMe = rememberMe, email = email)
+    private fun showLoadingScreen(isLoading: Boolean) {
+        val viewVisibility = if (!isLoading) View.VISIBLE else View.GONE
+
+        binding.apply {
+            progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+
+            imgMyProfile.visibility = viewVisibility
+            txtMyProfile.visibility = viewVisibility
+            rvContainer.visibility = viewVisibility
         }
     }
 

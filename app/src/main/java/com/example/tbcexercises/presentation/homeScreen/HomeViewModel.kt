@@ -1,32 +1,33 @@
-package com.example.tbcexercises.presentation.loginScreen
+package com.example.tbcexercises.presentation.homeScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tbcexercises.data.model.request.AuthRequest
-import com.example.tbcexercises.data.model.response.LoginResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class LoginViewModel : ViewModel() {
-    private val _loginResponse = MutableStateFlow(LoginState())
-    val loginResponse: StateFlow<LoginState> = _loginResponse
+class HomeViewModel : ViewModel() {
 
-    fun login(email: String, password: String) {
+    private val _homeState = MutableStateFlow(HomeState())
+    val homeState: StateFlow<HomeState> = _homeState
+
+    init {
+        fetchUser(1)
+    }
+
+    // this always be 1 but i want add paging
+    private fun fetchUser(page: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            _loginResponse.update { it.copy(loading = true, success = null, error = null) }
+            _homeState.update { it.copy(loading = true) }
             try {
-                val response = LoginService.login(
-                    authRequest = AuthRequest(
-                        email = email,
-                        password = password
-                    )
+                val response = HomeService.fetchUsers(
+                    page
                 )
                 if (response.isSuccessful) {
                     response.body()?.let {
-                        _loginResponse.update {
+                        _homeState.update {
                             it.copy(
                                 loading = false,
                                 success = response.body(),
@@ -35,20 +36,21 @@ class LoginViewModel : ViewModel() {
                         }
                     } ?: unexpectedError()
                 } else {
-                    _loginResponse.update {
+                    _homeState.update {
                         it.copy(
                             loading = false,
                             success = null,
-                            error = "Invalid Credentials"
+                            error = "Can Not Fetch Users"
                         )
                     }
                 }
             } catch (e: Exception) {
-                _loginResponse.update {
+                e.printStackTrace()
+                _homeState.update {
                     it.copy(
                         loading = false,
                         success = null,
-                        error = "Server Error plz try again"
+                        error = "Server Error"
                     )
                 }
             }
@@ -56,12 +58,7 @@ class LoginViewModel : ViewModel() {
     }
 
     private fun unexpectedError() {
-        _loginResponse.update {
-            it.copy(
-                loading = false,
-                success = null,
-                error = "Unexpected Error plz try again later"
-            )
-        }
+        _homeState.update { it.copy(loading = false, success = null, error = "Unexpected Error") }
     }
+
 }

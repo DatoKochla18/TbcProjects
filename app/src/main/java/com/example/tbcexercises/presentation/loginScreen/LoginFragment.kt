@@ -4,20 +4,14 @@ package com.example.tbcexercises.presentation.loginScreen
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.tbcexercises.R
 import com.example.tbcexercises.base.BaseFragment
 import com.example.tbcexercises.databinding.FragmentLoginBinding
-import com.example.tbcexercises.utils.Result
 import com.example.tbcexercises.utils.exntension.collectLastState
 import com.example.tbcexercises.utils.exntension.dataStore
 import com.example.tbcexercises.utils.exntension.isEmailValid
 import com.example.tbcexercises.utils.exntension.toast
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
@@ -73,23 +67,17 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         viewModel.login(email, password)
 
         collectLastState(viewModel.loginResponse) { result ->
-            when (result) {
-                is Result.Error -> {
-                    showLoadingScreen(false)
-                    toast(result.message)
-                }
+            showLoadingScreen(result.loading)
 
-                Result.Loading -> showLoadingScreen(true)
-                is Result.Success -> {
-                    setSession(binding.cbRememberMe.isChecked, email)
-                    navigateToHomeScreen()
-                }
-
-                else -> {}
+            result.success?.let {
+                setSession(binding.cbRememberMe.isChecked, email)
+                navigateToHomeScreen()
             }
 
+            result.error?.let {
+                toast(it)
+            }
         }
-
     }
 
 

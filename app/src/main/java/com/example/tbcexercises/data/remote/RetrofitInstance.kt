@@ -7,11 +7,12 @@ import retrofit2.converter.kotlinx.serialization.asConverterFactory
 
 object RetrofitInstance {
     private const val BASE_URL = "https://reqres.in/api/"
+    private val json = Json { ignoreUnknownKeys = true }
 
     val api: AuthApi by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
             .build()
             .create(AuthApi::class.java)
     }
