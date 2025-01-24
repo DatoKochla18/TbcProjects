@@ -13,6 +13,7 @@ import com.example.tbcexercises.R
 import com.example.tbcexercises.base.BaseFragment
 import com.example.tbcexercises.databinding.FragmentRegisterBinding
 import com.example.tbcexercises.utils.Result
+import com.example.tbcexercises.utils.exntension.collectLastState
 import com.example.tbcexercises.utils.exntension.isEmailValid
 import com.example.tbcexercises.utils.exntension.toast
 import kotlinx.coroutines.flow.collectLatest
@@ -35,7 +36,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         val password = binding.etPassword.text.toString()
         val passwordRepeat = binding.etPasswordRepeat.text.toString()
 
-        if (email.isEmailValid() && password.isNotEmpty() && passwordRepeat == password) {
+        if (email.isEmailValid() && password.isNotEmpty() && passwordRepeat == password && password.length >= 6) {
             register(email, password)
         } else {
             when {
@@ -52,27 +53,23 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
         viewModel.register(email, password)
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.registerResponse.collectLatest { result ->
-                    when (result) {
-                        is Result.Error -> {
-                            showLoadingScreen(false)
-                            toast(result.message)
-                        }
-
-                        Result.Loading -> showLoadingScreen(true)
-                        is Result.Success -> {
-                            val authData = bundleOf("email" to email, "password" to password)
-                            setFragmentResult("authData", authData)
-                            findNavController().popBackStack()
-                        }
-
-                        null -> {}
-                    }
-
+        collectLastState(viewModel.registerResponse) { result ->
+            when (result) {
+                is Result.Error -> {
+                    showLoadingScreen(false)
+                    toast(result.message)
                 }
+
+                Result.Loading -> showLoadingScreen(true)
+                is Result.Success -> {
+                    val authData = bundleOf("email" to email, "password" to password)
+                    setFragmentResult("authData", authData)
+                    findNavController().popBackStack()
+                }
+
+                null -> {}
             }
+
         }
     }
 

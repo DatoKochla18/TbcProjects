@@ -12,6 +12,7 @@ import com.example.tbcexercises.R
 import com.example.tbcexercises.base.BaseFragment
 import com.example.tbcexercises.databinding.FragmentLoginBinding
 import com.example.tbcexercises.utils.Result
+import com.example.tbcexercises.utils.exntension.collectLastState
 import com.example.tbcexercises.utils.exntension.dataStore
 import com.example.tbcexercises.utils.exntension.isEmailValid
 import com.example.tbcexercises.utils.exntension.toast
@@ -55,7 +56,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     private fun loginController() {
         val email = binding.etEmail.text.toString()
         val password = binding.etPassword.text.toString()
-        if (email.isEmailValid() && password.isNotEmpty()) {
+        if (email.isEmailValid() && password.isNotEmpty() && password.length >= 6) {
             login(email, password)
         } else {
             when {
@@ -71,27 +72,24 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
         viewModel.login(email, password)
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.loginResponse.collectLatest { result ->
-                    when (result) {
-                        is Result.Error -> {
-                            showLoadingScreen(false)
-                            toast(result.message)
-                        }
-
-                        Result.Loading -> showLoadingScreen(true)
-                        is Result.Success -> {
-                            setSession(binding.cbRememberMe.isChecked, email)
-                            navigateToHomeScreen()
-                        }
-
-                        else -> {}
-                    }
-
+        collectLastState(viewModel.loginResponse) { result ->
+            when (result) {
+                is Result.Error -> {
+                    showLoadingScreen(false)
+                    toast(result.message)
                 }
+
+                Result.Loading -> showLoadingScreen(true)
+                is Result.Success -> {
+                    setSession(binding.cbRememberMe.isChecked, email)
+                    navigateToHomeScreen()
+                }
+
+                else -> {}
             }
+
         }
+
     }
 
 
