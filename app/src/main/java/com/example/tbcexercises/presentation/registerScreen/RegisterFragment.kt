@@ -14,7 +14,6 @@ import com.example.tbcexercises.utils.exntension.isEmailValid
 import com.example.tbcexercises.utils.exntension.toast
 
 
-
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterBinding::inflate) {
     private val viewModel: RegisterViewModel by viewModels()
 
@@ -58,7 +57,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
             }
 
             result.error?.let {
-                toast(it)
+                toast(getString(it))
             }
         }
     }

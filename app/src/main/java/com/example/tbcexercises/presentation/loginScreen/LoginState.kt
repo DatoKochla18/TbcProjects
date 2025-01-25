@@ -5,5 +5,5 @@ import com.example.tbcexercises.data.model.response.LoginResponse
 data class LoginState(
     val loading: Boolean = false,
     val success: LoginResponse? = null,
-    val error: String? = null
+    val error: Int? = null
 )

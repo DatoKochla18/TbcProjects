@@ -15,4 +15,10 @@
     <string name="don_t_have_account_sign_up">Don\'t Have Account? <u>Sign up</u> </string>
     <string name="my_profile">My Profile</string>
     <string name="full_name">%1$s %2$s</string>
+    <string name="can_not_fetch_users">Can Not Fetch Users</string>
+    <string name="server_error">Server Error</string>
+    <string name="unexpected_error">Unexpected Error</string>
+    <string name="invalid_credentials">Invalid Credentials</string>
+    <string name="server_error_plz_try_again">Server Error plz try again</string>
+    <string name="unexpected_error_plz_try_again_later">Unexpected Error plz try again later</string>
 </resources>

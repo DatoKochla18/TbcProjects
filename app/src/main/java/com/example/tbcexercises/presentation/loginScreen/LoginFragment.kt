@@ -75,7 +75,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             }
 
             result.error?.let {
-                toast(it)
+                toast(getString(it))
             }
         }
     }

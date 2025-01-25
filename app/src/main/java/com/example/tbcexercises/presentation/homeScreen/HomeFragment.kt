@@ -31,7 +31,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             homeState.success?.let {
                 homeAdapter.submitList(it.data.toList())
             }
-            homeState.error?.let { toast(it) }
+            homeState.error?.let { toast(getString(it)) }
         }
     }
 

@@ -2,6 +2,7 @@ package com.example.tbcexercises.presentation.loginScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.tbcexercises.R
 import com.example.tbcexercises.data.model.request.AuthRequest
 import com.example.tbcexercises.data.model.response.LoginResponse
 import kotlinx.coroutines.Dispatchers
@@ -39,7 +40,7 @@ class LoginViewModel : ViewModel() {
                         it.copy(
                             loading = false,
                             success = null,
-                            error = "Invalid Credentials"
+                            error = R.string.invalid_credentials
                         )
                     }
                 }
@@ -48,7 +49,7 @@ class LoginViewModel : ViewModel() {
                     it.copy(
                         loading = false,
                         success = null,
-                        error = "Server Error plz try again"
+                        error = R.string.server_error_plz_try_again
                     )
                 }
             }
@@ -60,8 +61,9 @@ class LoginViewModel : ViewModel() {
             it.copy(
                 loading = false,
                 success = null,
-                error = "Unexpected Error plz try again later"
+                error = R.string.unexpected_error_plz_try_again_later
             )
+
         }
     }
 }

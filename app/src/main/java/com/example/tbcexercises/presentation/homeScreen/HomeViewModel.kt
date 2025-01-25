@@ -2,6 +2,7 @@ package com.example.tbcexercises.presentation.homeScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.tbcexercises.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -40,7 +41,7 @@ class HomeViewModel : ViewModel() {
                         it.copy(
                             loading = false,
                             success = null,
-                            error = "Can Not Fetch Users"
+                            error = R.string.can_not_fetch_users
                         )
                     }
                 }
@@ -50,7 +51,7 @@ class HomeViewModel : ViewModel() {
                     it.copy(
                         loading = false,
                         success = null,
-                        error = "Server Error"
+                        error = R.string.server_error
                     )
                 }
             }
@@ -58,7 +59,13 @@ class HomeViewModel : ViewModel() {
     }
 
     private fun unexpectedError() {
-        _homeState.update { it.copy(loading = false, success = null, error = "Unexpected Error") }
+        _homeState.update {
+            it.copy(
+                loading = false,
+                success = null,
+                error = R.string.unexpected_error
+            )
+        }
     }
 
 }
