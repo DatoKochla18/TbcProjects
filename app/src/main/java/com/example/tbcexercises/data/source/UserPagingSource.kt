@@ -1,19 +1,18 @@
 package com.example.tbcexercises.data.source
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.tbcexercises.data.model.User
 import com.example.tbcexercises.data.model.response.UserResponse
-import com.example.tbcexercises.data.network.RetrofitInstance
+import com.example.tbcexercises.data.network.AuthApi
 import kotlinx.coroutines.delay
 import retrofit2.Response
 
-class UserPagingSource : PagingSource<Int, User>() {
+class UserPagingSource(private val authApi: AuthApi) : PagingSource<Int, User>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, User> {
         return try {
             val page = params.key ?: 1
-            val response: Response<UserResponse> = RetrofitInstance.api.fetchUsers(page)
+            val response: Response<UserResponse> = authApi.fetchUsers(page)
 
             if (response.isSuccessful) {
                 val body = response.body()
