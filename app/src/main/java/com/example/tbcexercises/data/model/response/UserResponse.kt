@@ -1,16 +1,16 @@
 package com.example.tbcexercises.data.model.response
 
 import com.example.tbcexercises.data.model.User
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
-@Serializable
+@JsonClass(generateAdapter = true)
 data class UserResponse(
     val page: Int,
-    @SerialName("per_page")
+    @Json(name = "per_page")
     val perPage: Int,
     val total: Int,
-    @SerialName("total_pages")
+    @Json(name = "total_pages")
     val totalPages: Int,
-    val data : List<User>
+    val data: List<User>
 )
