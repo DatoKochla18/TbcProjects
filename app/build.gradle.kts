@@ -59,4 +59,8 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.converter.kotlinx.serialization)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.androidx.paging.runtime.ktx)
+    implementation(libs.glide)
+
+
 }
