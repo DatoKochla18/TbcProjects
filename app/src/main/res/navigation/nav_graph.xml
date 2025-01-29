@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/readFragment">
 
+    <fragment
+        android:id="@+id/readFragment"
+        android:name="com.example.tbcexercises.presentation.readScreen.ReadFragment"
+        android:label="fragment_read"
+        tools:layout="@layout/fragment_read" >
+        <action
+            android:id="@+id/action_readFragment_to_saveFragment"
+            app:destination="@id/saveFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/saveFragment"
+        android:name="com.example.tbcexercises.presentation.saveScreen.SaveFragment"
+        android:label="fragment_save"
+        tools:layout="@layout/fragment_save" />
 </navigation>

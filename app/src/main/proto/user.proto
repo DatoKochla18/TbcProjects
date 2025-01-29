@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option java_package = "com.example.tbcexercises";
+option java_multiple_files = true;
+
+
+message User {
+  string firstName = 1;
+  string Lastname = 2;
+  string email = 3;
+}
+
+message UserList {
+  repeated User users = 1;
+}

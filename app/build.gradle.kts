@@ -4,6 +4,7 @@ plugins {
     id("kotlin-parcelize")
     kotlin("plugin.serialization") version "1.9.0"
     alias(libs.plugins.safeargs)
+    id("com.google.protobuf") version "0.9.4"
 
 }
 
@@ -40,7 +41,27 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
 }
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.23.2"
+    }
+    generateProtoTasks {
+        all().configureEach {
+            plugins {
+                create("java") {
+                    option("lite")
+                }
+            }
+        }
+    }
+}
+
+
+
+
 
 dependencies {
 
@@ -59,4 +80,7 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.converter.kotlinx.serialization)
     implementation(libs.kotlinx.serialization.json)
+
+    implementation(libs.androidx.datastore)
+    implementation (libs.protobuf.javalite)
 }
