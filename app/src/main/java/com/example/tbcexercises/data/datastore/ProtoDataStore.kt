@@ -36,7 +36,6 @@ object ProtoDataStore {
                 .build()
         }
 
-        Log.d("ProtoDataStore", "User saved: ${user.email}")
     }
     fun readUser(email: String): Flow<User> {
         return App.CONTEXT?.userListDataStore?.data?.map { it.usersList.first { user -> user.email == email } }

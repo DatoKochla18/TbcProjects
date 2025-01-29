@@ -42,4 +42,8 @@ class ReadScreenViewModel : ViewModel() {
 
         }
     }
+
+    fun resetError() {
+        _readUserState.update { it.copy(error = null) }
+    }
 }

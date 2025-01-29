@@ -28,22 +28,27 @@ class SaveFragment : BaseFragment<FragmentSaveBinding>(FragmentSaveBinding::infl
 
     override fun listeners() {
         binding.btnSaveUser.setOnClickListener {
-            val firstName = binding.etFirstName.text.toString()
-            val lastName = binding.etLastName.text.toString()
-            val email = binding.etEmail.text.toString()
-
-            viewModel.saveUser(firstName = firstName, lastName = lastName, email = email)
+            saveUser()
         }
     }
 
+    private fun saveUser() {
+        val firstName = binding.etFirstName.text.toString()
+        val lastName = binding.etLastName.text.toString()
+        val email = binding.etEmail.text.toString()
+
+        viewModel.saveUser(firstName = firstName, lastName = lastName, email = email)
+    }
+
     private fun showLoadingScreen(loading: Boolean) {
-        binding.btnSaveUser.isVisible = !loading
-        binding.etEmail.isVisible = !loading
-        binding.etFirstName.isVisible = !loading
-        binding.etLastName.isVisible = !loading
+        binding.apply {
+            btnSaveUser.isVisible = !loading
+            etEmail.isVisible = !loading
+            etFirstName.isVisible = !loading
+            etLastName.isVisible = !loading
 
-        binding.progressBar.isVisible = loading
-
+            progressBar.isVisible = loading
+        }
     }
 
     private fun onSuccess() {

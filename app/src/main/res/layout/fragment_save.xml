@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     android:padding="20dp"
     tools:context=".presentation.saveScreen.SaveFragment">
@@ -13,7 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
+        android:background="@drawable/edit_text_rounded"
         android:hint="@string/enter_first_name"
+        android:padding="18dp"
         android:textColor="@color/black"
         android:textColorHint="@android:color/darker_gray"
         android:textSize="18sp" />
@@ -23,7 +26,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
+        android:background="@drawable/edit_text_rounded"
         android:hint="@string/enter_last_name"
+        android:padding="18dp"
         android:textColor="@color/black"
         android:textColorHint="@android:color/darker_gray"
         android:textSize="18sp" />
@@ -33,7 +38,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
+        android:background="@drawable/edit_text_rounded"
         android:hint="@string/enter_email"
+        android:padding="18dp"
         android:textColor="@color/black"
         android:textColorHint="@android:color/darker_gray"
         android:textSize="18sp" />
@@ -42,6 +49,7 @@
         android:id="@+id/btnSaveUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_rounded"
         android:text="@string/save_user"
         android:textColor="@color/black" />
 

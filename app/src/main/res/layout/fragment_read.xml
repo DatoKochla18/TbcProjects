@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     android:padding="20dp"
     tools:context=".presentation.readScreen.ReadFragment">
 
@@ -13,10 +13,12 @@
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/enter_email"
-        android:textColorHint="@android:color/darker_gray"
         android:layout_marginBottom="20dp"
+        android:background="@drawable/edit_text_rounded"
+        android:hint="@string/enter_email"
+        android:padding="18dp"
         android:textColor="@color/black"
+        android:textColorHint="@android:color/darker_gray"
         android:textSize="18sp" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -33,6 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
+        android:background="@drawable/button_rounded"
         android:padding="20dp"
         android:text="@string/search_user"
         android:textColor="@color/black" />
@@ -43,6 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
+        android:background="@drawable/button_rounded"
         android:padding="20dp"
         android:text="@string/add_user"
         android:textColor="@color/black" />

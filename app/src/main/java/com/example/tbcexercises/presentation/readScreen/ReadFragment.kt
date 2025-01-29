@@ -14,7 +14,7 @@ class ReadFragment : BaseFragment<FragmentReadBinding>(FragmentReadBinding::infl
 
     override fun start() {
         collectLastState(viewModel.readUserState) {
-
+            viewModel.resetError()
             it.isSuccessful.let { user ->
                 binding.txtResult.text = user?.toString() ?: ""
             }
@@ -26,15 +26,17 @@ class ReadFragment : BaseFragment<FragmentReadBinding>(FragmentReadBinding::infl
     }
 
     override fun listeners() {
-        binding.btnSearchUser.setOnClickListener {
-            val email = binding.etEmail.text.toString()
 
-            viewModel.readUser(email)
-        }
+        binding.apply {
+            btnSearchUser.setOnClickListener {
+                val email = binding.etEmail.text.toString()
 
+                viewModel.readUser(email)
+            }
 
-        binding.btnAddUser.setOnClickListener {
-            findNavController().navigate(ReadFragmentDirections.actionReadFragmentToSaveFragment())
+            btnAddUser.setOnClickListener {
+                findNavController().navigate(ReadFragmentDirections.actionReadFragmentToSaveFragment())
+            }
         }
     }
 }
