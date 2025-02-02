@@ -4,6 +4,7 @@ plugins {
     id("kotlin-parcelize")
     kotlin("plugin.serialization") version "1.9.0"
     alias(libs.plugins.safeargs)
+    id("com.google.devtools.ksp")
 
 }
 
@@ -55,8 +56,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation(libs.retrofit)
-    implementation(libs.okhttp)
-    implementation(libs.converter.kotlinx.serialization)
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+
     implementation(libs.kotlinx.serialization.json)
 }
