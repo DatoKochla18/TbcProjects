@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">TbcExercises</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="you_are_offline">you are offline</string>
     <string name="you_are_online">you are online</string>
     <string name="error">error</string>
+    <string name="full_name"> %1$s %2$s</string>
 </resources>

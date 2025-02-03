@@ -1,4 +1,4 @@
-package com.example.tbcexercises.data.model.remote
+package com.example.tbcexercises.data.remote
 
 enum class ActivationStatus(val text: String) {
     NOT_ACTIVATED("User is not Active"),

@@ -1,7 +1,6 @@
-package com.example.tbcexercises.data.model.remote
+package com.example.tbcexercises.data.remote
 
 
-import com.example.tbcexercises.data.model.local.User
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -24,15 +23,4 @@ data class UserResponse(
         activationStatus in 3f..22f -> ActivationStatus.USER_LEFT_HOURS_AGO
         else -> ActivationStatus.USER_NOT_ACTIVE
     }
-}
-
-fun UserResponse.convertUserResponseToUserEntity(): User {
-    return User(
-        id = this.id,
-        about = this.about,
-        activationStatus = this.activationEnum,
-        avatar = this.avatar,
-        firstName = this.firstName,
-        lastName = this.lastName
-    )
 }

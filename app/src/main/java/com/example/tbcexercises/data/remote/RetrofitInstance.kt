@@ -1,4 +1,4 @@
-package com.example.tbcexercises.data.model.remote
+package com.example.tbcexercises.data.remote
 
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType

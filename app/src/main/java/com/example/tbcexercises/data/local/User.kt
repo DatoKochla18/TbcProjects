@@ -1,8 +1,8 @@
-package com.example.tbcexercises.data.model.local
+package com.example.tbcexercises.data.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.tbcexercises.data.model.remote.ActivationStatus
+import com.example.tbcexercises.data.remote.ActivationStatus
 
 @Entity
 data class User(

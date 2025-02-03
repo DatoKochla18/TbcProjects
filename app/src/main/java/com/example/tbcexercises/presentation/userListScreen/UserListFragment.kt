@@ -11,9 +11,11 @@ import com.example.tbcexercises.R
 import com.example.tbcexercises.base.BaseFragment
 import com.example.tbcexercises.databinding.FragmentUserListBinding
 import com.example.tbcexercises.presentation.userListScreen.adapter.UserListAdapter
+import com.example.tbcexercises.presentation.userListScreen.viewmodel.UserListVIewModelFactory
+import com.example.tbcexercises.presentation.userListScreen.viewmodel.UserListViewModel
 import com.example.tbcexercises.util.Resource
-import com.example.tbcexercises.util.collectLastState
-import com.example.tbcexercises.util.toast
+import com.example.tbcexercises.util.extension.collectLastState
+import com.example.tbcexercises.util.extension.toast
 
 
 class UserListFragment : BaseFragment<FragmentUserListBinding>(FragmentUserListBinding::inflate) {
@@ -24,12 +26,10 @@ class UserListFragment : BaseFragment<FragmentUserListBinding>(FragmentUserListB
         UserListAdapter()
     }
 
+    //chemma mterma ar gavasworinebdi amas
     override fun start() {
+        setUpAdapter()
         viewModel.getUserRemote(checkForInternet(requireContext()))
-
-        binding.rvUserList.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.rvUserList.adapter = userListAdapter
 
         collectLastState(viewModel.users) {
             userListAdapter.submitList(it)
@@ -60,6 +60,15 @@ class UserListFragment : BaseFragment<FragmentUserListBinding>(FragmentUserListB
         }
     }
 
+    private fun setUpAdapter() {
+        binding.rvUserList.apply {
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            adapter = userListAdapter
+        }
+
+    }
+
     override fun listeners() {
     }
 
@@ -83,8 +92,9 @@ class UserListFragment : BaseFragment<FragmentUserListBinding>(FragmentUserListB
     }
 
     private fun showLoadingScreen(loading: Boolean) {
-        binding.rvUserList.isVisible = !loading
-        binding.progressBar.isVisible = loading
+        binding.apply {
+            rvUserList.isVisible = !loading
+            progressBar.isVisible = loading
+        }
     }
-
 }

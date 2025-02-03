@@ -1,9 +1,9 @@
 package com.example.tbcexercises.data.repository
 
-import com.example.tbcexercises.data.model.local.User
-import com.example.tbcexercises.data.model.local.UserDao
-import com.example.tbcexercises.data.model.remote.UserApi
-import com.example.tbcexercises.data.model.remote.UserListResponse
+import com.example.tbcexercises.data.local.User
+import com.example.tbcexercises.data.local.UserDao
+import com.example.tbcexercises.data.remote.UserApi
+import com.example.tbcexercises.data.remote.UserListResponse
 import com.example.tbcexercises.util.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -20,10 +20,10 @@ class UserRepository(private val userDao: UserDao, private val userApi: UserApi)
         } catch (e: Exception) {
             emit(Resource.Error(e.message.toString()))
         }
-    }.flowOn(Dispatchers.IO)
+    }.flowOn(Dispatchers.IO) // to not block main thread nad it is recommended
 
 
-    val users = userDao.getUsers()
+    val users = userDao.getUsers() // to get users locally
 
     suspend fun addUsersToDatabase(users: List<User>) {
         userDao.insert(users)

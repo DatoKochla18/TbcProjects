@@ -1,4 +1,4 @@
-package com.example.tbcexercises.data.model.local
+package com.example.tbcexercises.data.local
 
 import android.content.Context
 import androidx.room.Database
@@ -6,12 +6,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
-@Database(entities = arrayOf(User::class), version = 1, exportSchema = false)
+@Database(entities = [User::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
-public abstract class AppDatabase : RoomDatabase() {
+abstract class AppDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
 
+    //Copied from documentation
     companion object {
         // Singleton prevents multiple instances of database opening at the
         // same time.

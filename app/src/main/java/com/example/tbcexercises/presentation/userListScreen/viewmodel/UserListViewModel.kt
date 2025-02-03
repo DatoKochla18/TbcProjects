@@ -1,11 +1,11 @@
-package com.example.tbcexercises.presentation.userListScreen
+package com.example.tbcexercises.presentation.userListScreen.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tbcexercises.data.model.remote.UserListResponse
-import com.example.tbcexercises.data.model.remote.convertUserResponseToUserEntity
+import com.example.tbcexercises.data.remote.UserListResponse
 import com.example.tbcexercises.data.repository.UserRepository
 import com.example.tbcexercises.util.Resource
+import com.example.tbcexercises.util.extension.convertUserResponseToUserEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -28,7 +28,6 @@ class UserListViewModel(private val userRepository: UserRepository) : ViewModel(
             viewModelScope.launch(Dispatchers.IO) {
                 userRepository.getUsersRemote().collect {
                     _userRemote.value = it
-
                     if (it is Resource.Success) {
                         userRepository.addUsersToDatabase(
                             it.data.users.map { userResponse -> userResponse.convertUserResponseToUserEntity() }

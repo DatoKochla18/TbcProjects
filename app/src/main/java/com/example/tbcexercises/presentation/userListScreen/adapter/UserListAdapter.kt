@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.tbcexercises.R
-import com.example.tbcexercises.data.model.local.User
+import com.example.tbcexercises.data.local.User
 import com.example.tbcexercises.databinding.ItemUserBinding
 
 class UserListAdapter : ListAdapter<User, UserListAdapter.UserViewHolder>(UserDiffUtil) {
@@ -33,7 +33,11 @@ class UserListAdapter : ListAdapter<User, UserListAdapter.UserViewHolder>(UserDi
                 .into(binding.imgUserPhoto)
 
             binding.apply {
-                txtFullName.text = user.firstName + " " + user.lastName
+                txtFullName.text = root.context.resources.getString(
+                    R.string.full_name,
+                    user.firstName,
+                    user.lastName
+                )
                 txtActivationStatus.text = user.activationStatus.text
             }
         }

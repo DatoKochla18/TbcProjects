@@ -1,4 +1,4 @@
-package com.example.tbcexercises.presentation.userListScreen
+package com.example.tbcexercises.presentation.userListScreen.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

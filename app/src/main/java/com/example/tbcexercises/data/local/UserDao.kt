@@ -1,4 +1,4 @@
-package com.example.tbcexercises.data.model.local
+package com.example.tbcexercises.data.local
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -10,9 +10,6 @@ import kotlinx.coroutines.flow.Flow
 interface UserDao {
     @Query("select * from user")
     fun getUsers(): Flow<List<User>>
-
-//    @Upsert
-//    suspend fun upsert(user: User)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(users: List<User>)

@@ -1,7 +1,7 @@
-package com.example.tbcexercises.data.model.local
+package com.example.tbcexercises.data.local
 
 import androidx.room.TypeConverter
-import com.example.tbcexercises.data.model.remote.ActivationStatus
+import com.example.tbcexercises.data.remote.ActivationStatus
 
 class Converters {
     @TypeConverter
