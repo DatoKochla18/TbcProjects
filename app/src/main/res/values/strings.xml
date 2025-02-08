@@ -21,4 +21,6 @@
     <string name="invalid_credentials">Invalid Credentials</string>
     <string name="server_error_plz_try_again">Server Error plz try again</string>
     <string name="unexpected_error_plz_try_again_later">Unexpected Error plz try again later</string>
+    <string name="retry">retry</string>
+    <string name="timeout">timeout</string>
 </resources>

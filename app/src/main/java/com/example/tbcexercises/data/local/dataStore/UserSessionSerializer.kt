@@ -1,4 +1,4 @@
-package com.example.tbcexercises.data.dataStore
+package com.example.tbcexercises.data.local.dataStore
 
 import androidx.datastore.core.Serializer
 import kotlinx.serialization.SerializationException

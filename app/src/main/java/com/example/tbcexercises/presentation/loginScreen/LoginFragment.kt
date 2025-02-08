@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.tbcexercises.App
 import com.example.tbcexercises.R
-import com.example.tbcexercises.base.BaseFragment
+import com.example.tbcexercises.common.Resource
+import com.example.tbcexercises.presentation.base.BaseFragment
 import com.example.tbcexercises.databinding.FragmentLoginBinding
 import com.example.tbcexercises.utils.exntension.collectLastState
 import com.example.tbcexercises.utils.exntension.dataStore
@@ -15,7 +17,9 @@ import com.example.tbcexercises.utils.exntension.toast
 
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
-    private val viewModel: LoginViewModel by viewModels()
+    private val viewModel: LoginViewModel by viewModels {
+        LoginViewModelFactory((requireActivity().application as App).authRepository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -63,19 +67,19 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     }
 
     private fun login(email: String, password: String) {
-
         viewModel.login(email, password)
-
         collectLastState(viewModel.loginResponse) { result ->
-            showLoadingScreen(result.loading)
+            when (result) {
+                is Resource.Loading -> {
+                    showLoadingScreen(true)
+                }
 
-            result.success?.let {
-                setSession(binding.cbRememberMe.isChecked, email)
-                navigateToHomeScreen()
-            }
-
-            result.error?.let {
-                toast(getString(it))
+                is Resource.Error -> toast(result.message)
+                is Resource.Success -> {
+                    showLoadingScreen(false)
+                    setSession(binding.cbRememberMe.isChecked, email)
+                    navigateToHomeScreen()
+                }
             }
         }
     }

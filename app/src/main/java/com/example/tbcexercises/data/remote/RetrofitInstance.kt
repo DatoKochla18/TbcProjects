@@ -1,5 +1,7 @@
 package com.example.tbcexercises.data.remote
 
+import com.example.tbcexercises.data.remote.apis.AuthApi
+import com.example.tbcexercises.data.remote.apis.UserApi
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Retrofit
@@ -9,11 +11,17 @@ object RetrofitInstance {
     private const val BASE_URL = "https://reqres.in/api/"
     private val json = Json { ignoreUnknownKeys = true }
 
-    val api: AuthApi by lazy {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
-            .build()
+
+    private val retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
+        .build()
+
+    val authApi: AuthApi by lazy {
+        retrofit
             .create(AuthApi::class.java)
+    }
+    val userApi: UserApi by lazy {
+        retrofit.create(UserApi::class.java)
     }
 }

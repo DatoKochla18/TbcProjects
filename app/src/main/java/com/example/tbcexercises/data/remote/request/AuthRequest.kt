@@ -1,4 +1,4 @@
-package com.example.tbcexercises.data.model.request
+package com.example.tbcexercises.data.remote.request
 
 import kotlinx.serialization.Serializable
 

@@ -6,16 +6,22 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.tbcexercises.App
 import com.example.tbcexercises.R
-import com.example.tbcexercises.base.BaseFragment
+import com.example.tbcexercises.common.Resource
+import com.example.tbcexercises.presentation.base.BaseFragment
 import com.example.tbcexercises.databinding.FragmentRegisterBinding
+import com.example.tbcexercises.presentation.loginScreen.LoginViewModel
+import com.example.tbcexercises.presentation.loginScreen.LoginViewModelFactory
 import com.example.tbcexercises.utils.exntension.collectLastState
 import com.example.tbcexercises.utils.exntension.isEmailValid
 import com.example.tbcexercises.utils.exntension.toast
 
 
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterBinding::inflate) {
-    private val viewModel: RegisterViewModel by viewModels()
+    private val viewModel: RegisterViewModel by viewModels {
+        RegisterViewModelFactory((requireActivity().application as App).authRepository)
+    }
 
     override fun start() {}
 
@@ -48,16 +54,18 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         viewModel.register(email, password)
 
         collectLastState(viewModel.registerResponse) { result ->
-            showLoadingScreen(result.loading)
+            when (result) {
+                is Resource.Loading -> {
+                    showLoadingScreen(true)
+                }
 
-            result.success?.let {
-                val authData = bundleOf("email" to email, "password" to password)
-                setFragmentResult("authData", authData)
-                findNavController().popBackStack()
-            }
-
-            result.error?.let {
-                toast(getString(it))
+                is Resource.Error -> toast(result.message)
+                is Resource.Success -> {
+                    showLoadingScreen(false)
+                    val authData = bundleOf("email" to email, "password" to password)
+                    setFragmentResult("authData", authData)
+                    findNavController().popBackStack()
+                }
             }
         }
     }

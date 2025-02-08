@@ -1,10 +1,10 @@
-package com.example.tbcexercises.data.model
+package com.example.tbcexercises.data.remote.response
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class User(
+data class UserResponse(
     val id: Int,
     val email: String,
     @SerialName("first_name")

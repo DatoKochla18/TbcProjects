@@ -3,66 +3,28 @@ package com.example.tbcexercises.presentation.registerScreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbcexercises.R
-import com.example.tbcexercises.data.model.request.AuthRequest
+import com.example.tbcexercises.common.Resource
+import com.example.tbcexercises.data.remote.request.AuthRequest
+import com.example.tbcexercises.data.remote.response.LoginResponse
+import com.example.tbcexercises.data.remote.response.RegisterResponse
+import com.example.tbcexercises.domain.repository.AuthRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class RegisterViewModel : ViewModel() {
-    private val _registerResponse = MutableStateFlow(RegisterState())
-    val registerResponse: StateFlow<RegisterState> = _registerResponse
+class RegisterViewModel(private val authRepository: AuthRepository) : ViewModel() {
+    private val _registerResponse = MutableStateFlow<Resource<RegisterResponse>>(Resource.Loading)
+    val registerResponse: StateFlow<Resource<RegisterResponse>> = _registerResponse
 
 
     fun register(email: String, password: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            _registerResponse.update { it.copy(loading = true, success = null, error = null) }
-            try {
-                val response = RegisterService.register(
-                    authRequest = AuthRequest(
-                        email = email,
-                        password = password
-                    )
-                )
-                if (response.isSuccessful) {
-                    response.body()?.let {
-                        _registerResponse.update {
-                            it.copy(
-                                loading = false,
-                                success = response.body(),
-                                error = null
-                            )
-                        }
-                    } ?: unexpectedError()
-                } else {
-                    _registerResponse.update {
-                        it.copy(
-                            loading = false,
-                            success = null,
-                            error = R.string.invalid_credentials
-                        )
-                    }
-                }
-            } catch (e: Exception) {
-                _registerResponse.update {
-                    it.copy(
-                        loading = false,
-                        success = null,
-                        error = R.string.server_error_plz_try_again
-                    )
-                }
+            authRepository.register(email, password).collectLatest { state ->
+                _registerResponse.value = state
             }
-        }
-    }
-
-    private fun unexpectedError() {
-        _registerResponse.update {
-            it.copy(
-                loading = false,
-                success = null,
-                error = R.string.unexpected_error
-            )
         }
     }
 }
