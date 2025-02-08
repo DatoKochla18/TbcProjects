@@ -1,0 +1,29 @@
+package com.example.tbcexercises.data.repository
+
+import com.example.tbcexercises.common.Resource
+import com.example.tbcexercises.common.handleNetworkRequest
+import com.example.tbcexercises.data.remote.ProductDto
+import com.example.tbcexercises.data.remote.ProductApi
+import com.example.tbcexercises.data.remote.toProduct
+import com.example.tbcexercises.domain.model.Product
+import com.example.tbcexercises.domain.repository.ProductRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+
+class ProductRepositoryImpl(private val productApi: ProductApi) : ProductRepository {
+    override fun getProducts(limit: Int): Flow<Resource<List<Product>>> {
+        return handleNetworkRequest { productApi.getProducts(limit) }
+            .map { resource ->
+                when (resource) {
+                    is Resource.Success -> Resource.Success(resource.data.map { it.toProduct() })
+                    is Resource.Error -> Resource.Error(resource.message)
+                    is Resource.Loading -> Resource.Loading
+                }
+            }
+    }
+
+
+    override suspend fun getProduct(id: Int): ProductDto {
+        return productApi.getProduct(id)
+    }
+}
