@@ -4,11 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tbcexercises.data.imageLoader.GlideImageLoader
 import com.example.tbcexercises.databinding.ItemProductBinding
 import com.example.tbcexercises.domain.imageLoader.ImageLoader
 import com.example.tbcexercises.domain.model.Product
 
-class ProductListAdapter(val onClick: (Product) -> Unit, val imageLoader: ImageLoader) :
+class ProductListAdapter(val onClick: (Product) -> Unit, val imageLoader: GlideImageLoader) :
     ListAdapter<Product, ProductListAdapter.ProductListViewHolder>(ProductDiffUtil) {
 
 
