@@ -9,5 +9,5 @@ interface ProductRepository {
 
     fun getProducts(limit: Int): Flow<Resource<List<Product>>>
 
-    suspend fun getProduct(id: Int): ProductDto
+    suspend fun getProduct(id: Int): Flow<Resource<Product>>
 }

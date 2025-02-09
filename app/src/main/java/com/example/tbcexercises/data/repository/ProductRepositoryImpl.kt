@@ -23,7 +23,14 @@ class ProductRepositoryImpl(private val productApi: ProductApi) : ProductReposit
     }
 
 
-    override suspend fun getProduct(id: Int): ProductDto {
-        return productApi.getProduct(id)
+    override suspend fun getProduct(id: Int): Flow<Resource<Product>> {
+        return handleNetworkRequest { productApi.getProduct(id) }
+            .map { resource ->
+                when (resource) {
+                    is Resource.Success -> Resource.Success(resource.data.toProduct())
+                    is Resource.Error -> Resource.Error(resource.message)
+                    is Resource.Loading -> Resource.Loading
+                }
+            }
     }
 }

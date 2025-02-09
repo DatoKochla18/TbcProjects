@@ -2,12 +2,14 @@ package com.example.tbcexercises.data.remote
 
 import com.example.tbcexercises.domain.model.Product
 import kotlinx.serialization.Serializable
+import kotlin.concurrent.thread
 
 @Serializable
 data class ProductDto(
     val id: Int,
     val title: String,
     val price: Double,
+    val description :String,
     val category: String,
     val image: String,
     val rating: Rating
@@ -23,6 +25,7 @@ fun ProductDto.toProduct(): Product {
         price = this.price,
         category = this.category,
         image = this.image,
-        rating = this.rating
+        rating = this.rating,
+        description =  this.description
     )
 }

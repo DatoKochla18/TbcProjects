@@ -9,10 +9,18 @@
         android:id="@+id/movieListFragment"
         android:name="com.example.tbcexercises.presentation.productListScreen.ProductListFragment"
         android:label="fragment_movie_list"
-        tools:layout="@layout/fragment_product_list" />
+        tools:layout="@layout/fragment_product_list" >
+        <action
+            android:id="@+id/action_movieListFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/movieDetailFragment"
         android:name="com.example.tbcexercises.presentation.productDetailScreen.ProductDetailFragment"
         android:label="fragment_movie_detail"
-        tools:layout="@layout/fragment_product_detail" />
+        tools:layout="@layout/fragment_product_detail" >
+        <argument
+            android:name="productId"
+            app:argType="integer" />
+    </fragment>
 </navigation>

@@ -9,7 +9,7 @@ import com.example.tbcexercises.databinding.ItemProductBinding
 import com.example.tbcexercises.domain.imageLoader.ImageLoader
 import com.example.tbcexercises.domain.model.Product
 
-class ProductListAdapter(val onClick: (Product) -> Unit, val imageLoader: GlideImageLoader) :
+class ProductListAdapter(val onClick: (Int) -> Unit, val imageLoader: GlideImageLoader) :
     ListAdapter<Product, ProductListAdapter.ProductListViewHolder>(ProductDiffUtil) {
 
 
@@ -36,6 +36,10 @@ class ProductListAdapter(val onClick: (Product) -> Unit, val imageLoader: GlideI
                 rbProductRating.rating = product.rating.rate.toFloat()
 
                 imageLoader.loadImage(product.image, imgProductImage)
+
+                root.setOnClickListener {
+                    onClick(product.id)
+                }
             }
 
         }

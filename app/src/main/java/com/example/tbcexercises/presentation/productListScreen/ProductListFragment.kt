@@ -3,6 +3,7 @@ package com.example.tbcexercises.presentation.productListScreen
 
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tbcexercises.App
 import com.example.tbcexercises.common.Resource
@@ -21,7 +22,13 @@ class ProductListFragment :
         ProductListViewModelFactory((requireActivity().application as App).repository)
     }
     private val productListAdapter: ProductListAdapter by lazy {
-        ProductListAdapter(onClick = {}, imageLoader = CoilImageLoader)
+        ProductListAdapter(onClick = {
+            findNavController().navigate(
+                ProductListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(
+                    it
+                )
+            )
+        }, imageLoader = GlideImageLoader())
     }
 
     override fun start() {
