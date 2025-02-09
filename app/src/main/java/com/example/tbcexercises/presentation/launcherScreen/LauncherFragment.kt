@@ -2,9 +2,9 @@ package com.example.tbcexercises.presentation.launcherScreen
 
 
 import androidx.navigation.fragment.findNavController
+import com.example.tbcexercises.data.local.dataStore.dataStore
 import com.example.tbcexercises.presentation.base.BaseFragment
 import com.example.tbcexercises.databinding.FragmentLauncherBinding
-import com.example.tbcexercises.utils.exntension.dataStore
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking

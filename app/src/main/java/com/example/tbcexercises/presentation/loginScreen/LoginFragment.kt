@@ -8,10 +8,10 @@ import androidx.navigation.fragment.findNavController
 import com.example.tbcexercises.App
 import com.example.tbcexercises.R
 import com.example.tbcexercises.common.Resource
+import com.example.tbcexercises.data.local.dataStore.UserManager.setSession
 import com.example.tbcexercises.presentation.base.BaseFragment
 import com.example.tbcexercises.databinding.FragmentLoginBinding
 import com.example.tbcexercises.utils.exntension.collectLastState
-import com.example.tbcexercises.utils.exntension.dataStore
 import com.example.tbcexercises.utils.exntension.isEmailValid
 import com.example.tbcexercises.utils.exntension.toast
 
@@ -83,11 +83,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     }
 
 
-    private suspend fun setSession(rememberMe: Boolean, email: String) {
-        requireContext().dataStore.updateData {
-            it.copy(rememberMe = rememberMe, email = email)
-        }
-    }
 
     private fun navigateToHomeScreen() {
         findNavController().navigate(LoginFragmentDirections.actionGlobalHomeFragment())

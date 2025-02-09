@@ -11,8 +11,6 @@ import com.example.tbcexercises.R
 import com.example.tbcexercises.common.Resource
 import com.example.tbcexercises.presentation.base.BaseFragment
 import com.example.tbcexercises.databinding.FragmentRegisterBinding
-import com.example.tbcexercises.presentation.loginScreen.LoginViewModel
-import com.example.tbcexercises.presentation.loginScreen.LoginViewModelFactory
 import com.example.tbcexercises.utils.exntension.collectLastState
 import com.example.tbcexercises.utils.exntension.isEmailValid
 import com.example.tbcexercises.utils.exntension.toast
