@@ -17,13 +17,13 @@ import com.example.tbcexercises.presentation.base.BaseFragment
 
 class ProductDetailFragment :
     BaseFragment<FragmentProductDetailBinding>(FragmentProductDetailBinding::inflate) {
-    val args: ProductDetailFragmentArgs by navArgs()
+    private val args: ProductDetailFragmentArgs by navArgs()
 
     private val viewModel: ProductDetailViewModel by viewModels {
         ProductDetailViewModelFactory((requireActivity().application as App).repository)
     }
 
-    val imageLoader = CoilImageLoader
+    private val imageLoader = GlideImageLoader()
 
     override fun start() {
         viewModel.fetchProduct(args.productId)

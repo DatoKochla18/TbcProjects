@@ -6,7 +6,7 @@ import coil.size.Scale
 import com.example.tbcexercises.R
 import com.example.tbcexercises.domain.imageLoader.ImageLoader
 
-object CoilImageLoader : GlideImageLoader() {
+class CoilImageLoader : GlideImageLoader() {
     override fun loadImage(url: String, imageView: ImageView) {
         imageView.load(url) {
             placeholder(R.drawable.downloading)
