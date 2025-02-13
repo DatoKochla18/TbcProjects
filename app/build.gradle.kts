@@ -5,6 +5,9 @@ plugins {
     kotlin("plugin.serialization") version "1.9.0"
     alias(libs.plugins.safeargs)
     id("com.google.devtools.ksp")
+
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -72,5 +75,10 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.paging)
 
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 
+}
+kapt {
+    correctErrorTypes =  true
 }

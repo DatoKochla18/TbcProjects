@@ -9,8 +9,9 @@ import com.example.tbcexercises.data.local.room.entity.UserEntity
 import com.example.tbcexercises.data.remote.apis.UserApi
 import com.example.tbcexercises.domain.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class UserRepositoryImpl(
+class UserRepositoryImpl @Inject constructor(
     private val database: AppDatabase,
     private val userApi: UserApi
 ) : UserRepository {

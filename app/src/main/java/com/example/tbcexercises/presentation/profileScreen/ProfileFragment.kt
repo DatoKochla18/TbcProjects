@@ -8,13 +8,20 @@ import com.example.tbcexercises.data.local.dataStore.UserManager
 import com.example.tbcexercises.presentation.base.BaseFragment
 import com.example.tbcexercises.databinding.FragmentProfileBinding
 import com.example.tbcexercises.utils.exntension.collectLastState
+import dagger.hilt.EntryPoint
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
 
+    @Inject
+    lateinit var userManager: UserManager
+
+
     override fun start() {
-        collectLastState(UserManager.emailFlow) { email ->
+        collectLastState(userManager.emailFlow) { email ->
             binding.txtEmail.text = email
         }
 
@@ -24,7 +31,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         binding.btnLogOut.setOnClickListener {
             viewLifecycleOwner.lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    UserManager.setSession(false, "")
+                    userManager.setSession(false, "")
                     findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToNavigation())
                 }
             }

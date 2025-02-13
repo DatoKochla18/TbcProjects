@@ -7,19 +7,17 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.tbcexercises.App
 import com.example.tbcexercises.presentation.base.BaseFragment
 import com.example.tbcexercises.databinding.FragmentHomeBinding
 import com.example.tbcexercises.presentation.homeScreen.adapter.UserListAdapter
 import com.example.tbcexercises.presentation.homeScreen.userLoadState.UserLoadStateAdapter
 import com.example.tbcexercises.utils.exntension.collectLastState
 import com.example.tbcexercises.utils.exntension.toast
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
-    private val viewModel: HomeViewModel by viewModels {
-        HomeViewModelFactory((requireActivity().application as App).userRepository)
-    }
+    private val viewModel: HomeViewModel by viewModels()
     private val userListAdapter by lazy {
         UserListAdapter()
     }

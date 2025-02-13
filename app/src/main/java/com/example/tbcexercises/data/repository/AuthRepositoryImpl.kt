@@ -8,8 +8,9 @@ import com.example.tbcexercises.data.remote.response.LoginResponse
 import com.example.tbcexercises.data.remote.response.RegisterResponse
 import com.example.tbcexercises.domain.repository.AuthRepository
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class AuthRepositoryImpl(private val authApi: AuthApi) : AuthRepository {
+class AuthRepositoryImpl @Inject constructor(private val authApi: AuthApi) : AuthRepository {
     override  fun login(email: String, password: String): Flow<Resource<LoginResponse>> {
         return  handleNetworkRequest { authApi.login(AuthRequest(email = email,password = password)) }
     }

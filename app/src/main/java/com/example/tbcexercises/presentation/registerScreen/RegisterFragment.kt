@@ -14,13 +14,12 @@ import com.example.tbcexercises.databinding.FragmentRegisterBinding
 import com.example.tbcexercises.utils.exntension.collectLastState
 import com.example.tbcexercises.utils.exntension.isEmailValid
 import com.example.tbcexercises.utils.exntension.toast
+import dagger.hilt.EntryPoint
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterBinding::inflate) {
-    private val viewModel: RegisterViewModel by viewModels {
-        RegisterViewModelFactory((requireActivity().application as App).authRepository)
-    }
-
+    private val viewModel: RegisterViewModel by viewModels()
     override fun start() {
         collectLastState(viewModel.registerResponse) { result ->
             when (result) {

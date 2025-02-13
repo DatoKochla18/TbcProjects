@@ -5,21 +5,21 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.tbcexercises.App
-import com.example.tbcexercises.R
+import com.example.tbcexercises.data.local.dataStore.UserManager
 import com.example.tbcexercises.utils.common.Resource
-import com.example.tbcexercises.data.local.dataStore.UserManager.setSession
 import com.example.tbcexercises.presentation.base.BaseFragment
 import com.example.tbcexercises.databinding.FragmentLoginBinding
 import com.example.tbcexercises.utils.exntension.collectLastState
-import com.example.tbcexercises.utils.exntension.isEmailValid
 import com.example.tbcexercises.utils.exntension.toast
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
-    private val viewModel: LoginViewModel by viewModels {
-        LoginViewModelFactory((requireActivity().application as App).authRepository)
-    }
+    private val viewModel: LoginViewModel by viewModels()
+
+    @Inject
+    lateinit var userManager: UserManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -46,7 +46,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
                 is Resource.Success -> {
                     showLoadingScreen(false)
-                    setSession(binding.cbRememberMe.isChecked, binding.etEmail.text.toString())
+                    userManager.setSession(
+                        binding.cbRememberMe.isChecked,
+                        binding.etEmail.text.toString()
+                    )
                     navigateToHomeScreen()
                 }
 

@@ -10,13 +10,14 @@ import com.example.tbcexercises.data.local.room.entity.RemoteKeyEntity
 import com.example.tbcexercises.data.local.room.entity.UserEntity
 import com.example.tbcexercises.data.mappers.toUserEntity
 import com.example.tbcexercises.data.remote.apis.UserApi
+import javax.inject.Inject
 
 
 //Code copied from google code lab slight adjustment
 private const val USER_STARTING_PAGE_INDEX = 1
 
 @OptIn(ExperimentalPagingApi::class)
-class UserRemoteMediator(
+class UserRemoteMediator @Inject constructor(
     private val userApi: UserApi,
     private val appDatabase: AppDatabase
 ) : RemoteMediator<Int, UserEntity>() {

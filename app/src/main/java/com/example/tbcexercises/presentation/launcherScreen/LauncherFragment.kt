@@ -6,15 +6,23 @@ import com.example.tbcexercises.data.local.dataStore.UserManager
 import com.example.tbcexercises.presentation.base.BaseFragment
 import com.example.tbcexercises.databinding.FragmentLauncherBinding
 import com.example.tbcexercises.utils.exntension.collectLastState
+import dagger.hilt.EntryPoint
+import dagger.hilt.android.AndroidEntryPoint
 
 import kotlinx.coroutines.runBlocking
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class LauncherFragment : BaseFragment<FragmentLauncherBinding>(FragmentLauncherBinding::inflate) {
+
+    @Inject
+    lateinit var userManager: UserManager
+
+
     override fun start() {
         runBlocking { // i use runBlocking because it will block uiThread so it will not have affect that
             //it started HomeScreen and then went to LoginScreen
-            collectLastState(UserManager.rememberMeFlow) { rememberMe ->
+            collectLastState(userManager.rememberMeFlow) { rememberMe ->
                 if (rememberMe) {
                     findNavController().navigate(
                         LauncherFragmentDirections.actionLauncherFragmentToHomeFragment()

@@ -11,8 +11,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RegisterViewModel(private val authRepository: AuthRepository) : ViewModel() {
+class RegisterViewModel @Inject constructor(private val authRepository: AuthRepository) :
+    ViewModel() {
     private val _registerResponse = MutableStateFlow<Resource<RegisterResponse>?>(null)
     val registerResponse: StateFlow<Resource<RegisterResponse>?> = _registerResponse
 
