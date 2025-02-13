@@ -59,8 +59,10 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.converter.kotlinx.serialization)
     implementation(libs.kotlinx.serialization.json)
+
     implementation(libs.androidx.datastore.core)
-    implementation (libs.androidx.datastore)
+    implementation(libs.androidx.datastore.preferences)
+
     implementation(libs.glide)
 
     implementation(libs.androidx.paging.runtime.ktx)
