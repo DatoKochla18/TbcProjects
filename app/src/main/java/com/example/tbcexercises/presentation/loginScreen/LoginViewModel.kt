@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.tbcexercises.R
 import com.example.tbcexercises.utils.common.Resource
 import com.example.tbcexercises.data.remote.response.LoginResponse
-import com.example.tbcexercises.domain.repository.AuthRepository
+import com.example.tbcexercises.domain.repository.LoginRepository
 import com.example.tbcexercises.utils.exntension.isEmailValid
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -16,8 +16,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val authRepository: AuthRepository) : ViewModel() {
-
+class LoginViewModel @Inject constructor(private val loginRepository: LoginRepository) :
+    ViewModel() {
     private val _loginResponse = MutableStateFlow<Resource<LoginResponse>?>(null)
     val loginResponse: StateFlow<Resource<LoginResponse>?> = _loginResponse
 
@@ -38,7 +38,7 @@ class LoginViewModel @Inject constructor(private val authRepository: AuthReposit
         }
 
         viewModelScope.launch(Dispatchers.IO) {
-            authRepository.login(email, password).collectLatest { state ->
+            loginRepository.login(email, password).collectLatest { state ->
                 _loginResponse.value = state
             }
         }

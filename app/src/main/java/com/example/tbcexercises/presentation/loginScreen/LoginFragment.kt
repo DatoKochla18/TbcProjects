@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.tbcexercises.data.local.dataStore.UserManager
+import com.example.tbcexercises.data.repository.UserSessionRepositoryImpl
 import com.example.tbcexercises.utils.common.Resource
 import com.example.tbcexercises.presentation.base.BaseFragment
 import com.example.tbcexercises.databinding.FragmentLoginBinding
@@ -19,7 +19,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     private val viewModel: LoginViewModel by viewModels()
 
     @Inject
-    lateinit var userManager: UserManager
+    lateinit var userSessionRepositoryImpl: UserSessionRepositoryImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -46,7 +46,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
                 is Resource.Success -> {
                     showLoadingScreen(false)
-                    userManager.setSession(
+                    userSessionRepositoryImpl.setSession(
                         binding.cbRememberMe.isChecked,
                         binding.etEmail.text.toString()
                     )

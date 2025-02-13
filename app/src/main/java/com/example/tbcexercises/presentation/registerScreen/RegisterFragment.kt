@@ -27,7 +27,11 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                     showLoadingScreen(true)
                 }
 
-                is Resource.Error -> toast(result.message)
+                is Resource.Error -> {
+                    showLoadingScreen(false)
+                    toast(result.message)
+                }
+
                 is Resource.Success -> {
                     val email = binding.etEmail.text.toString()
                     val password = binding.etPassword.text.toString()

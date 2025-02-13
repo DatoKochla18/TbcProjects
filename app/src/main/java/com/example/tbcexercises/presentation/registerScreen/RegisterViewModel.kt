@@ -4,8 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbcexercises.utils.common.Resource
 import com.example.tbcexercises.data.remote.response.RegisterResponse
-import com.example.tbcexercises.domain.repository.AuthRepository
+import com.example.tbcexercises.data.repository.RegisterRepositoryImpl
+import com.example.tbcexercises.domain.repository.RegisterRepository
 import com.example.tbcexercises.utils.exntension.isEmailValid
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,7 +15,8 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class RegisterViewModel @Inject constructor(private val authRepository: AuthRepository) :
+@HiltViewModel
+class RegisterViewModel @Inject constructor(private val registerRepository: RegisterRepository) :
     ViewModel() {
     private val _registerResponse = MutableStateFlow<Resource<RegisterResponse>?>(null)
     val registerResponse: StateFlow<Resource<RegisterResponse>?> = _registerResponse
@@ -31,7 +34,7 @@ class RegisterViewModel @Inject constructor(private val authRepository: AuthRepo
             _registerResponse.value = Resource.Error("Password should 6 chars")
         } else {
             viewModelScope.launch(Dispatchers.IO) {
-                authRepository.register(email, password).collectLatest { state ->
+                registerRepository.register(email, password).collectLatest { state ->
                     _registerResponse.value = state
                 }
             }
