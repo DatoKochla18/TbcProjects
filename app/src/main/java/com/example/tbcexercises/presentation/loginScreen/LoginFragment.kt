@@ -7,7 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.tbcexercises.App
 import com.example.tbcexercises.R
-import com.example.tbcexercises.common.Resource
+import com.example.tbcexercises.utils.common.Resource
 import com.example.tbcexercises.data.local.dataStore.UserManager.setSession
 import com.example.tbcexercises.presentation.base.BaseFragment
 import com.example.tbcexercises.databinding.FragmentLoginBinding
@@ -36,52 +36,37 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     }
 
     override fun start() {
+        collectLastState(viewModel.loginResponse) { result ->
+            when (result) {
+                is Resource.Loading -> showLoadingScreen(true)
+                is Resource.Error -> {
+                    showLoadingScreen(false)
+                    toast(result.message)
+                }
+
+                is Resource.Success -> {
+                    showLoadingScreen(false)
+                    setSession(binding.cbRememberMe.isChecked, binding.etEmail.text.toString())
+                    navigateToHomeScreen()
+                }
+
+                null -> {}
+            }
+        }
     }
 
     override fun listeners() {
         binding.apply {
             btnLogin.setOnClickListener {
-                loginController()
+                val email = binding.etEmail.text.toString()
+                val password = binding.etPassword.text.toString()
+                viewModel.login(email = email, password = password)
             }
             txtRegister.setOnClickListener {
                 findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
             }
         }
     }
-
-    private fun loginController() {
-        val email = binding.etEmail.text.toString()
-        val password = binding.etPassword.text.toString()
-        if (email.isEmailValid() && password.isNotEmpty() && password.length >= 6) {
-            login(email, password)
-        } else {
-            when {
-                !email.isEmailValid() -> toast(getString(R.string.enter_valid_email))
-                password.isEmpty() -> toast(getString(R.string.password_should_not_be_empty))
-                password.length < 6 -> toast(getString(R.string.password_should_at_least_6_character))
-                else -> toast(getString(R.string.unexpected_error_backend_problem))
-            }
-        }
-    }
-
-    private fun login(email: String, password: String) {
-        viewModel.login(email, password)
-        collectLastState(viewModel.loginResponse) { result ->
-            when (result) {
-                is Resource.Loading -> {
-                    showLoadingScreen(true)
-                }
-
-                is Resource.Error -> toast(result.message)
-                is Resource.Success -> {
-                    showLoadingScreen(false)
-                    setSession(binding.cbRememberMe.isChecked, email)
-                    navigateToHomeScreen()
-                }
-            }
-        }
-    }
-
 
 
     private fun navigateToHomeScreen() {
@@ -104,5 +89,4 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             txtRegister.visibility = viewVisibility
         }
     }
-
 }

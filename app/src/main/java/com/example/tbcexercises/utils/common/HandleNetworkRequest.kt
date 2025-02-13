@@ -1,4 +1,4 @@
-package com.example.tbcexercises.common
+package com.example.tbcexercises.utils.common
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

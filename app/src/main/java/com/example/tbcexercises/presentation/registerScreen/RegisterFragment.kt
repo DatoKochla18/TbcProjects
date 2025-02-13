@@ -8,7 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.tbcexercises.App
 import com.example.tbcexercises.R
-import com.example.tbcexercises.common.Resource
+import com.example.tbcexercises.utils.common.Resource
 import com.example.tbcexercises.presentation.base.BaseFragment
 import com.example.tbcexercises.databinding.FragmentRegisterBinding
 import com.example.tbcexercises.utils.exntension.collectLastState
@@ -21,36 +21,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         RegisterViewModelFactory((requireActivity().application as App).authRepository)
     }
 
-    override fun start() {}
-
-    override fun listeners() {
-        binding.btnRegister.setOnClickListener {
-            registerController()
-        }
-    }
-
-    private fun registerController() {
-        val email = binding.etEmail.text.toString()
-        val password = binding.etPassword.text.toString()
-        val passwordRepeat = binding.etPasswordRepeat.text.toString()
-
-        if (email.isEmailValid() && password.isNotEmpty() && passwordRepeat == password && password.length >= 6) {
-            register(email, password)
-        } else {
-            when {
-                !email.isEmailValid() -> toast(getString(R.string.enter_valid_email))
-                password.isEmpty() -> toast(getString(R.string.password_should_not_be_empty))
-                password.length < 6 -> toast(getString(R.string.password_should_at_least_6_character))
-                else -> toast("two password should be same")
-                //passwordRepeat!=password this will be always false
-            }
-        }
-    }
-
-    private fun register(email: String, password: String) {
-
-        viewModel.register(email, password)
-
+    override fun start() {
         collectLastState(viewModel.registerResponse) { result ->
             when (result) {
                 is Resource.Loading -> {
@@ -59,14 +30,30 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
                 is Resource.Error -> toast(result.message)
                 is Resource.Success -> {
+                    val email = binding.etEmail.text.toString()
+                    val password = binding.etPassword.text.toString()
                     showLoadingScreen(false)
                     val authData = bundleOf("email" to email, "password" to password)
                     setFragmentResult("authData", authData)
                     findNavController().popBackStack()
                 }
+
+                null -> {
+                }
             }
         }
     }
+
+    override fun listeners() {
+        binding.btnRegister.setOnClickListener {
+            val email = binding.etEmail.text.toString()
+            val password = binding.etPassword.text.toString()
+            val passwordRepeat = binding.etPasswordRepeat.text.toString()
+
+            viewModel.register(email = email, password = password, passwordRepeat = passwordRepeat)
+        }
+    }
+
 
     private fun showLoadingScreen(isLoading: Boolean) {
         val viewVisibility = if (!isLoading) View.VISIBLE else View.GONE

@@ -1,4 +1,4 @@
-package com.example.tbcexercises.common
+package com.example.tbcexercises.utils.common
 
 sealed class Resource<out T> {
     object Loading : Resource<Nothing>()

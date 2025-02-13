@@ -1,7 +1,7 @@
 package com.example.tbcexercises.data.repository
 
-import com.example.tbcexercises.common.Resource
-import com.example.tbcexercises.common.handleNetworkRequest
+import com.example.tbcexercises.utils.common.Resource
+import com.example.tbcexercises.utils.common.handleNetworkRequest
 import com.example.tbcexercises.data.remote.apis.AuthApi
 import com.example.tbcexercises.data.remote.request.AuthRequest
 import com.example.tbcexercises.data.remote.response.LoginResponse
