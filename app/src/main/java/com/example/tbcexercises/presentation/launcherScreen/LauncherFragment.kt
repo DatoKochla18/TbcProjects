@@ -1,6 +1,7 @@
 package com.example.tbcexercises.presentation.launcherScreen
 
 
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.tbcexercises.data.repository.UserSessionRepositoryImpl
 import com.example.tbcexercises.presentation.base.BaseFragment
@@ -14,14 +15,12 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class LauncherFragment : BaseFragment<FragmentLauncherBinding>(FragmentLauncherBinding::inflate) {
 
-    @Inject
-    lateinit var userSessionRepositoryImpl: UserSessionRepositoryImpl
-
+    private val viewModel: LaunchViewModel by viewModels()
 
     override fun start() {
         runBlocking { // i use runBlocking because it will block uiThread so it will not have affect that
             //it started HomeScreen and then went to LoginScreen
-            collectLastState(userSessionRepositoryImpl.rememberMeFlow) { rememberMe ->
+            collectLastState(viewModel.rememberMe) { rememberMe ->
                 if (rememberMe) {
                     findNavController().navigate(
                         LauncherFragmentDirections.actionLauncherFragmentToHomeFragment()

@@ -18,9 +18,6 @@ import javax.inject.Inject
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
     private val viewModel: LoginViewModel by viewModels()
 
-    @Inject
-    lateinit var userSessionRepositoryImpl: UserSessionRepositoryImpl
-
     override fun onCreate(savedInstanceState: Bundle?) {
 
         parentFragmentManager.setFragmentResultListener("authData", this) { _, bundle ->
@@ -46,7 +43,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
                 is Resource.Success -> {
                     showLoadingScreen(false)
-                    userSessionRepositoryImpl.setSession(
+                    viewModel.setSession(
                         binding.cbRememberMe.isChecked,
                         binding.etEmail.text.toString()
                     )
