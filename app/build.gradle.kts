@@ -4,7 +4,7 @@ plugins {
     id("kotlin-parcelize")
     kotlin("plugin.serialization") version "1.9.0"
     alias(libs.plugins.safeargs)
-
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -64,5 +64,11 @@ dependencies {
     implementation(libs.glide)
 
     implementation(libs.androidx.paging.runtime.ktx)
+
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.paging)
+
 
 }

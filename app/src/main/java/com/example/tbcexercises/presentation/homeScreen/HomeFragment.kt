@@ -7,6 +7,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.tbcexercises.App
 import com.example.tbcexercises.presentation.base.BaseFragment
 import com.example.tbcexercises.databinding.FragmentHomeBinding
 import com.example.tbcexercises.presentation.homeScreen.adapter.UserListAdapter
@@ -16,7 +17,9 @@ import com.example.tbcexercises.utils.exntension.toast
 
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
-    private val viewModel: HomeViewModel by viewModels()
+    private val viewModel: HomeViewModel by viewModels {
+        HomeViewModelFactory((requireActivity().application as App).userRepository)
+    }
     private val userListAdapter by lazy {
         UserListAdapter()
     }
@@ -24,7 +27,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     override fun start() {
         setUpRecycleView()
 
-        collectLastState(viewModel.users) {
+        collectLastState(viewModel.usersFlow) {
             userListAdapter.submitData(it)
         }
 
@@ -37,17 +40,26 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
 
         userListAdapter.addLoadStateListener { loadState ->
+            val refreshState = loadState.mediator?.refresh ?: loadState.source.refresh
+
+            val isInitialLoading =
+                refreshState is LoadState.Loading && userListAdapter.itemCount == 0
+
             binding.apply {
-                rvContainer.isVisible = loadState.source.refresh is LoadState.NotLoading
-                progressBar.isVisible = loadState.source.refresh is LoadState.Loading
-                btnRetry.isVisible = loadState.source.refresh is LoadState.Error
+                progressBar.isVisible = isInitialLoading
+                rvContainer.isVisible =
+                    refreshState is LoadState.NotLoading || userListAdapter.itemCount > 0
+                btnRetry.isVisible =
+                    refreshState is LoadState.Error && userListAdapter.itemCount == 0
             }
+
             handleError(loadState)
         }
 
         binding.imgMyProfile.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
         }
+
     }
 
     private fun setUpRecycleView() {
@@ -69,4 +81,5 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             toast(it.error.toString())
         }
     }
+
 }
