@@ -62,10 +62,11 @@ dependencies {
     implementation(libs.converter.kotlinx.serialization)
     implementation(libs.kotlinx.serialization.json)
 
+    implementation(libs.glide)
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
 }
 kapt {
-    correctErrorTypes =  true
+    correctErrorTypes = true
 }
