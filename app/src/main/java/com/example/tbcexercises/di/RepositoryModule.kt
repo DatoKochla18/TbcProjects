@@ -13,6 +13,7 @@ import com.example.tbcexercises.domain.repository.LoginRepository
 import com.example.tbcexercises.domain.repository.RegisterRepository
 import com.example.tbcexercises.domain.repository.UserRepository
 import com.example.tbcexercises.domain.repository.UserSessionRepository
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,25 +22,21 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RepositoryModule {
-    @Provides
-    fun provideUserRepository(userApi: UserApi, appDatabase: AppDatabase): UserRepository {
-        return UserRepositoryImpl(userApi = userApi, database = appDatabase)
-    }
+abstract class RepositoryModule {
 
-    @Provides
-    fun provideLoginRepository(authApi: AuthApi): LoginRepository {
-        return LoginRepositoryImpl(authApi = authApi)
-    }
-
-    @Provides
-    fun provideRegisterRepository(authApi: AuthApi): RegisterRepository {
-        return RegisterRepositoryImpl(authApi = authApi)
-    }
-
-    @Provides
+    @Binds
     @Singleton
-    fun provideUserSessionRepository(dataStore: DataStore<Preferences>): UserSessionRepository {
-        return UserSessionRepositoryImpl(dataStore)
-    }
+    abstract fun bindUserRepository(impl: UserRepositoryImpl): UserRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindLoginRepository(impl: LoginRepositoryImpl): LoginRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindRegisterRepository(impl: RegisterRepositoryImpl): RegisterRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindUserSessionRepository(impl: UserSessionRepositoryImpl): UserSessionRepository
 }
