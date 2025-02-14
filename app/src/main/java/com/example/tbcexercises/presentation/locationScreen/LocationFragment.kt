@@ -45,8 +45,6 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(FragmentLocationB
 
     }
 
-    override fun listeners() {
-    }
     private fun setupViewPager() {
         val carouselAdapter = viewPagerAdapter
         val transformer = CompositePageTransformer()
