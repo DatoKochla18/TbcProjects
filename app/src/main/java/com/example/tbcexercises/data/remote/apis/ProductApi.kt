@@ -1,6 +1,6 @@
-package com.example.tbcexercises.data.remote
+package com.example.tbcexercises.data.remote.apis
 
-import com.example.tbcexercises.domain.model.Product
+import com.example.tbcexercises.data.remote.dtos.ProductDto
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

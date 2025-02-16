@@ -1,7 +1,6 @@
 package com.example.tbcexercises.domain.repository
 
 import com.example.tbcexercises.common.Resource
-import com.example.tbcexercises.data.remote.ProductDto
 import com.example.tbcexercises.domain.model.Product
 import kotlinx.coroutines.flow.Flow
 

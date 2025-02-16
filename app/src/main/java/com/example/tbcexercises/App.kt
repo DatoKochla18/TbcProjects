@@ -1,10 +1,8 @@
 package com.example.tbcexercises
 
 import android.app.Application
-import com.example.tbcexercises.data.remote.RetrofitInstance
 import com.example.tbcexercises.data.repository.ProductRepositoryImpl
+import dagger.hilt.android.HiltAndroidApp
 
-class App : Application() {
-    val repository by lazy { ProductRepositoryImpl(RetrofitInstance.api) }
-
-}
+@HiltAndroidApp
+class App : Application()

@@ -5,22 +5,20 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.tbcexercises.App
 import com.example.tbcexercises.common.Resource
 import com.example.tbcexercises.common.collectLastState
 import com.example.tbcexercises.common.toast
-import com.example.tbcexercises.data.imageLoader.CoilImageLoader
 import com.example.tbcexercises.data.imageLoader.GlideImageLoader
 import com.example.tbcexercises.databinding.FragmentProductListBinding
 import com.example.tbcexercises.presentation.base.BaseFragment
 import com.example.tbcexercises.presentation.productListScreen.adapter.ProductListAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class ProductListFragment :
     BaseFragment<FragmentProductListBinding>(FragmentProductListBinding::inflate) {
-    private val viewModel: ProductListViewModel by viewModels {
-        ProductListViewModelFactory((requireActivity().application as App).repository)
-    }
+    private val viewModel: ProductListViewModel by viewModels()
+
     private val productListAdapter: ProductListAdapter by lazy {
         ProductListAdapter(onClick = {
             findNavController().navigate(

@@ -2,15 +2,15 @@ package com.example.tbcexercises.data.repository
 
 import com.example.tbcexercises.common.Resource
 import com.example.tbcexercises.common.handleNetworkRequest
-import com.example.tbcexercises.data.remote.ProductDto
-import com.example.tbcexercises.data.remote.ProductApi
-import com.example.tbcexercises.data.remote.toProduct
+import com.example.tbcexercises.data.remote.apis.ProductApi
+import com.example.tbcexercises.data.remote.dtos.toProduct
 import com.example.tbcexercises.domain.model.Product
 import com.example.tbcexercises.domain.repository.ProductRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class ProductRepositoryImpl(private val productApi: ProductApi) : ProductRepository {
+class ProductRepositoryImpl @Inject constructor(private val productApi: ProductApi) : ProductRepository {
     override fun getProducts(limit: Int): Flow<Resource<List<Product>>> {
         return handleNetworkRequest { productApi.getProducts(limit) }
             .map { resource ->

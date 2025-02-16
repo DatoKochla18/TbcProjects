@@ -1,8 +1,7 @@
-package com.example.tbcexercises.data.remote
+package com.example.tbcexercises.data.remote.dtos
 
 import com.example.tbcexercises.domain.model.Product
 import kotlinx.serialization.Serializable
-import kotlin.concurrent.thread
 
 @Serializable
 data class ProductDto(

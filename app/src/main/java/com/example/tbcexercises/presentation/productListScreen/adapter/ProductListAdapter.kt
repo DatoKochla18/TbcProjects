@@ -8,8 +8,9 @@ import com.example.tbcexercises.data.imageLoader.GlideImageLoader
 import com.example.tbcexercises.databinding.ItemProductBinding
 import com.example.tbcexercises.domain.imageLoader.ImageLoader
 import com.example.tbcexercises.domain.model.Product
+import javax.inject.Inject
 
-class ProductListAdapter(val onClick: (Int) -> Unit, val imageLoader: GlideImageLoader) :
+class ProductListAdapter @Inject constructor(val onClick: (Int) -> Unit, val imageLoader: ImageLoader) :
     ListAdapter<Product, ProductListAdapter.ProductListViewHolder>(ProductDiffUtil) {
 
 

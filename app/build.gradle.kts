@@ -4,6 +4,8 @@ plugins {
     id("kotlin-parcelize")
     kotlin("plugin.serialization") version "1.9.0"
     alias(libs.plugins.safeargs)
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 
 }
 
@@ -63,4 +65,13 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.coil)
 
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    kapt("com.google.dagger:hilt-compiler:2.51.1")
+
+
+}
+
+
+kapt {
+    correctErrorTypes =  true
 }

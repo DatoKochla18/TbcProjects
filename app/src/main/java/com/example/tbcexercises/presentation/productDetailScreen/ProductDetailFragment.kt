@@ -11,19 +11,21 @@ import com.example.tbcexercises.common.toast
 import com.example.tbcexercises.data.imageLoader.CoilImageLoader
 import com.example.tbcexercises.data.imageLoader.GlideImageLoader
 import com.example.tbcexercises.databinding.FragmentProductDetailBinding
+import com.example.tbcexercises.domain.imageLoader.ImageLoader
 import com.example.tbcexercises.domain.model.Product
 import com.example.tbcexercises.presentation.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class ProductDetailFragment :
     BaseFragment<FragmentProductDetailBinding>(FragmentProductDetailBinding::inflate) {
     private val args: ProductDetailFragmentArgs by navArgs()
 
-    private val viewModel: ProductDetailViewModel by viewModels {
-        ProductDetailViewModelFactory((requireActivity().application as App).repository)
-    }
+    private val viewModel: ProductDetailViewModel by viewModels()
 
-    private val imageLoader = GlideImageLoader()
+    @Inject
+    lateinit var imageLoader: ImageLoader
 
     override fun start() {
         viewModel.fetchProduct(args.productId)
