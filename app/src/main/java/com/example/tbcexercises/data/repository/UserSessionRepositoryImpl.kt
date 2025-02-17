@@ -19,11 +19,15 @@ class UserSessionRepositoryImpl @Inject constructor(private val dataStore: DataS
         }
     }
 
-    override val emailFlow: Flow<String?> = dataStore.data.map { preferences ->
-        preferences[EMAIL_KEY]
+    override fun getEmailFlow(): Flow<String?> {
+        return dataStore.data.map { preferences ->
+            preferences[EMAIL_KEY]
+        }
     }
 
-    override val rememberMeFlow: Flow<Boolean> = dataStore.data.map { preferences ->
-        preferences[REMEMBER_ME_KEY] ?: false
+    override fun getRememberMeFlow(): Flow<Boolean> {
+        return dataStore.data.map { preferences ->
+            preferences[REMEMBER_ME_KEY] ?: false
+        }
     }
 }

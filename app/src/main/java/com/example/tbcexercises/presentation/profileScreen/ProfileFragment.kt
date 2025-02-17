@@ -1,5 +1,6 @@
 package com.example.tbcexercises.presentation.profileScreen
 
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -15,12 +16,10 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
 
-    @Inject
-    lateinit var userSessionRepositoryImpl: UserSessionRepositoryImpl
-
+    private val viewModel: ProfileViewModel by viewModels()
 
     override fun start() {
-        collectLastState(userSessionRepositoryImpl.emailFlow) { email ->
+        collectLastState(viewModel.emailFlow) { email ->
             binding.txtEmail.text = email
         }
 
@@ -30,7 +29,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         binding.btnLogOut.setOnClickListener {
             viewLifecycleOwner.lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    userSessionRepositoryImpl.setSession(false, "")
+                    viewModel.clearUserSession()
                     findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToNavigation())
                 }
             }

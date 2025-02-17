@@ -6,7 +6,8 @@ interface UserSessionRepository {
 
     suspend fun setSession(rememberMe: Boolean, email: String)
 
-    val emailFlow: Flow<String?>
 
-    val rememberMeFlow: Flow<Boolean>
+    fun getEmailFlow(): Flow<String?>
+
+    fun getRememberMeFlow(): Flow<Boolean>
 }
