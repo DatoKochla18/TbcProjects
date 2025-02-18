@@ -4,12 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.tbcexercises.R
 import com.example.tbcexercises.databinding.ItemUserBinding
 import com.example.tbcexercises.domain.model.User
+import com.example.tbcexercises.domain.third_party_library.image_loader.ImageLoader
+import javax.inject.Inject
 
-class UserListAdapter : PagingDataAdapter<User, UserListAdapter.UserListViewHolder>(UserDiffUtil) {
+class UserListAdapter @Inject constructor(private val imageLoader: ImageLoader) :
+    PagingDataAdapter<User, UserListAdapter.UserListViewHolder>(UserDiffUtil) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserListViewHolder {
@@ -26,11 +28,9 @@ class UserListAdapter : PagingDataAdapter<User, UserListAdapter.UserListViewHold
         fun onBind() {
             //val user = getItem(adapterPosition)!! deprecated
             val user = getItem(bindingAdapterPosition)!!
-            Glide.with(binding.imgUser.context)
-                .load(user.avatar)
-                .placeholder(R.drawable.person)
-                .error(R.drawable.person)
-                .into(binding.imgUser)
+            imageLoader.loadImage(
+                binding.imgUser, user.avatar
+            )
 
 
             binding.apply {

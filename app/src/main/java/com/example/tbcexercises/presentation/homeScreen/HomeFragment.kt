@@ -14,13 +14,14 @@ import com.example.tbcexercises.presentation.homeScreen.userLoadState.UserLoadSt
 import com.example.tbcexercises.utils.exntension.collectLastState
 import com.example.tbcexercises.utils.exntension.toast
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
     private val viewModel: HomeViewModel by viewModels()
-    private val userListAdapter by lazy {
-        UserListAdapter()
-    }
+
+    @Inject
+    lateinit var userListAdapter: UserListAdapter
 
     override fun start() {
         setUpRecycleView()

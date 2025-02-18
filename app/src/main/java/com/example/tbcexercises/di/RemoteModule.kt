@@ -36,8 +36,11 @@ object RemoteModule {
     fun provideRetrofit(client: OkHttpClient): Retrofit {
         val json = Json { ignoreUnknownKeys = true }
         val retrofit = Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
-            .client(client)
+            .baseUrl(BuildConfig.BASE_URL).apply {
+                if (BuildConfig.DEBUG) {
+                    this.client(client)
+                }
+            }
             .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
             .build()
 
