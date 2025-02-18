@@ -2,10 +2,8 @@ package com.example.tbcexercises.di
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
 import com.example.tbcexercises.data.local.room.AppDatabase
 import com.example.tbcexercises.data.local.room.daos.RemoteKeysDao

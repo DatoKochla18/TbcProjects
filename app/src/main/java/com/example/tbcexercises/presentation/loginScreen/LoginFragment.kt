@@ -15,6 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
     private val viewModel: LoginViewModel by viewModels()
 
+
     override fun start() {
         collectLastState(viewModel.loginResponse) { result ->
             when (result) {
