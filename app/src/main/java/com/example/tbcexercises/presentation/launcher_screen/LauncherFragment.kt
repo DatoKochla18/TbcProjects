@@ -1,4 +1,4 @@
-package com.example.tbcexercises.presentation.launcherScreen
+package com.example.tbcexercises.presentation.launcher_screen
 
 
 import androidx.fragment.app.viewModels

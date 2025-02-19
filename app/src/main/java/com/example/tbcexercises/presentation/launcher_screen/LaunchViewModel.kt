@@ -1,4 +1,4 @@
-package com.example.tbcexercises.presentation.launcherScreen
+package com.example.tbcexercises.presentation.launcher_screen
 
 import androidx.lifecycle.ViewModel
 import com.example.tbcexercises.domain.repository.UserSessionRepository

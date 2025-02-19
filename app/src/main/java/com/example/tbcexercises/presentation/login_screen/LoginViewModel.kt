@@ -1,4 +1,4 @@
-package com.example.tbcexercises.presentation.loginScreen
+package com.example.tbcexercises.presentation.login_screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

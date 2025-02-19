@@ -1,4 +1,4 @@
-package com.example.tbcexercises.presentation.homeScreen.userLoadState
+package com.example.tbcexercises.presentation.home_screen.userLoadState
 
 import android.view.ViewGroup
 import androidx.paging.LoadState

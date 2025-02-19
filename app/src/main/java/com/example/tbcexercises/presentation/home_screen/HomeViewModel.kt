@@ -1,4 +1,4 @@
-package com.example.tbcexercises.presentation.homeScreen
+package com.example.tbcexercises.presentation.home_screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

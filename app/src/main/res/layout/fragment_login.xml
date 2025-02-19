@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:padding="20dp"
-    tools:context=".presentation.loginScreen.LoginFragment">
+    tools:context=".presentation.login_screen.LoginFragment">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txtScreenName"

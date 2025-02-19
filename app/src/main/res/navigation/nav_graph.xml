@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/launcherFragment"
-        android:name="com.example.tbcexercises.presentation.launcherScreen.LauncherFragment"
+        android:name="com.example.tbcexercises.presentation.launcher_screen.LauncherFragment"
         android:label="fragment_launcher"
         tools:layout="@layout/fragment_launcher">
         <action
@@ -23,7 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.tbcexercises.presentation.homeScreen.HomeFragment"
+        android:name="com.example.tbcexercises.presentation.home_screen.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <action
@@ -35,7 +35,7 @@
         app:startDestination="@id/loginFragment">
         <fragment
             android:id="@+id/loginFragment"
-            android:name="com.example.tbcexercises.presentation.loginScreen.LoginFragment"
+            android:name="com.example.tbcexercises.presentation.login_screen.LoginFragment"
             android:label="fragment_login"
             tools:layout="@layout/fragment_login">
 
@@ -45,7 +45,7 @@
         </fragment>
         <fragment
             android:id="@+id/registerFragment"
-            android:name="com.example.tbcexercises.presentation.registerScreen.RegisterFragment"
+            android:name="com.example.tbcexercises.presentation.register_screen.RegisterFragment"
             android:label="fragment_register"
             tools:layout="@layout/fragment_register" />
         <action
@@ -56,7 +56,7 @@
     </navigation>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.tbcexercises.presentation.profileScreen.ProfileFragment"
+        android:name="com.example.tbcexercises.presentation.profile_screen.ProfileFragment"
         android:label="ProfileFragment"
         tools:layout="@layout/fragment_profile">
         <action

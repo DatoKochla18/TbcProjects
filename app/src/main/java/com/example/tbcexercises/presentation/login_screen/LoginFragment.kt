@@ -1,4 +1,4 @@
-package com.example.tbcexercises.presentation.loginScreen
+package com.example.tbcexercises.presentation.login_screen
 
 
 import android.view.View

@@ -1,4 +1,4 @@
-package com.example.tbcexercises.presentation.homeScreen.adapter
+package com.example.tbcexercises.presentation.home_screen.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.tbcexercises.domain.model.User

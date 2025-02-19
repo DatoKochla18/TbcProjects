@@ -1,4 +1,4 @@
-package com.example.tbcexercises.presentation.registerScreen
+package com.example.tbcexercises.presentation.register_screen
 
 
 import android.view.View

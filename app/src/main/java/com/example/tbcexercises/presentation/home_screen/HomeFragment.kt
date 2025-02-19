@@ -1,4 +1,4 @@
-package com.example.tbcexercises.presentation.homeScreen
+package com.example.tbcexercises.presentation.home_screen
 
 
 import androidx.core.view.isVisible
@@ -9,8 +9,8 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tbcexercises.presentation.base.BaseFragment
 import com.example.tbcexercises.databinding.FragmentHomeBinding
-import com.example.tbcexercises.presentation.homeScreen.adapter.UserListAdapter
-import com.example.tbcexercises.presentation.homeScreen.userLoadState.UserLoadStateAdapter
+import com.example.tbcexercises.presentation.home_screen.adapter.UserListAdapter
+import com.example.tbcexercises.presentation.home_screen.userLoadState.UserLoadStateAdapter
 import com.example.tbcexercises.utils.exntension.collectLastState
 import com.example.tbcexercises.utils.exntension.toast
 import dagger.hilt.android.AndroidEntryPoint

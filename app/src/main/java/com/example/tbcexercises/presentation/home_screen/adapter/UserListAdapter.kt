@@ -1,4 +1,4 @@
-package com.example.tbcexercises.presentation.homeScreen.adapter
+package com.example.tbcexercises.presentation.home_screen.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
