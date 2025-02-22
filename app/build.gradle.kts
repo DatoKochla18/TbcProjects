@@ -24,7 +24,14 @@ android {
     }
 
     buildTypes {
+
+        debug {
+            buildConfigField("String", "BASE_URL", "\"https://run.mocky.io/v3/\"")
+        }
+
         release {
+            buildConfigField("String", "BASE_URL", "\"https://run.mocky.io/v3/\"")
+
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -41,6 +48,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -65,7 +73,11 @@ dependencies {
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
+
+    implementation(libs.logging.interceptor)
+    implementation(libs.glide)
+
 }
 kapt {
-    correctErrorTypes =  true
+    correctErrorTypes = true
 }

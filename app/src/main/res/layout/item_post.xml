@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="25dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/dark_blue"
+        android:paddingTop="24dp"
+        android:paddingBottom="24dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgProfile"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="19dp"
+            android:layout_marginEnd="19dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_launcher_background" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="Alice Smith"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/imgProfile"
+            app:layout_constraintTop_toTopOf="@id/imgProfile" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtPostDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="20 April at 4:20 PM"
+            android:textColor="#96A7AF"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/txtUserName"
+            app:layout_constraintTop_toBottomOf="@id/txtUserName" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtPostMessage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="19dp"
+            android:text="We’re interested in your ideas and would be glad to build something bigger out of it. "
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/imgProfile"
+            app:layout_constraintTop_toBottomOf="@id/imgProfile" />
+
+        <FrameLayout
+            android:id="@+id/flPhotosContainer"
+            android:layout_width="0dp"
+            android:layout_height="154dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="19dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/txtPostMessage"
+            app:layout_constraintTop_toBottomOf="@id/txtPostMessage" />
+
+        <View
+            android:id="@+id/separator"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#B8C2C0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/txtPostMessage"
+            app:layout_constraintTop_toBottomOf="@id/flPhotosContainer" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgMessage"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginTop="18dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="@id/txtPostMessage"
+            app:layout_constraintTop_toBottomOf="@id/separator"
+            app:srcCompat="@drawable/message" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtMessageCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:text="7 comments"
+            android:textColor="#96A7AF"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/imgMessage"
+            app:layout_constraintStart_toEndOf="@id/imgMessage"
+            app:layout_constraintTop_toTopOf="@id/imgMessage" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgLike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/txtShare"
+            app:layout_constraintStart_toEndOf="@id/imgMessage"
+            app:layout_constraintTop_toTopOf="@id/imgMessage"
+            app:srcCompat="@drawable/heart_filled" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtLikeCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:text="49 Likes"
+            android:textColor="#96A7AF"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/imgMessage"
+            app:layout_constraintStart_toEndOf="@id/imgLike"
+            app:layout_constraintTop_toTopOf="@id/imgMessage" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgShare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="9dp"
+            app:layout_constraintEnd_toStartOf="@id/txtShare"
+            app:layout_constraintTop_toTopOf="@id/imgMessage"
+            app:srcCompat="@drawable/share" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtShare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:layout_marginEnd="19dp"
+            android:text="@string/share"
+            android:textColor="#96A7AF"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/imgMessage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/imgMessage" />
+
+        <View
+            android:id="@+id/separator1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="21dp"
+            android:background="#B8C2C0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgMessage" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgUser"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="28dp"
+            app:layout_constraintStart_toStartOf="@id/imgProfile"
+            app:layout_constraintTop_toBottomOf="@id/separator1"
+            app:srcCompat="@drawable/person" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/etWriteComment"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginEnd="19dp"
+            android:background="@drawable/edit_text_rounded"
+            android:drawableEnd="@drawable/attach"
+            android:hint="@string/write_comment"
+            android:paddingStart="16dp"
+            android:paddingEnd="13dp"
+            android:textColorHint="@color/gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgUser"
+            app:layout_constraintTop_toTopOf="@id/imgUser" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
