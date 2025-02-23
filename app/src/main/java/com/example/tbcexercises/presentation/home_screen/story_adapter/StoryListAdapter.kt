@@ -6,9 +6,15 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tbcexercises.databinding.ItemStoryBinding
 import com.example.tbcexercises.domain.model.Story
+import com.example.tbcexercises.util.image_loader.ImageLoader
 import com.example.tbcexercises.util.image_loader.ImageLoaderImpl
+import javax.inject.Inject
 
-class StoryListAdapter : ListAdapter<Story, StoryListAdapter.StoryViewHolder>(StoryDiffUtil) {
+class StoryListAdapter @Inject constructor(
+    private val imageLoader:ImageLoader
+) : ListAdapter<Story, StoryListAdapter.StoryViewHolder>(StoryDiffUtil) {
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoryViewHolder {
         val binding = ItemStoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -27,7 +33,7 @@ class StoryListAdapter : ListAdapter<Story, StoryListAdapter.StoryViewHolder>(St
 
             binding.apply {
                 txtTitle.text = story.title
-                ImageLoaderImpl.loadImage(imgStoryPhoto, story.cover)
+                imageLoader.loadImage(imgStoryPhoto, story.cover)
             }
         }
     }

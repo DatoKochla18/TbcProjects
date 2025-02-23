@@ -11,9 +11,12 @@ import com.example.tbcexercises.databinding.ItemPhotoOneBinding
 import com.example.tbcexercises.databinding.ItemPhotoThreeBinding
 import com.example.tbcexercises.databinding.ItemPostBinding
 import com.example.tbcexercises.domain.model.Post
-import com.example.tbcexercises.util.image_loader.ImageLoaderImpl
+import com.example.tbcexercises.util.image_loader.ImageLoader
+import javax.inject.Inject
 
-class PostListAdapter : ListAdapter<Post, PostListAdapter.PostViewHolder>(PostDiffUtil) {
+class PostListAdapter @Inject constructor(
+    private val imageLoader: ImageLoader
+) : ListAdapter<Post, PostListAdapter.PostViewHolder>(PostDiffUtil) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
@@ -38,7 +41,7 @@ class PostListAdapter : ListAdapter<Post, PostListAdapter.PostViewHolder>(PostDi
                 txtLikeCount.text = post.likes
                 txtMessageCount.text = post.comments
 
-                ImageLoaderImpl.loadImage(imgProfile, post.owner.profile)
+                imageLoader.loadImage(imgProfile, post.owner.profile)
             }
 
             val container = binding.flPhotosContainer
@@ -51,7 +54,7 @@ class PostListAdapter : ListAdapter<Post, PostListAdapter.PostViewHolder>(PostDi
                         LayoutInflater.from(container.context), container, false
                     )
                     container.addView(imageOneBinding.root)
-                    ImageLoaderImpl.loadImage(imageOneBinding.imgPhotoMain, photos[0])
+                    imageLoader.loadImage(imageOneBinding.imgPhotoMain, photos[0])
                 }
 
                 2 -> {
@@ -59,8 +62,8 @@ class PostListAdapter : ListAdapter<Post, PostListAdapter.PostViewHolder>(PostDi
                         LayoutInflater.from(container.context), container, false
                     )
                     container.addView(imageTwoBinding.root)
-                    ImageLoaderImpl.loadImage(imageTwoBinding.imgPhotoLeft, photos[0])
-                    ImageLoaderImpl.loadImage(imageTwoBinding.imgPhotoLeft, photos[1])
+                    imageLoader.loadImage(imageTwoBinding.imgPhotoLeft, photos[0])
+                    imageLoader.loadImage(imageTwoBinding.imgPhotoLeft, photos[1])
                 }
 
                 3 -> {
@@ -68,9 +71,9 @@ class PostListAdapter : ListAdapter<Post, PostListAdapter.PostViewHolder>(PostDi
                         LayoutInflater.from(container.context), container, false
                     )
                     container.addView(imageThreeBinding.root)
-                    ImageLoaderImpl.loadImage(imageThreeBinding.imgPhotoLeft, photos[0])
-                    ImageLoaderImpl.loadImage(imageThreeBinding.imgPhotoTopRight, photos[1])
-                    ImageLoaderImpl.loadImage(imageThreeBinding.imgPhotoBottomRight, photos[2])
+                    imageLoader.loadImage(imageThreeBinding.imgPhotoLeft, photos[0])
+                    imageLoader.loadImage(imageThreeBinding.imgPhotoTopRight, photos[1])
+                    imageLoader.loadImage(imageThreeBinding.imgPhotoBottomRight, photos[2])
                 }
 
                 else -> {
