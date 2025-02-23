@@ -4,22 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="154dp">
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imgPhotoLeft"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginEnd="20dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toStartOf="@id/imgPhotoRight"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:shapeAppearanceOverlay="@style/RoundedCorners" />
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imgPhotoRight"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/imgPhotoLeft" />
+        app:layout_constraintStart_toEndOf="@id/imgPhotoLeft"
+        app:shapeAppearanceOverlay="@style/RoundedCorners" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

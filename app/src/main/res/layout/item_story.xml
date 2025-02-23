@@ -5,7 +5,7 @@
     android:layout_height="200dp"
     android:layout_marginEnd="20dp">
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imgStoryPhoto"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -13,7 +13,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/RoundedCorners" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txtTitle"
@@ -22,6 +23,8 @@
         android:layout_marginStart="24dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="26dp"
+        android:textSize="16sp"
+        android:fontFamily="@font/sf_pro_display"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

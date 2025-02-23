@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="25dp">
+    android:layout_marginTop="20dp"
+    app:cardCornerRadius="25dp"
+    app:strokeColor="@android:color/transparent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -12,14 +14,15 @@
         android:paddingTop="24dp"
         android:paddingBottom="24dp">
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imgProfile"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
             android:layout_marginStart="19dp"
             android:layout_marginEnd="19dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/Round"
             app:srcCompat="@drawable/ic_launcher_background" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -27,9 +30,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:text="Alice Smith"
+            android:fontFamily="@font/sf_pro_display"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="15sp"
             app:layout_constraintStart_toEndOf="@id/imgProfile"
             app:layout_constraintTop_toTopOf="@id/imgProfile" />
 
@@ -37,9 +40,9 @@
             android:id="@+id/txtPostDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="20 April at 4:20 PM"
-            android:textColor="#96A7AF"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/sf_pro_display"
+            android:textColor="@color/light_cyan"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@id/txtUserName"
             app:layout_constraintTop_toBottomOf="@id/txtUserName" />
@@ -48,10 +51,9 @@
             android:id="@+id/txtPostMessage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-
             android:layout_marginTop="9dp"
             android:layout_marginEnd="19dp"
-            android:text="We’re interested in your ideas and would be glad to build something bigger out of it. "
+            android:fontFamily="@font/sf_pro_display"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/imgProfile"
@@ -71,7 +73,8 @@
             android:id="@+id/separator"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:background="#B8C2C0"
+            android:layout_marginTop="16dp"
+            android:background="@color/seperator_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/txtPostMessage"
             app:layout_constraintTop_toBottomOf="@id/flPhotosContainer" />
@@ -91,8 +94,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="9dp"
-            android:text="7 comments"
-            android:textColor="#96A7AF"
+            android:fontFamily="@font/sf_pro_display"
+            android:textColor="@color/light_cyan"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/imgMessage"
             app:layout_constraintStart_toEndOf="@id/imgMessage"
@@ -112,8 +115,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="9dp"
-            android:text="49 Likes"
-            android:textColor="#96A7AF"
+            android:fontFamily="@font/sf_pro_display"
+            android:textColor="@color/light_cyan"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/imgMessage"
             app:layout_constraintStart_toEndOf="@id/imgLike"
@@ -135,8 +138,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="9dp"
             android:layout_marginEnd="19dp"
+            android:fontFamily="@font/sf_pro_display"
             android:text="@string/share"
-            android:textColor="#96A7AF"
+            android:textColor="@color/light_cyan"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/imgMessage"
             app:layout_constraintEnd_toEndOf="parent"
@@ -147,18 +151,19 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="21dp"
-            android:background="#B8C2C0"
+            android:background="@color/seperator_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imgMessage" />
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imgUser"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginTop="28dp"
             app:layout_constraintStart_toStartOf="@id/imgProfile"
             app:layout_constraintTop_toBottomOf="@id/separator1"
+            app:shapeAppearanceOverlay="@style/Round"
             app:srcCompat="@drawable/person" />
 
         <androidx.appcompat.widget.AppCompatEditText
@@ -166,9 +171,11 @@
             android:layout_width="0dp"
             android:layout_height="42dp"
             android:layout_marginStart="28dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="19dp"
             android:background="@drawable/edit_text_rounded"
             android:drawableEnd="@drawable/attach"
+            android:fontFamily="@font/sf_pro_display"
             android:hint="@string/write_comment"
             android:paddingStart="16dp"
             android:paddingEnd="13dp"

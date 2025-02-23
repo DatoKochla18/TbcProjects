@@ -4,16 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="154dp">
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imgPhotoLeft"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginEnd="13dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toStartOf="@id/imgPhotoTopRight"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:shapeAppearanceOverlay="@style/RoundedCorners" />
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imgPhotoTopRight"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -21,9 +22,10 @@
         app:layout_constraintBottom_toTopOf="@id/imgPhotoBottomRight"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/imgPhotoLeft"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/RoundedCorners" />
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imgPhotoBottomRight"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -33,7 +35,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/imgPhotoLeft"
-        app:layout_constraintTop_toBottomOf="@id/imgPhotoTopRight" />
+        app:layout_constraintTop_toBottomOf="@id/imgPhotoTopRight"
+        app:shapeAppearanceOverlay="@style/RoundedCorners" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

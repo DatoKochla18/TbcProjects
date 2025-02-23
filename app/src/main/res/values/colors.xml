@@ -5,4 +5,7 @@
     <color name="dark_cyan">#2A3C44</color>
     <color name="gray">#96A7AF</color>
     <color name="dark_blue">#30444E</color>
+    <color name="seperator_color">#B8C2C0</color>
+    <color name="screen_background">#22343C</color>
+    <color name="light_cyan">#96A7AF</color>
 </resources>
