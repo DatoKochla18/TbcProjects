@@ -7,49 +7,34 @@ import com.example.tbcexercises.domain.model.Post
 import com.example.tbcexercises.domain.model.Story
 import com.example.tbcexercises.domain.repository.PostRepository
 import com.example.tbcexercises.domain.repository.StoryRepository
+import com.example.tbcexercises.presentation.home_screen.parent_adapter.ParentItem
 import com.example.tbcexercises.util.network_helper.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val postRepository: PostRepository,
-    private val storyRepository: StoryRepository
+      postRepository: PostRepository,
+      storyRepository: StoryRepository
 ) : ViewModel() {
 
-    private val _stories =
-        MutableStateFlow<Resource<List<Story>>?>(null)
-    val stories: StateFlow<Resource<List<Story>>?> = _stories
-
-
-    private val _posts =
-        MutableStateFlow<Resource<List<Post>>?>(null)
-    val posts: StateFlow<Resource<List<Post>>?> = _posts
-
-    init {
-        getStoriesProducts()
-        getPostsProducts()
-    }
-
-    private fun getPostsProducts() {
-        viewModelScope.launch {
-            postRepository.getPosts().collectLatest { result ->
-                Log.d("result", result.toString())
-                _posts.value = result
-            }
+    val parentItems: StateFlow<Resource<List<ParentItem>>?> =
+        combine(
+            postRepository.getPosts(),
+            storyRepository.getStories()
+        ) { posts, stories ->
+            val postItems = if (posts is Resource.Success) ParentItem.PostItem(posts.data) else null
+            val storyItems =
+                if (stories is Resource.Success) ParentItem.StoryItem(stories.data) else null
+            Resource.Success(listOfNotNull(storyItems, postItems))
         }
-    }
-
-    private fun getStoriesProducts() {
-        viewModelScope.launch {
-            storyRepository.getStories().collectLatest { result ->
-                _stories.value = result
-            }
-        }
-    }
-
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5000),
+                initialValue = Resource.Loading
+            )
 }
