@@ -18,8 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-      postRepository: PostRepository,
-      storyRepository: StoryRepository
+    postRepository: PostRepository,
+    storyRepository: StoryRepository
 ) : ViewModel() {
 
     val parentItems: StateFlow<Resource<List<ParentItem>>?> =

@@ -1,187 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="20dp"
-    app:cardCornerRadius="25dp"
-    app:strokeColor="@android:color/transparent">
+    android:layout_marginEnd="19dp"
+    android:background="@drawable/background_post"
+    android:paddingTop="24dp"
+    android:paddingBottom="24dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgProfile"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginEnd="19dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/Round" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtUserName"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/dark_blue"
-        android:paddingTop="24dp"
-        android:paddingBottom="24dp">
+        android:layout_marginStart="15dp"
+        android:fontFamily="@font/sf_pro_display"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@id/imgProfile"
+        app:layout_constraintTop_toTopOf="@id/imgProfile" />
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/imgProfile"
-            android:layout_width="54dp"
-            android:layout_height="54dp"
-            android:layout_marginStart="19dp"
-            android:layout_marginEnd="19dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/Round"
-            app:srcCompat="@drawable/ic_launcher_background" />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtPostDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/sf_pro_display"
+        android:textColor="@color/light_cyan"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/txtUserName"
+        app:layout_constraintTop_toBottomOf="@id/txtUserName" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/txtUserName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:fontFamily="@font/sf_pro_display"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            app:layout_constraintStart_toEndOf="@id/imgProfile"
-            app:layout_constraintTop_toTopOf="@id/imgProfile" />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtPostMessage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="19dp"
+        android:fontFamily="@font/sf_pro_display"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/imgProfile"
+        app:layout_constraintTop_toBottomOf="@id/imgProfile" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/txtPostDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:fontFamily="@font/sf_pro_display"
-            android:textColor="@color/light_cyan"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@id/txtUserName"
-            app:layout_constraintTop_toBottomOf="@id/txtUserName" />
+    <FrameLayout
+        android:id="@+id/flPhotosContainer"
+        android:layout_width="0dp"
+        android:layout_height="154dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="19dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/txtPostMessage"
+        app:layout_constraintTop_toBottomOf="@id/txtPostMessage" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/txtPostMessage"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="9dp"
-            android:layout_marginEnd="19dp"
-            android:fontFamily="@font/sf_pro_display"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/imgProfile"
-            app:layout_constraintTop_toBottomOf="@id/imgProfile" />
+    <View
+        android:id="@+id/separator"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/seperator_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/txtPostMessage"
+        app:layout_constraintTop_toBottomOf="@id/flPhotosContainer" />
 
-        <FrameLayout
-            android:id="@+id/flPhotosContainer"
-            android:layout_width="0dp"
-            android:layout_height="154dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="19dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/txtPostMessage"
-            app:layout_constraintTop_toBottomOf="@id/txtPostMessage" />
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgMessage"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_marginTop="18dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="@id/txtPostMessage"
+        app:layout_constraintTop_toBottomOf="@id/separator"
+        app:srcCompat="@drawable/message" />
 
-        <View
-            android:id="@+id/separator"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="16dp"
-            android:background="@color/seperator_color"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/txtPostMessage"
-            app:layout_constraintTop_toBottomOf="@id/flPhotosContainer" />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtMessageCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:fontFamily="@font/sf_pro_display"
+        android:textColor="@color/light_cyan"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/imgMessage"
+        app:layout_constraintStart_toEndOf="@id/imgMessage"
+        app:layout_constraintTop_toTopOf="@id/imgMessage" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imgMessage"
-            android:layout_width="14dp"
-            android:layout_height="14dp"
-            android:layout_marginTop="18dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintStart_toStartOf="@id/txtPostMessage"
-            app:layout_constraintTop_toBottomOf="@id/separator"
-            app:srcCompat="@drawable/message" />
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgLike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@id/txtShare"
+        app:layout_constraintStart_toEndOf="@id/imgMessage"
+        app:layout_constraintTop_toTopOf="@id/imgMessage"
+        app:srcCompat="@drawable/heart_filled" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/txtMessageCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="9dp"
-            android:fontFamily="@font/sf_pro_display"
-            android:textColor="@color/light_cyan"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@id/imgMessage"
-            app:layout_constraintStart_toEndOf="@id/imgMessage"
-            app:layout_constraintTop_toTopOf="@id/imgMessage" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imgLike"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@id/txtShare"
-            app:layout_constraintStart_toEndOf="@id/imgMessage"
-            app:layout_constraintTop_toTopOf="@id/imgMessage"
-            app:srcCompat="@drawable/heart_filled" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/txtLikeCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="9dp"
-            android:fontFamily="@font/sf_pro_display"
-            android:textColor="@color/light_cyan"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@id/imgMessage"
-            app:layout_constraintStart_toEndOf="@id/imgLike"
-            app:layout_constraintTop_toTopOf="@id/imgMessage" />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtLikeCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:fontFamily="@font/sf_pro_display"
+        android:textColor="@color/light_cyan"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/imgMessage"
+        app:layout_constraintStart_toEndOf="@id/imgLike"
+        app:layout_constraintTop_toTopOf="@id/imgMessage" />
 
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imgShare"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="9dp"
-            app:layout_constraintEnd_toStartOf="@id/txtShare"
-            app:layout_constraintTop_toTopOf="@id/imgMessage"
-            app:srcCompat="@drawable/share" />
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="9dp"
+        app:layout_constraintEnd_toStartOf="@id/txtShare"
+        app:layout_constraintTop_toTopOf="@id/imgMessage"
+        app:srcCompat="@drawable/share" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/txtShare"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="9dp"
-            android:layout_marginEnd="19dp"
-            android:fontFamily="@font/sf_pro_display"
-            android:text="@string/share"
-            android:textColor="@color/light_cyan"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@id/imgMessage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/imgMessage" />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:layout_marginEnd="19dp"
+        android:fontFamily="@font/sf_pro_display"
+        android:text="@string/share"
+        android:textColor="@color/light_cyan"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/imgMessage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/imgMessage" />
 
-        <View
-            android:id="@+id/separator1"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="21dp"
-            android:background="@color/seperator_color"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imgMessage" />
+    <View
+        android:id="@+id/separator1"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="21dp"
+        android:background="@color/seperator_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgMessage" />
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/imgUser"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="28dp"
-            app:layout_constraintStart_toStartOf="@id/imgProfile"
-            app:layout_constraintTop_toBottomOf="@id/separator1"
-            app:shapeAppearanceOverlay="@style/Round"
-            app:srcCompat="@drawable/person" />
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgUser"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintStart_toStartOf="@id/imgProfile"
+        app:layout_constraintTop_toBottomOf="@id/separator1"
+        app:shapeAppearanceOverlay="@style/Round"
+        app:srcCompat="@drawable/person" />
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/etWriteComment"
-            android:layout_width="0dp"
-            android:layout_height="42dp"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="19dp"
-            android:background="@drawable/edit_text_rounded"
-            android:drawableEnd="@drawable/attach"
-            android:fontFamily="@font/sf_pro_display"
-            android:hint="@string/write_comment"
-            android:paddingStart="16dp"
-            android:paddingEnd="13dp"
-            android:textColorHint="@color/gray"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/imgUser"
-            app:layout_constraintTop_toTopOf="@id/imgUser" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</com.google.android.material.card.MaterialCardView>
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etWriteComment"
+        android:layout_width="0dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="19dp"
+        android:background="@drawable/edit_text_rounded"
+        android:drawableEnd="@drawable/attach"
+        android:fontFamily="@font/sf_pro_display"
+        android:hint="@string/write_comment"
+        android:paddingStart="16dp"
+        android:paddingEnd="13dp"
+        android:textColorHint="@color/gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imgUser"
+        app:layout_constraintTop_toTopOf="@id/imgUser" />
+</androidx.constraintlayout.widget.ConstraintLayout>
