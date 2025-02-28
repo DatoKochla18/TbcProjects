@@ -9,5 +9,28 @@
         android:id="@+id/homeFragment"
         android:name="com.example.tbcexercises.presentation.home_screen.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_bottomSheetLocationFragment"
+            app:destination="@id/bottomSheetLocationFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/bottomSheetLocationFragment"
+        android:name="com.example.tbcexercises.presentation.bottom_sheet_location_screen.BottomSheetLocationFragment"
+        android:label="fragment_bottom_sheet_location"
+        tools:layout="@layout/fragment_bottom_sheet_location">
+        <argument
+            android:name="lat"
+            app:argType="float" />
+        <argument
+            android:name="lan"
+            app:argType="float" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="adress"
+            app:argType="string" />
+    </dialog>
+
 </navigation>

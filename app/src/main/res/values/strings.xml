@@ -2,4 +2,11 @@
     <string name="app_name">TbcExercises</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fetching_data_from_server">Fetching data from server...</string>
+    <string name="lat_lng">Lat: %1$s, Lng: %2$s</string>
+    <string name="close">Close</string>
+    <string name="enable_location">Enable Location</string>
+    <string name="your_location_settings_are_turned_off_please_enable_location_services_to_continue">Your location settings are turned off. Please enable location services to continue.</string>
+    <string name="settings">Settings</string>
+    <string name="cancel">Cancel</string>
 </resources>
