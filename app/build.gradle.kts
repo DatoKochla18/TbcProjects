@@ -65,6 +65,8 @@ dependencies {
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
+
+    implementation(libs.glide)
 }
 kapt {
     correctErrorTypes =  true
