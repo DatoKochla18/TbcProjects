@@ -35,11 +35,11 @@ class HomeViewModel @Inject constructor(private val locationRepository: Location
         }
     }
 
-    fun getLocationByLatLong(lat: Double, long: Double): Flow<Resource<Location?>?> = flow {
+    fun getLocationByLatLong(lat: Double, lan: Double): Flow<Resource<Location?>?> = flow {
         _locationFlow.value?.let { resource ->
             when (resource) {
                 is Resource.Success -> {
-                    val location = resource.data.find { it.lat == lat && it.lan == long }
+                    val location = resource.data.find { it.lat == lat && it.lan == lan }
                     emit(Resource.Success(location))
                 }
 
