@@ -72,8 +72,9 @@ dependencies {
     implementation(libs.secrets.gradle.plugin)
     implementation(libs.play.services.maps)
 
+    implementation(libs.android.maps.utils)
 
 }
 kapt {
-    correctErrorTypes =  true
+    correctErrorTypes = true
 }

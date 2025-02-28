@@ -28,7 +28,6 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
@@ -39,7 +38,7 @@ import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate){
+class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
     private val viewModel: HomeViewModel by viewModels()
     private var googleMap: GoogleMap? = null
@@ -49,11 +48,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
         if (isGranted) {
-            toast("Location permission granted")
+            toast(getString(R.string.location_permission_granted))
             setupMap()
             getCurrentLocation()
         } else {
-            toast("Location permission denied")
+            toast(getString(R.string.location_permission_denied))
         }
     }
 
@@ -75,12 +74,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     override fun listeners() {
 
         binding.apply {
-            imbIncrease.setOnClickListener {
-                zoom(1f)
-            }
-            imbdecrease.setOnClickListener {
-                zoom(-1f)
-            }
+            imbIncrease.setOnClickListener { zoom(1f) }
+            imbdecrease.setOnClickListener { zoom(-1f) }
         }
 
 
@@ -103,18 +98,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
+            ) != PackageManager.PERMISSION_GRANTED
         ) {
-            toast("Location permission already granted")
-        } else {
             locationPermissionRequest.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+
         }
     }
 
     private fun setupMap() {
         val mapFragment = childFragmentManager.findFragmentById(R.id.fvcMap) as? SupportMapFragment
         mapFragment?.getMapAsync { map ->
-            Log.d("MapFragment", "Google Map is ready")
             googleMap = map
 
             map.setOnMarkerClickListener { marker ->
@@ -145,7 +138,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                                         lat = location.lat.toFloat(),
                                         lan = location.lan.toFloat(),
                                         title = location.title,
-                                        location.address
+                                        adress = location.address
                                     )
                                 )
                             }
@@ -198,7 +191,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private fun showLocationSettingsDialog() {
         AlertDialog.Builder(requireContext())
             .setTitle(getString(R.string.enable_location))
-            .setMessage(getString(R.string.your_location_settings_are_turned_off_please_enable_location_services_to_continue))
+            .setMessage(getString(R.string.plz_turn_on_location))
             .setPositiveButton(getString(R.string.settings)) { _, _ ->
                 val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                 startActivity(intent)
@@ -212,7 +205,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         collectLastState(viewModel.locationFlow) { state ->
             when (state) {
                 is Resource.Error -> {
-                    toast("Error loading locations: ${state.message}")
+                    toast(getString(R.string.error_loading_locations, state.message))
                     showLoading(false)
 
                 }
