@@ -1,37 +1,54 @@
 package com.example.tbcexercises.di
 
-import com.example.tbcexercises.data.remote.service.ItemService
+import com.example.tbcexercises.data.remote.service.LocationService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import javax.inject.Singleton
 
-const val BASE_URL = ""
+const val BASE_URL = "https://run.mocky.io/v3/"
 
 @Module
 @InstallIn(SingletonComponent::class)
 object RemoteModule {
+
     @Provides
     @Singleton
-    fun provideRetrofit(): Retrofit {
+    fun provideHttpLogger(): HttpLoggingInterceptor {
+        return HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
+    }
+
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(logger: HttpLoggingInterceptor): OkHttpClient {
+        return OkHttpClient.Builder().addInterceptor(logger).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideRetrofit(client: OkHttpClient): Retrofit {
         val json = Json { ignoreUnknownKeys = true }
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
+            .client(client)
             .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
             .build()
 
         return retrofit
     }
 
+
     @Provides
     @Singleton
-    fun provideItemService(retrofit: Retrofit): ItemService {
-        return retrofit.create(ItemService::class.java)
+    fun provideItemService(retrofit: Retrofit): LocationService {
+        return retrofit.create(LocationService::class.java)
     }
 
 }
