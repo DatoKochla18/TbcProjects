@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 
 import androidx.paging.cachedIn
 import androidx.paging.map
+import com.example.tbcexercises.data.mappers.toProfile
 import com.example.tbcexercises.data.mappers.toUser
 import com.example.tbcexercises.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,6 +15,6 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(userRepository: UserRepository) : ViewModel() {
     val usersFlow = userRepository.getUsersPager().map { pagingData ->
-        pagingData.map { userEntity -> userEntity.toUser() }
+        pagingData.map { userEntity -> userEntity.toProfile() }
     }.cachedIn(viewModelScope)
 }

@@ -1,28 +1,34 @@
 package com.example.tbcexercises.presentation.login_screen
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tbcexercises.utils.Resource
-import com.example.tbcexercises.data.remote.response.LoginResponse
-import com.example.tbcexercises.domain.repository.LoginRepository
 import com.example.tbcexercises.domain.repository.UserSessionRepository
-import com.example.tbcexercises.domain.extension.isEmailValid
+import com.example.tbcexercises.domain.use_case.LoginUseCase
+import com.example.tbcexercises.domain.use_case.validation.ValidateEmailUseCase
+import com.example.tbcexercises.domain.use_case.validation.ValidatePasswordUseCase
+import com.example.tbcexercises.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val loginRepository: LoginRepository,
+    private val validateEmailUseCase: ValidateEmailUseCase,
+    private val validatePasswordUseCase: ValidatePasswordUseCase,
+    private val loginUseCase: LoginUseCase,
     private val userSessionRepositoryImpl: UserSessionRepository
 ) :
     ViewModel() {
-    private val _loginResponse = MutableStateFlow<Resource<LoginResponse>?>(null)
-    val loginResponse: StateFlow<Resource<LoginResponse>?> = _loginResponse
+    private val _uiState =
+        MutableStateFlow(LoginUiState())
+    val uiState: StateFlow<LoginUiState> = _uiState
 
     fun setSession(rememberMe: Boolean, email: String) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -30,26 +36,94 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun login(email: String, password: String) {
-        _loginResponse.value = Resource.Loading
-        if (!email.isEmailValid()) {
-            _loginResponse.value = Resource.Error("Enter a valid email")
-            return
-        }
-        if (password.isEmpty()) {
-            _loginResponse.value = Resource.Error("Password should not be empty")
-            return
-        }
-        if (password.length < 6) {
-            _loginResponse.value = Resource.Error("Password should be at least 6 chars")
-            return
-        }
+    private val _uiEventChannel = Channel<LoginUiEvent>()
+    val uiEvents = _uiEventChannel.receiveAsFlow()
 
-        viewModelScope.launch(Dispatchers.IO) {
-            loginRepository.login(email, password).collectLatest { state ->
-                _loginResponse.value = state
+
+    fun onEvent(event: LoginEvent) {
+        when (event) {
+            LoginEvent.ClearValidation -> clearValidation()
+            is LoginEvent.Login -> login(event.email, event.password)
+            is LoginEvent.ValidateEmail -> validateEmail(event.email)
+            is LoginEvent.ValidatePassword -> validatePassword(event.password)
+        }
+    }
+
+    private fun login(email: String, password: String) {
+        if (!validateForm(email, password)) return
+
+        viewModelScope.launch {
+            loginUseCase(email, password).collect { result ->
+                when (result) {
+                    is Resource.Loading -> {
+                        _uiState.update { it.copy(isLoading = true) }
+                    }
+
+                    is Resource.Success -> {
+                        _uiState.update { it.copy(isLoading = false) }
+                        _uiEventChannel.send(LoginUiEvent.NavigateToHomeScreen)
+
+                    }
+
+                    is Resource.Error -> {
+                        _uiState.update {
+                            it.copy(
+                                isLoading = false,
+                            )
+                        }
+                        _uiEventChannel.send(LoginUiEvent.ShowToast(result.message))
+                    }
+                }
             }
         }
     }
 
+
+    private fun validateForm(email: String, password: String): Boolean {
+        val emailResult = validateEmailUseCase(email)
+        val passwordResult = validatePasswordUseCase(password)
+
+        val hasError = !emailResult.successful || !passwordResult.successful
+
+        _uiState.update {
+            it.copy(
+                emailError = emailResult.errorMessage,
+                passwordError = passwordResult.errorMessage,
+                isValidForm = !hasError
+            )
+        }
+
+        return !hasError
+    }
+
+    private fun validateEmail(email: String) {
+        val result = validateEmailUseCase(email)
+        Log.d("result", result.toString())
+        _uiState.update {
+            it.copy(
+                emailError = result.errorMessage,
+                isValidForm = result.successful && (_uiState.value.passwordError == null)
+            )
+        }
+    }
+
+    private fun validatePassword(password: String) {
+        val result = validatePasswordUseCase(password)
+        _uiState.update {
+            it.copy(
+                passwordError = result.errorMessage,
+                isValidForm = result.successful && (_uiState.value.emailError == null)
+            )
+        }
+    }
+
+    private fun clearValidation() {
+        _uiState.update {
+            it.copy(
+                emailError = null,
+                passwordError = null,
+                isValidForm = false
+            )
+        }
+    }
 }

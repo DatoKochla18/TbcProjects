@@ -1,12 +1,13 @@
 package com.example.tbcexercises.presentation.login_screen
 
 
+import android.util.Log
 import android.view.View
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.tbcexercises.utils.Resource
-import com.example.tbcexercises.presentation.base.BaseFragment
 import com.example.tbcexercises.databinding.FragmentLoginBinding
+import com.example.tbcexercises.presentation.base.BaseFragment
 import com.example.tbcexercises.presentation.extension.collectLastState
 import com.example.tbcexercises.presentation.extension.toast
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,28 +16,35 @@ import dagger.hilt.android.AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
     private val viewModel: LoginViewModel by viewModels()
 
-
     override fun start() {
-        collectLastState(viewModel.loginResponse) { result ->
-            when (result) {
-                is Resource.Loading -> showLoadingScreen(true)
-                is Resource.Error -> {
-                    showLoadingScreen(false)
-                    toast(result.message)
-                }
 
-                is Resource.Success -> {
-                    viewModel.setSession(
-                        binding.cbRememberMe.isChecked,
-                        binding.etEmail.text.toString()
-                    )
-                    navigateToHomeScreen()
-                }
+        collectLastState(viewModel.uiState) { state ->
 
-                null -> {}
+            showLoadingScreen(state.isLoading)
+
+            Log.d("uistate", state.toString())
+
+            binding.txtEmailError.apply {
+                text = state.emailError
+                visibility = if (state.emailError != null) View.VISIBLE else View.GONE
+            }
+
+            binding.txtPasswordError.apply {
+                text = state.passwordError
+                visibility = if (state.passwordError != null) View.VISIBLE else View.GONE
+            }
+
+            binding.btnLogin.isEnabled = state.isValidForm
+        }
+        collectLastState(viewModel.uiEvents) { event ->
+            when (event) {
+                is LoginUiEvent.NavigateToHomeScreen -> navigateToHomeScreen()
+                is LoginUiEvent.ShowToast -> toast(event.message)
             }
         }
+
     }
+
 
     private fun registerListeners() {
         parentFragmentManager.setFragmentResultListener("authData", this) { _, bundle ->
@@ -51,21 +59,28 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     }
 
     override fun listeners() {
-
         registerListeners()
 
         binding.apply {
+            etEmail.doOnTextChanged { text, _, _, _ ->
+                viewModel.onEvent(LoginEvent.ValidateEmail(text.toString()))
+            }
+
+            etPassword.doOnTextChanged { text, _, _, _ ->
+                viewModel.onEvent(LoginEvent.ValidatePassword(text.toString()))
+            }
+
             btnLogin.setOnClickListener {
                 val email = binding.etEmail.text.toString()
                 val password = binding.etPassword.text.toString()
-                viewModel.login(email = email, password = password)
+                viewModel.onEvent(LoginEvent.Login(email = email, password = password))
             }
+
             txtRegister.setOnClickListener {
                 findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
             }
         }
     }
-
 
     private fun navigateToHomeScreen() {
         findNavController().navigate(LoginFragmentDirections.actionGlobalHomeFragment())
@@ -79,12 +94,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
             etEmail.visibility = viewVisibility
             btnLogin.visibility = viewVisibility
-            btnLogin.visibility = viewVisibility
-            btnLogin.visibility = viewVisibility
             txtRememberMe.visibility = viewVisibility
             cbRememberMe.visibility = viewVisibility
             textInputLayout.visibility = viewVisibility
             txtRegister.visibility = viewVisibility
+            txtEmailError.visibility = viewVisibility
+            txtPasswordError.visibility = viewVisibility
         }
     }
 }

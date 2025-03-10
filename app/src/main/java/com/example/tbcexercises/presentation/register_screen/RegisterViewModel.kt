@@ -6,6 +6,7 @@ import com.example.tbcexercises.utils.Resource
 import com.example.tbcexercises.data.remote.response.RegisterResponse
 import com.example.tbcexercises.domain.repository.RegisterRepository
 import com.example.tbcexercises.domain.extension.isEmailValid
+import com.example.tbcexercises.domain.model.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,8 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 class RegisterViewModel @Inject constructor(private val registerRepository: RegisterRepository) :
     ViewModel() {
-    private val _registerResponse = MutableStateFlow<Resource<RegisterResponse>?>(null)
-    val registerResponse: StateFlow<Resource<RegisterResponse>?> = _registerResponse
+    private val _registerResponse = MutableStateFlow<Resource<User>?>(null)
+    val registerResponse: StateFlow<Resource<User>?> = _registerResponse
 
 
     fun register(email: String, password: String, passwordRepeat: String) {
