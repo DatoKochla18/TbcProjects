@@ -7,10 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tbcexercises.R
 import com.example.tbcexercises.databinding.ItemUserBinding
 import com.example.tbcexercises.domain.model.User
-import com.example.tbcexercises.domain.third_party_library.image_loader.ImageLoader
-import javax.inject.Inject
+import com.example.tbcexercises.presentation.extension.loadImg
 
-class UserListAdapter @Inject constructor(private val imageLoader: ImageLoader) :
+class UserListAdapter() :
     PagingDataAdapter<User, UserListAdapter.UserListViewHolder>(UserDiffUtil) {
 
 
@@ -28,18 +27,12 @@ class UserListAdapter @Inject constructor(private val imageLoader: ImageLoader) 
         fun onBind() {
             //val user = getItem(adapterPosition)!! deprecated
             val user = getItem(bindingAdapterPosition)!!
-            imageLoader.loadImage(
-                binding.imgUser, user.avatar
-            )
+            binding.imgUser.loadImg(user.avatar)
 
 
             binding.apply {
                 txtEmail.text = user.email
-                txtFullName.text = root.context.resources.getString(
-                    R.string.full_name,
-                    user.firstName,
-                    user.lastName
-                )
+                txtFullName.text = user.fullName
             }
         }
     }

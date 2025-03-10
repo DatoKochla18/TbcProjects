@@ -7,8 +7,7 @@ fun UserEntity.toUser(): User {
     return User(
         id = this.id,
         email = this.email,
-        firstName = this.firstName,
-        lastName = this.lastName,
+        fullName = this.firstName + " " + this.lastName,
         avatar = this.avatar
     )
 }

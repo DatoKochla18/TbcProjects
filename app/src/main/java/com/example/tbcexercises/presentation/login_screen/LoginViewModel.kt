@@ -2,11 +2,11 @@ package com.example.tbcexercises.presentation.login_screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tbcexercises.utils.common.Resource
+import com.example.tbcexercises.utils.Resource
 import com.example.tbcexercises.data.remote.response.LoginResponse
 import com.example.tbcexercises.domain.repository.LoginRepository
 import com.example.tbcexercises.domain.repository.UserSessionRepository
-import com.example.tbcexercises.utils.exntension.isEmailValid
+import com.example.tbcexercises.domain.extension.isEmailValid
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

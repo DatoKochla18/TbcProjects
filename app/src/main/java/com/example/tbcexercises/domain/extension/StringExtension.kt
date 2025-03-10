@@ -1,4 +1,4 @@
-package com.example.tbcexercises.utils.exntension
+package com.example.tbcexercises.domain.extension
 
 //Code copied from  https://medium.com/@kalpeshdoru/10-kotlin-extension-functions-for-input-validation-5776c6139e8f
 fun String.isEmailValid(): Boolean {

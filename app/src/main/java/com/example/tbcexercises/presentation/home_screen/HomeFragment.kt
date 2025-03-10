@@ -11,8 +11,8 @@ import com.example.tbcexercises.presentation.base.BaseFragment
 import com.example.tbcexercises.databinding.FragmentHomeBinding
 import com.example.tbcexercises.presentation.home_screen.adapter.UserListAdapter
 import com.example.tbcexercises.presentation.home_screen.userLoadState.UserLoadStateAdapter
-import com.example.tbcexercises.utils.exntension.collectLastState
-import com.example.tbcexercises.utils.exntension.toast
+import com.example.tbcexercises.presentation.extension.collectLastState
+import com.example.tbcexercises.presentation.extension.toast
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -20,8 +20,9 @@ import javax.inject.Inject
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
     private val viewModel: HomeViewModel by viewModels()
 
-    @Inject
-    lateinit var userListAdapter: UserListAdapter
+    private val userListAdapter by lazy {
+        UserListAdapter()
+    }
 
     override fun start() {
         setUpRecycleView()

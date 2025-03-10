@@ -2,10 +2,10 @@ package com.example.tbcexercises.presentation.register_screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tbcexercises.utils.common.Resource
+import com.example.tbcexercises.utils.Resource
 import com.example.tbcexercises.data.remote.response.RegisterResponse
 import com.example.tbcexercises.domain.repository.RegisterRepository
-import com.example.tbcexercises.utils.exntension.isEmailValid
+import com.example.tbcexercises.domain.extension.isEmailValid
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

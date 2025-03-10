@@ -1,7 +1,8 @@
 package com.example.tbcexercises.di
 
 import com.example.tbcexercises.BuildConfig
-import com.example.tbcexercises.data.remote.apis.AuthApi
+import com.example.tbcexercises.data.remote.apis.LoginApi
+import com.example.tbcexercises.data.remote.apis.RegisterApi
 import com.example.tbcexercises.data.remote.apis.UserApi
 import dagger.Module
 import dagger.Provides
@@ -49,9 +50,17 @@ object RemoteModule {
 
     @Provides
     @Singleton
-    fun provideAuthApi(retrofit: Retrofit): AuthApi {
-        return retrofit.create(AuthApi::class.java)
+    fun provideLoginApi(retrofit: Retrofit): LoginApi {
+        return retrofit.create(LoginApi::class.java)
     }
+
+
+    @Provides
+    @Singleton
+    fun provideRegisterApi(retrofit: Retrofit): RegisterApi {
+        return retrofit.create(RegisterApi::class.java)
+    }
+
 
     @Provides
     @Singleton

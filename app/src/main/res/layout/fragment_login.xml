@@ -34,6 +34,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtScreenName" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtEmailError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/red"
+        android:textSize="12sp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/etEmail"
+        app:layout_constraintTop_toBottomOf="@id/etEmail"
+        tools:text="* Error valid email" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
@@ -44,7 +55,7 @@
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etEmail"
+        app:layout_constraintTop_toBottomOf="@id/txtEmailError"
         app:passwordToggleEnabled="true"
         app:passwordToggleTint="@color/black">
 
@@ -65,6 +76,18 @@
 
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtPasswordError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/red"
+        android:textSize="12sp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/etEmail"
+        app:layout_constraintTop_toBottomOf="@id/textInputLayout"
+        tools:text="* Error valid email" />
+
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txtRememberMe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -82,7 +105,7 @@
         android:layout_marginEnd="4dp"
         app:buttonTint="@color/black"
         app:layout_constraintStart_toEndOf="@id/txtRememberMe"
-        app:layout_constraintTop_toBottomOf="@id/textInputLayout" />
+        app:layout_constraintTop_toBottomOf="@id/txtPasswordError" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnLogin"

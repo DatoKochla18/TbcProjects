@@ -1,7 +1,7 @@
 package com.example.tbcexercises.domain.repository
 
 import com.example.tbcexercises.data.remote.response.RegisterResponse
-import com.example.tbcexercises.utils.common.Resource
+import com.example.tbcexercises.utils.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface RegisterRepository {
