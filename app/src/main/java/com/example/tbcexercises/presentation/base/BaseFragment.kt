@@ -13,8 +13,8 @@ abstract class BaseFragment<VB : ViewBinding>(private val inflate: (LayoutInflat
     private var _binding: VB? = null
     protected val binding get() = _binding!!
 
-    open fun start() {}
-    open fun listeners() {}
+    abstract fun start()
+    abstract fun listeners()
 
 
     override fun onCreateView(

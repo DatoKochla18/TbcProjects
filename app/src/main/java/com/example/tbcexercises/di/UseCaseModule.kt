@@ -6,6 +6,7 @@ import com.example.tbcexercises.domain.use_case.LoginUseCase
 import com.example.tbcexercises.domain.use_case.RegisterUseCase
 import com.example.tbcexercises.domain.use_case.validation.ValidateEmailUseCase
 import com.example.tbcexercises.domain.use_case.validation.ValidatePasswordUseCase
+import com.example.tbcexercises.domain.use_case.validation.ValidateRepeatPasswordUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,5 +34,10 @@ object UseCaseModule {
     fun provideValidatePasswordUseCase():ValidatePasswordUseCase{
         return ValidatePasswordUseCase()
     }
+    @Provides
+    fun provideValidateRepeatedPasswordUseCase():ValidateRepeatPasswordUseCase{
+        return ValidateRepeatPasswordUseCase()
+    }
+
 
 }

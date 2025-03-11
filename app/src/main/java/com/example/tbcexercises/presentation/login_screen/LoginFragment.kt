@@ -1,11 +1,11 @@
 package com.example.tbcexercises.presentation.login_screen
 
 
-import android.util.Log
 import android.view.View
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.tbcexercises.R
 import com.example.tbcexercises.databinding.FragmentLoginBinding
 import com.example.tbcexercises.presentation.base.BaseFragment
 import com.example.tbcexercises.presentation.extension.collectLastState
@@ -19,22 +19,27 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     override fun start() {
 
         collectLastState(viewModel.uiState) { state ->
-
             showLoadingScreen(state.isLoading)
 
-            Log.d("uistate", state.toString())
 
             binding.txtEmailError.apply {
                 text = state.emailError
-                visibility = if (state.emailError != null) View.VISIBLE else View.GONE
+                visibility = if (!state.emailError.isNullOrEmpty()) View.VISIBLE else View.GONE
             }
 
             binding.txtPasswordError.apply {
                 text = state.passwordError
-                visibility = if (state.passwordError != null) View.VISIBLE else View.GONE
+                visibility = if (!state.passwordError.isNullOrEmpty()) View.VISIBLE else View.GONE
             }
 
-            binding.btnLogin.isEnabled = state.isValidForm
+            binding.btnLogin.apply {
+                isEnabled = state.isValidForm
+                if (state.isValidForm) {
+                    setBackgroundColor(context.getColor(R.color.dark_cyan))
+                } else {
+                    setBackgroundColor(context.getColor(R.color.light_cyan))
+                }
+            }
         }
         collectLastState(viewModel.uiEvents) { event ->
             when (event) {

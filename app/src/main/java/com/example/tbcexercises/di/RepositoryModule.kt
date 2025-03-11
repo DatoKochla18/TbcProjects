@@ -4,11 +4,11 @@ package com.example.tbcexercises.di
 import com.example.tbcexercises.data.repository.LoginRepositoryImpl
 import com.example.tbcexercises.data.repository.RegisterRepositoryImpl
 import com.example.tbcexercises.data.repository.UserRepositoryImpl
-import com.example.tbcexercises.data.repository.UserSessionRepositoryImpl
+import com.example.tbcexercises.data.manager.UserSessionManagerImpl
 import com.example.tbcexercises.domain.repository.LoginRepository
 import com.example.tbcexercises.domain.repository.RegisterRepository
 import com.example.tbcexercises.domain.repository.UserRepository
-import com.example.tbcexercises.domain.repository.UserSessionRepository
+import com.example.tbcexercises.domain.manager.UserSessionManager
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -33,5 +33,5 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindUserSessionRepository(impl: UserSessionRepositoryImpl): UserSessionRepository
+    abstract fun bindUserSessionRepository(impl: UserSessionManagerImpl): UserSessionManager
 }

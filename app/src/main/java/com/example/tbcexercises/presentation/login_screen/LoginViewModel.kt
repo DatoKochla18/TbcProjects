@@ -3,7 +3,7 @@ package com.example.tbcexercises.presentation.login_screen
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tbcexercises.domain.repository.UserSessionRepository
+import com.example.tbcexercises.domain.manager.UserSessionManager
 import com.example.tbcexercises.domain.use_case.LoginUseCase
 import com.example.tbcexercises.domain.use_case.validation.ValidateEmailUseCase
 import com.example.tbcexercises.domain.use_case.validation.ValidatePasswordUseCase
@@ -23,7 +23,7 @@ class LoginViewModel @Inject constructor(
     private val validateEmailUseCase: ValidateEmailUseCase,
     private val validatePasswordUseCase: ValidatePasswordUseCase,
     private val loginUseCase: LoginUseCase,
-    private val userSessionRepositoryImpl: UserSessionRepository
+    private val userSessionRepositoryImpl: UserSessionManager
 ) :
     ViewModel() {
     private val _uiState =
@@ -42,7 +42,6 @@ class LoginViewModel @Inject constructor(
 
     fun onEvent(event: LoginEvent) {
         when (event) {
-            LoginEvent.ClearValidation -> clearValidation()
             is LoginEvent.Login -> login(event.email, event.password)
             is LoginEvent.ValidateEmail -> validateEmail(event.email)
             is LoginEvent.ValidatePassword -> validatePassword(event.password)
@@ -113,16 +112,6 @@ class LoginViewModel @Inject constructor(
             it.copy(
                 passwordError = result.errorMessage,
                 isValidForm = result.successful && (_uiState.value.emailError == null)
-            )
-        }
-    }
-
-    private fun clearValidation() {
-        _uiState.update {
-            it.copy(
-                emailError = null,
-                passwordError = null,
-                isValidForm = false
             )
         }
     }

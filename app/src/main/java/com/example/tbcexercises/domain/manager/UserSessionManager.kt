@@ -1,8 +1,8 @@
-package com.example.tbcexercises.domain.repository
+package com.example.tbcexercises.domain.manager
 
 import kotlinx.coroutines.flow.Flow
 
-interface UserSessionRepository {
+interface UserSessionManager {
 
     suspend fun setSession(rememberMe: Boolean, email: String)
 

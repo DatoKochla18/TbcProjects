@@ -2,13 +2,13 @@ package com.example.tbcexercises.presentation.profile_screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tbcexercises.domain.repository.UserSessionRepository
+import com.example.tbcexercises.domain.manager.UserSessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor(private val userSessionRepository: UserSessionRepository) :
+class ProfileViewModel @Inject constructor(private val userSessionRepository: UserSessionManager) :
     ViewModel() {
 
     val emailFlow = userSessionRepository.getEmailFlow()
