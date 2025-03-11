@@ -2,12 +2,14 @@ package com.example.tbcexercises.presentation.launcher_screen
 
 import androidx.lifecycle.ViewModel
 import com.example.tbcexercises.domain.manager.UserSessionManager
+import com.example.tbcexercises.domain.use_case.GetValueFromLocalStorageUseCase
+import com.example.tbcexercises.utils.Constants.REMEMBER_ME_KEY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class LaunchViewModel @Inject constructor(userSessionRepository: UserSessionManager) :
+class LaunchViewModel @Inject constructor(getValueFromLocalStorageUseCase: GetValueFromLocalStorageUseCase) :
     ViewModel() {
 
-    val rememberMe = userSessionRepository.getRememberMeFlow()
+    val rememberMe = getValueFromLocalStorageUseCase(REMEMBER_ME_KEY,false)
 }

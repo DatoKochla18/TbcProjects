@@ -7,6 +7,8 @@ import com.example.tbcexercises.domain.manager.UserSessionManager
 import com.example.tbcexercises.domain.use_case.LoginUseCase
 import com.example.tbcexercises.domain.use_case.validation.ValidateEmailUseCase
 import com.example.tbcexercises.domain.use_case.validation.ValidatePasswordUseCase
+import com.example.tbcexercises.utils.Constants.EMAIL_KEY
+import com.example.tbcexercises.utils.Constants.REMEMBER_ME_KEY
 import com.example.tbcexercises.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -23,7 +25,7 @@ class LoginViewModel @Inject constructor(
     private val validateEmailUseCase: ValidateEmailUseCase,
     private val validatePasswordUseCase: ValidatePasswordUseCase,
     private val loginUseCase: LoginUseCase,
-    private val userSessionRepositoryImpl: UserSessionManager
+    private val userSessionManager: UserSessionManager
 ) :
     ViewModel() {
     private val _uiState =
@@ -32,7 +34,8 @@ class LoginViewModel @Inject constructor(
 
     fun setSession(rememberMe: Boolean, email: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            userSessionRepositoryImpl.setSession(rememberMe = rememberMe, email = email)
+            userSessionManager.saveValue(REMEMBER_ME_KEY, rememberMe)
+            userSessionManager.saveValue(EMAIL_KEY, email)
         }
     }
 
@@ -60,7 +63,7 @@ class LoginViewModel @Inject constructor(
 
                     is Resource.Success -> {
                         _uiState.update { it.copy(isLoading = false) }
-                        _uiEventChannel.send(LoginUiEvent.NavigateToHomeScreen)
+                        _uiEventChannel.send(LoginUiEvent.SuccessFullLogin)
 
                     }
 

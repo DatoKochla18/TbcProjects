@@ -1,13 +1,9 @@
 package com.example.tbcexercises.domain.manager
 
+import androidx.datastore.preferences.core.Preferences
 import kotlinx.coroutines.flow.Flow
 
 interface UserSessionManager {
-
-    suspend fun setSession(rememberMe: Boolean, email: String)
-
-
-    fun getEmailFlow(): Flow<String?>
-
-    fun getRememberMeFlow(): Flow<Boolean>
+    suspend fun <T> saveValue(key: Preferences.Key<T>, value: T)
+    fun <T> readValue(key: Preferences.Key<T>, defaultValue: T): Flow<T>
 }

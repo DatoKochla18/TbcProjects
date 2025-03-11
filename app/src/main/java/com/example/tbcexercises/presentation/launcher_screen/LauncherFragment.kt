@@ -15,19 +15,17 @@ class LauncherFragment : BaseFragment<FragmentLauncherBinding>(FragmentLauncherB
     private val viewModel: LaunchViewModel by viewModels()
 
     override fun start() {
-        runBlocking { // i use runBlocking because it will block uiThread so it will not have affect that
-            //it started HomeScreen and then went to LoginScreen
-            collectLastState(viewModel.rememberMe) { rememberMe ->
-                if (rememberMe) {
-                    findNavController().navigate(
-                        LauncherFragmentDirections.actionLauncherFragmentToHomeFragment()
-                    )
-                } else {
-                    findNavController().navigate(LauncherFragmentDirections.actionLauncherFragmentToNavigation())
-                }
+        collectLastState(viewModel.rememberMe) { rememberMe ->
+            if (rememberMe) {
+                findNavController().navigate(
+                    LauncherFragmentDirections.actionLauncherFragmentToHomeFragment()
+                )
+            } else {
+                findNavController().navigate(LauncherFragmentDirections.actionLauncherFragmentToNavigation())
             }
-
         }
+
+
     }
 
     override fun listeners() {

@@ -1,5 +1,6 @@
 package com.example.tbcexercises.data.manager
 
+import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
@@ -10,24 +11,20 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class UserSessionManagerImpl @Inject constructor(private val dataStore: DataStore<Preferences>) :
-    UserSessionManager {
-    override suspend fun setSession(rememberMe: Boolean, email: String) {
+class UserSessionManagerImpl @Inject constructor(
+    private val dataStore: DataStore<Preferences>
+) : UserSessionManager {
+
+    override suspend fun <T> saveValue(key: Preferences.Key<T>, value: T) {
         dataStore.edit { preferences ->
-            preferences[EMAIL_KEY] = email
-            preferences[REMEMBER_ME_KEY] = rememberMe
+            preferences[key] = value
+            Log.d("saved", preferences[key].toString())
         }
     }
 
-    override fun getEmailFlow(): Flow<String?> {
+    override fun <T> readValue(key: Preferences.Key<T>, defaultValue: T): Flow<T> {
         return dataStore.data.map { preferences ->
-            preferences[EMAIL_KEY]
-        }
-    }
-
-    override fun getRememberMeFlow(): Flow<Boolean> {
-        return dataStore.data.map { preferences ->
-            preferences[REMEMBER_ME_KEY] ?: false
+            preferences[key] ?: defaultValue
         }
     }
 }

@@ -43,7 +43,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         }
         collectLastState(viewModel.uiEvents) { event ->
             when (event) {
-                is LoginUiEvent.NavigateToHomeScreen -> navigateToHomeScreen()
+                is LoginUiEvent.SuccessFullLogin -> onSuccessFullLogin(
+                    binding.cbRememberMe.isChecked,
+                    binding.etEmail.text.toString()
+                )
+
                 is LoginUiEvent.ShowToast -> toast(event.message)
             }
         }
@@ -87,7 +91,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         }
     }
 
-    private fun navigateToHomeScreen() {
+    private fun onSuccessFullLogin(rememberMe: Boolean, email: String) {
+        viewModel.setSession(rememberMe, email)
         findNavController().navigate(LoginFragmentDirections.actionGlobalHomeFragment())
     }
 

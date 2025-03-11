@@ -1,9 +1,12 @@
 package com.example.tbcexercises.di
 
+import com.example.tbcexercises.domain.manager.UserSessionManager
 import com.example.tbcexercises.domain.repository.LoginRepository
 import com.example.tbcexercises.domain.repository.RegisterRepository
+import com.example.tbcexercises.domain.use_case.GetValueFromLocalStorageUseCase
 import com.example.tbcexercises.domain.use_case.LoginUseCase
 import com.example.tbcexercises.domain.use_case.RegisterUseCase
+import com.example.tbcexercises.domain.use_case.SaveValueToLocalStorageUseCase
 import com.example.tbcexercises.domain.use_case.validation.ValidateEmailUseCase
 import com.example.tbcexercises.domain.use_case.validation.ValidatePasswordUseCase
 import com.example.tbcexercises.domain.use_case.validation.ValidateRepeatPasswordUseCase
@@ -27,15 +30,27 @@ object UseCaseModule {
     }
 
     @Provides
-    fun provideValidateEmailUseCase():ValidateEmailUseCase{
+    fun provideGetValueFromLocalStorageUserCase(userSessionManager: UserSessionManager): GetValueFromLocalStorageUseCase {
+        return GetValueFromLocalStorageUseCase(userSessionManager)
+    }
+
+    @Provides
+    fun provideSaveValueFromLocalStorageUserCase(userSessionManager: UserSessionManager): SaveValueToLocalStorageUseCase {
+        return SaveValueToLocalStorageUseCase(userSessionManager)
+    }
+
+    @Provides
+    fun provideValidateEmailUseCase(): ValidateEmailUseCase {
         return ValidateEmailUseCase()
     }
+
     @Provides
-    fun provideValidatePasswordUseCase():ValidatePasswordUseCase{
+    fun provideValidatePasswordUseCase(): ValidatePasswordUseCase {
         return ValidatePasswordUseCase()
     }
+
     @Provides
-    fun provideValidateRepeatedPasswordUseCase():ValidateRepeatPasswordUseCase{
+    fun provideValidateRepeatedPasswordUseCase(): ValidateRepeatPasswordUseCase {
         return ValidateRepeatPasswordUseCase()
     }
 

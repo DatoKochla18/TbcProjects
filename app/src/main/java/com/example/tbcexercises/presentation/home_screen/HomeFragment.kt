@@ -7,14 +7,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.tbcexercises.presentation.base.BaseFragment
 import com.example.tbcexercises.databinding.FragmentHomeBinding
-import com.example.tbcexercises.presentation.home_screen.adapter.UserListAdapter
-import com.example.tbcexercises.presentation.home_screen.userLoadState.UserLoadStateAdapter
+import com.example.tbcexercises.presentation.base.BaseFragment
 import com.example.tbcexercises.presentation.extension.collectLastState
 import com.example.tbcexercises.presentation.extension.toast
+import com.example.tbcexercises.presentation.home_screen.adapter.UserListAdapter
+import com.example.tbcexercises.presentation.home_screen.userLoadState.UserLoadStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
@@ -31,29 +30,33 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             userListAdapter.submitData(it)
         }
 
+        collectLastState(userListAdapter.loadStateFlow) { loadState ->
+            updateUIVisibility(loadState)
+            handleError(loadState)
+
+        }
+
+
+    }
+
+    private fun updateUIVisibility(loadState: CombinedLoadStates) {
+        val refreshState = loadState.mediator?.refresh ?: loadState.source.refresh
+
+        val isInitialLoading =
+            refreshState is LoadState.Loading && userListAdapter.itemCount == 0
+
+        binding.apply {
+            progressBar.isVisible = isInitialLoading
+            rvContainer.isVisible =
+                refreshState is LoadState.NotLoading || userListAdapter.itemCount > 0
+            btnRetry.isVisible =
+                refreshState is LoadState.Error && userListAdapter.itemCount == 0
+        }
     }
 
     override fun listeners() {
         binding.btnRetry.setOnClickListener {
             userListAdapter.retry()
-        }
-
-
-        userListAdapter.addLoadStateListener { loadState ->
-            val refreshState = loadState.mediator?.refresh ?: loadState.source.refresh
-
-            val isInitialLoading =
-                refreshState is LoadState.Loading && userListAdapter.itemCount == 0
-
-            binding.apply {
-                progressBar.isVisible = isInitialLoading
-                rvContainer.isVisible =
-                    refreshState is LoadState.NotLoading || userListAdapter.itemCount > 0
-                btnRetry.isVisible =
-                    refreshState is LoadState.Error && userListAdapter.itemCount == 0
-            }
-
-            handleError(loadState)
         }
 
         binding.imgMyProfile.setOnClickListener {
