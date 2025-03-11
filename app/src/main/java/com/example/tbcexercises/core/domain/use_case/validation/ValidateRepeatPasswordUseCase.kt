@@ -1,5 +1,6 @@
 package com.example.tbcexercises.core.domain.use_case.validation
 
+import com.example.tbcexercises.core.domain.util.ErrorTypes
 import com.example.tbcexercises.core.domain.util.ValidationResult
 
 class ValidateRepeatPasswordUseCase {
@@ -7,7 +8,7 @@ class ValidateRepeatPasswordUseCase {
         if (password != repeatedPassword) {
             return ValidationResult(
                 successful = false,
-                errorMessage = "The passwords don't match"
+                errorMessage = ErrorTypes.INVALID_REPEAT_PASSWORD
             )
         }
         return ValidationResult(

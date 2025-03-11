@@ -1,5 +1,6 @@
 package com.example.tbcexercises.core.domain.use_case.validation
 
+import com.example.tbcexercises.core.domain.util.ErrorTypes
 import com.example.tbcexercises.core.domain.util.ValidationResult
 
 class ValidatePasswordUseCase {
@@ -7,7 +8,7 @@ class ValidatePasswordUseCase {
         if(password.length < 8) {
             return ValidationResult(
                 successful = false,
-                errorMessage = "The password needs to consist of at least 8 characters"
+                errorMessage = ErrorTypes.SHORT_PASSWORD
             )
         }
         val containsLettersAndDigits = password.any { it.isDigit() } &&
@@ -15,7 +16,7 @@ class ValidatePasswordUseCase {
         if(!containsLettersAndDigits) {
             return ValidationResult(
                 successful = false,
-                errorMessage = "The password needs to contain at least one letter and digit"
+                errorMessage = ErrorTypes.INVALID_PASSWORD
             )
         }
         return ValidationResult(

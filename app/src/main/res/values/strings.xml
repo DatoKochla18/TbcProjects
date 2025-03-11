@@ -22,4 +22,10 @@
     <string name="unexpected_error_plz_try_again_later">Unexpected Error plz try again later</string>
     <string name="retry">retry</string>
     <string name="timeout">timeout</string>
+    <string name="field_can_not_be_blank">Field Can not be blank</string>
+    <string name="invalid_email">Invalid email</string>
+    <string name="the_password_needs_to_consist_of_at_least_8_characters">The password needs to consist of at least 8 characters</string>
+    <string name="the_password_needs_to_contain_at_least_one_letter_and_digit">The password needs to contain at least one letter and digit</string>
+    <string name="password_should_be_same">Password should be same</string>
+    <string name="empty" />
 </resources>

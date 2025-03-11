@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val loginUseCaseWrapper: LoginUseCaseWrapper
+    private val loginUseCaseWrapper: LoginUseCaseWrapper,
 ) :
     ViewModel() {
     private val _uiState =
@@ -99,6 +99,7 @@ class LoginViewModel @Inject constructor(
             it.copy(
                 emailError = result.errorMessage,
                 isValidForm = result.successful && (_uiState.value.passwordError == null)
+
             )
         }
     }

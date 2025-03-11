@@ -6,10 +6,12 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.tbcexercises.R
-import com.example.tbcexercises.databinding.FragmentLoginBinding
+import com.example.tbcexercises.core.domain.util.ErrorTypes
 import com.example.tbcexercises.core.presentation.base.BaseFragment
 import com.example.tbcexercises.core.presentation.extension.collectLastState
+import com.example.tbcexercises.core.presentation.extension.toMap
 import com.example.tbcexercises.core.presentation.extension.toast
+import com.example.tbcexercises.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,13 +33,17 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         showLoadingScreen(state.isLoading)
 
         binding.txtEmailError.apply {
-            text = state.emailError
-            visibility = if (!state.emailError.isNullOrEmpty()) View.VISIBLE else View.GONE
+            text = state.emailError?.let { getString(it.toMap()) }
+            visibility =
+                if (state.emailError == null || state.emailError == ErrorTypes.NON_VALIDATED)
+                    View.GONE else View.VISIBLE
         }
 
         binding.txtPasswordError.apply {
-            text = state.passwordError
-            visibility = if (!state.passwordError.isNullOrEmpty()) View.VISIBLE else View.GONE
+            text = state.passwordError?.let { getString(it.toMap()) }
+            visibility =
+                if (state.passwordError == null || state.passwordError == ErrorTypes.NON_VALIDATED) View.GONE
+                else View.VISIBLE
         }
 
         binding.btnLogin.apply {

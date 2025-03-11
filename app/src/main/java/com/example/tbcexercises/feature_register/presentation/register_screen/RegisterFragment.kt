@@ -8,9 +8,11 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.tbcexercises.R
+import com.example.tbcexercises.core.domain.util.ErrorTypes
 import com.example.tbcexercises.databinding.FragmentRegisterBinding
 import com.example.tbcexercises.core.presentation.base.BaseFragment
 import com.example.tbcexercises.core.presentation.extension.collectLastState
+import com.example.tbcexercises.core.presentation.extension.toMap
 import com.example.tbcexercises.core.presentation.extension.toast
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -49,18 +51,25 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
 
         binding.txtEmailError.apply {
-            text = state.emailError
-            visibility = if (!state.emailError.isNullOrEmpty()) View.VISIBLE else View.GONE
+            text = state.emailError?.let { getString(it.toMap()) }
+            visibility =
+                if (state.emailError == null || state.emailError == ErrorTypes.NON_VALIDATED)
+                    View.GONE else View.VISIBLE
         }
 
         binding.txtPasswordError.apply {
-            text = state.passwordError
-            visibility = if (!state.passwordError.isNullOrEmpty()) View.VISIBLE else View.GONE
+            text = state.passwordError?.let { getString(it.toMap()) }
+            visibility =
+                if (state.passwordError == null || state.passwordError == ErrorTypes.NON_VALIDATED)
+                    View.GONE else View.VISIBLE
         }
         binding.txtPasswordRepeatError.apply {
-            text = state.repeatedPasswordError
+            text = state.repeatedPasswordError?.let { getString(it.toMap()) }
             visibility =
-                if (!state.repeatedPasswordError.isNullOrEmpty()) View.VISIBLE else View.GONE
+                if (state.repeatedPasswordError == null ||
+                    state.repeatedPasswordError == ErrorTypes.NON_VALIDATED
+                )
+                    View.GONE else View.VISIBLE
         }
 
         binding.btnRegister.apply {
