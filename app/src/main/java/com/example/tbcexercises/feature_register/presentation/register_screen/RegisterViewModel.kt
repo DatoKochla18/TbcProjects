@@ -2,7 +2,6 @@ package com.example.tbcexercises.feature_register.presentation.register_screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tbcexercises.core.presentation.extension.toMap
 import com.example.tbcexercises.core.utils.Resource
 import com.example.tbcexercises.feature_register.domain.use_case.RegisterUseWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -34,9 +33,9 @@ class RegisterViewModel @Inject constructor(
                 event.repeatedPassword
             )
 
-            is RegisterValidationEvent.EmailChanged -> validateEmail(event.email)
-            is RegisterValidationEvent.PasswordChanged -> validatePassword(event.password)
-            is RegisterValidationEvent.RepeatedPasswordChanged -> validateRepeatPassword(
+            is RegisterValidationEvent.ValidateEmail -> validateEmail(event.email)
+            is RegisterValidationEvent.ValidatePassword -> validatePassword(event.password)
+            is RegisterValidationEvent.ValidateRepeatedPassword -> validateRepeatPassword(
                 event.password,
                 event.repeatedPassword
             )

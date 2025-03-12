@@ -2,6 +2,7 @@ package com.example.tbcexercises.feature_register.presentation.register_screen
 
 
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.setFragmentResult
@@ -9,11 +10,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.tbcexercises.R
 import com.example.tbcexercises.core.domain.util.ErrorTypes
-import com.example.tbcexercises.databinding.FragmentRegisterBinding
 import com.example.tbcexercises.core.presentation.base.BaseFragment
 import com.example.tbcexercises.core.presentation.extension.collectLastState
 import com.example.tbcexercises.core.presentation.extension.toMap
 import com.example.tbcexercises.core.presentation.extension.toast
+import com.example.tbcexercises.core.presentation.util.setViewsVisibility
+import com.example.tbcexercises.databinding.FragmentRegisterBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -74,10 +76,10 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
         binding.btnRegister.apply {
             isEnabled = state.isValidForm
-            if (state.isValidForm) {
-                setBackgroundColor(context.getColor(R.color.dark_cyan))
+            background = if (state.isValidForm) {
+                ContextCompat.getDrawable(requireContext(), R.drawable.rounded_cyan_button)
             } else {
-                setBackgroundColor(context.getColor(R.color.light_cyan))
+                ContextCompat.getDrawable(requireContext(), R.drawable.rounded_light_cyan_button)
             }
         }
     }
@@ -100,37 +102,39 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
     }
 
     private fun setupTextWatchers() {
-        binding.etEmail.doAfterTextChanged {
-            viewModel.onEvent(RegisterValidationEvent.EmailChanged(it.toString()))
-        }
 
-        binding.etPassword.doAfterTextChanged {
-            viewModel.onEvent(RegisterValidationEvent.PasswordChanged(it.toString()))
-        }
+        binding.apply {
+            etEmail.doAfterTextChanged {
+                viewModel.onEvent(RegisterValidationEvent.ValidateEmail(it.toString()))
+            }
+            etPassword.doAfterTextChanged {
+                viewModel.onEvent(RegisterValidationEvent.ValidatePassword(it.toString()))
+            }
+            etPasswordRepeat.doAfterTextChanged {
+                viewModel.onEvent(
 
-        binding.etPasswordRepeat.doAfterTextChanged {
-            viewModel.onEvent(
-
-                RegisterValidationEvent.RepeatedPasswordChanged(
-                    binding.etPassword.text.toString(),
-                    it.toString()
+                    RegisterValidationEvent.ValidateRepeatedPassword(
+                        binding.etPassword.text.toString(),
+                        it.toString()
+                    )
                 )
-            )
+            }
         }
     }
 
     private fun showLoadingScreen(isLoading: Boolean) {
-        val viewVisibility = if (!isLoading) View.VISIBLE else View.GONE
         binding.apply {
-            progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-            etEmail.visibility = viewVisibility
-            btnRegister.visibility = viewVisibility
-            textInputLayout.visibility = viewVisibility
-            textInputLayoutRepeat.visibility = viewVisibility
-            txtPasswordError.visibility = viewVisibility
-            txtEmailError.visibility = viewVisibility
-            txtPasswordRepeatError.visibility = viewVisibility
-
+            setViewsVisibility(
+                isLoading,
+                progressBar,
+                etEmail,
+                btnRegister,
+                textInputLayout,
+                textInputLayoutRepeat,
+                txtPasswordError,
+                txtEmailError,
+                txtPasswordRepeatError
+            )
         }
     }
 }

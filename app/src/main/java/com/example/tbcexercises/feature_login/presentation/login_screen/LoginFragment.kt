@@ -2,6 +2,7 @@ package com.example.tbcexercises.feature_login.presentation.login_screen
 
 
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -11,6 +12,7 @@ import com.example.tbcexercises.core.presentation.base.BaseFragment
 import com.example.tbcexercises.core.presentation.extension.collectLastState
 import com.example.tbcexercises.core.presentation.extension.toMap
 import com.example.tbcexercises.core.presentation.extension.toast
+import com.example.tbcexercises.core.presentation.util.setViewsVisibility
 import com.example.tbcexercises.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -48,10 +50,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
         binding.btnLogin.apply {
             isEnabled = state.isValidForm
-            if (state.isValidForm) {
-                setBackgroundColor(context.getColor(R.color.dark_cyan))
+            background = if (state.isValidForm) {
+                ContextCompat.getDrawable(requireContext(), R.drawable.rounded_cyan_button)
             } else {
-                setBackgroundColor(context.getColor(R.color.light_cyan))
+                ContextCompat.getDrawable(requireContext(), R.drawable.rounded_light_cyan_button)
             }
         }
     }
@@ -114,19 +116,19 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     }
 
     private fun showLoadingScreen(isLoading: Boolean) {
-        val viewVisibility = if (!isLoading) View.VISIBLE else View.GONE
-
         binding.apply {
-            progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-
-            etEmail.visibility = viewVisibility
-            btnLogin.visibility = viewVisibility
-            txtRememberMe.visibility = viewVisibility
-            cbRememberMe.visibility = viewVisibility
-            textInputLayout.visibility = viewVisibility
-            txtRegister.visibility = viewVisibility
-            txtEmailError.visibility = viewVisibility
-            txtPasswordError.visibility = viewVisibility
+            setViewsVisibility(
+                isLoading,
+                progressBar,
+                etEmail,
+                btnLogin,
+                txtRememberMe,
+                cbRememberMe,
+                textInputLayout,
+                txtRegister,
+                txtEmailError,
+                txtPasswordError
+            )
         }
     }
 }
