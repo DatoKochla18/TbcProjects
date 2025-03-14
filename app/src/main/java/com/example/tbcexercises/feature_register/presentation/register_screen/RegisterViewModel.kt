@@ -2,7 +2,7 @@ package com.example.tbcexercises.feature_register.presentation.register_screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tbcexercises.core.utils.Resource
+import com.example.tbcexercises.core.domain.util.Resource
 import com.example.tbcexercises.feature_register.domain.use_case.RegisterUseWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel

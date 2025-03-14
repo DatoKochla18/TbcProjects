@@ -2,7 +2,7 @@ package com.example.tbcexercises.feature_login.data.repository
 
 import com.example.tbcexercises.core.data.remote.request.AuthRequest
 import com.example.tbcexercises.core.domain.model.Profile
-import com.example.tbcexercises.core.utils.Resource
+import com.example.tbcexercises.core.domain.util.Resource
 import com.example.tbcexercises.core.utils.handleNetworkRequest
 import com.example.tbcexercises.feature_login.data.mapper.toProfile
 import com.example.tbcexercises.feature_login.data.remote.service.LoginApi

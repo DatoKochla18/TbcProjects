@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbcexercises.core.presentation.util.Constants.EMAIL_KEY
 import com.example.tbcexercises.core.presentation.util.Constants.REMEMBER_ME_KEY
-import com.example.tbcexercises.core.utils.Resource
+import com.example.tbcexercises.core.domain.util.Resource
 import com.example.tbcexercises.feature_login.domain.use_case.LoginUseCaseWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

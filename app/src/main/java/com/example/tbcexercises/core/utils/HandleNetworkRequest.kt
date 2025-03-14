@@ -1,5 +1,6 @@
 package com.example.tbcexercises.core.utils
 
+import com.example.tbcexercises.core.domain.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response
