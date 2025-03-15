@@ -4,10 +4,12 @@ import com.example.tbcexercises.core.data.remote.request.AuthRequest
 import com.example.tbcexercises.core.domain.model.Profile
 import com.example.tbcexercises.core.domain.util.Resource
 import com.example.tbcexercises.core.utils.handleNetworkRequest
+import com.example.tbcexercises.core.utils.mapData
 import com.example.tbcexercises.feature_register.data.mapper.toProfile
 import com.example.tbcexercises.feature_register.data.remote.service.RegisterApi
 import com.example.tbcexercises.feature_register.domain.repository.RegisterRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class RegisterRepositoryImpl @Inject constructor(private val registerApi: RegisterApi) :
@@ -21,7 +23,9 @@ class RegisterRepositoryImpl @Inject constructor(private val registerApi: Regist
                         password = password
                     )
                 )
-            }, mapper = { it.toProfile() }
-        )
+            }
+        ).map { resource ->
+            resource.mapData { it.toProfile() }
+        }
     }
 }

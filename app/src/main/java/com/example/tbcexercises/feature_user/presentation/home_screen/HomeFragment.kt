@@ -1,16 +1,15 @@
 package com.example.tbcexercises.feature_user.presentation.home_screen
 
 
+import android.util.Log
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.paging.CombinedLoadStates
-import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.tbcexercises.databinding.FragmentHomeBinding
 import com.example.tbcexercises.core.presentation.base.BaseFragment
 import com.example.tbcexercises.core.presentation.extension.collectLastState
 import com.example.tbcexercises.core.presentation.extension.toast
+import com.example.tbcexercises.databinding.FragmentHomeBinding
 import com.example.tbcexercises.feature_user.presentation.home_screen.adapter.UserListAdapter
 import com.example.tbcexercises.feature_user.presentation.home_screen.userLoadState.UserLoadStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,32 +25,25 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     override fun start() {
         setUpRecycleView()
 
-        collectLastState(viewModel.usersFlow) {
-            userListAdapter.submitData(it)
+
+        collectLastState(viewModel.uiState) { uiState ->
+            uiState.users?.let { pagingData ->
+                userListAdapter.submitData(pagingData)
+            }
+            binding.progressBar.isVisible = uiState.isLoading
+            binding.btnRetry.isVisible =
+                uiState.errorMessage != null && userListAdapter.itemCount == 0
+
+            binding.rvContainer.isVisible = !uiState.isLoading && userListAdapter.itemCount > 0
         }
 
-        collectLastState(userListAdapter.loadStateFlow) { loadState ->
-            updateUIVisibility(loadState)
-            handleError(loadState)
-
+        collectLastState(viewModel.events) { event ->
+            when (event) {
+                is HomeEvent.ShowError -> toast(event.message)
+            }
         }
 
 
-    }
-
-    private fun updateUIVisibility(loadState: CombinedLoadStates) {
-        val refreshState = loadState.mediator?.refresh ?: loadState.source.refresh
-
-        val isInitialLoading =
-            refreshState is LoadState.Loading && userListAdapter.itemCount == 0
-
-        binding.apply {
-            progressBar.isVisible = isInitialLoading
-            rvContainer.isVisible =
-                refreshState is LoadState.NotLoading || userListAdapter.itemCount > 0
-            btnRetry.isVisible =
-                refreshState is LoadState.Error && userListAdapter.itemCount == 0
-        }
     }
 
     override fun listeners() {
@@ -69,20 +61,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         binding.rvContainer.apply {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-
             adapter = userListAdapter.withLoadStateFooter(
-                footer = UserLoadStateAdapter(userListAdapter::retry)
+                footer = UserLoadStateAdapter { userListAdapter.retry() }
             )
         }
-    }
 
-    private fun handleError(loadState: CombinedLoadStates) {
-        val errorState = loadState.source.append as? LoadState.Error
-            ?: loadState.source.prepend as? LoadState.Error
-
-        errorState?.let {
-            toast(it.error.toString())
+        userListAdapter.addLoadStateListener { loadState ->
+            viewModel.onLoadStateChanged(loadState)
         }
     }
-
 }
