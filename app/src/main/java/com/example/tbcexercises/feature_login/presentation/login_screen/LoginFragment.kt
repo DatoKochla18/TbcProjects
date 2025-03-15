@@ -1,16 +1,16 @@
 package com.example.tbcexercises.feature_login.presentation.login_screen
 
 
-import android.view.View
+import android.util.Log
 import androidx.core.content.ContextCompat
-import androidx.core.widget.doOnTextChanged
+import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.tbcexercises.R
-import com.example.tbcexercises.core.domain.util.ErrorTypes
 import com.example.tbcexercises.core.presentation.base.BaseFragment
+import com.example.tbcexercises.core.presentation.extension.asStringResource
 import com.example.tbcexercises.core.presentation.extension.collectLastState
-import com.example.tbcexercises.core.presentation.extension.toMap
 import com.example.tbcexercises.core.presentation.extension.toast
 import com.example.tbcexercises.core.presentation.util.setViewsVisibility
 import com.example.tbcexercises.databinding.FragmentLoginBinding
@@ -32,20 +32,17 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     }
 
     private fun updateUi(state: LoginUiState) {
+        Log.d("state", state.toString())
         showLoadingScreen(state.isLoading)
 
         binding.txtEmailError.apply {
-            text = state.emailError?.let { getString(it.toMap()) }
-            visibility =
-                if (state.emailError == null || state.emailError == ErrorTypes.NON_VALIDATED)
-                    View.GONE else View.VISIBLE
+            text = state.emailError?.let { getString(it.asStringResource()) }
+            isVisible = state.emailError != null
         }
 
         binding.txtPasswordError.apply {
-            text = state.passwordError?.let { getString(it.toMap()) }
-            visibility =
-                if (state.passwordError == null || state.passwordError == ErrorTypes.NON_VALIDATED) View.GONE
-                else View.VISIBLE
+            text = state.passwordError?.let { getString(it.asStringResource()) }
+            isVisible = state.passwordError != null
         }
 
         binding.btnLogin.apply {
@@ -85,11 +82,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         registerListeners()
 
         binding.apply {
-            etEmail.doOnTextChanged { text, _, _, _ ->
+            etEmail.doAfterTextChanged { text->
                 viewModel.onEvent(LoginValidationEvent.ValidateEmail(text.toString()))
             }
 
-            etPassword.doOnTextChanged { text, _, _, _ ->
+            etPassword.doAfterTextChanged { text ->
                 viewModel.onEvent(LoginValidationEvent.ValidatePassword(text.toString()))
             }
 

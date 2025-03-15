@@ -2,7 +2,7 @@ package com.example.tbcexercises.feauture_launcher.presentation.launcher_screen
 
 import androidx.lifecycle.ViewModel
 import com.example.tbcexercises.core.domain.use_case.GetValueFromLocalStorageUseCase
-import com.example.tbcexercises.core.presentation.util.Constants.REMEMBER_ME_KEY
+import com.example.tbcexercises.core.presentation.util.PreferenceKeys.REMEMBER_ME_KEY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

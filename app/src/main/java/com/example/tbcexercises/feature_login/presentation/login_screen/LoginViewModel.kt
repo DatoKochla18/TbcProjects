@@ -1,11 +1,11 @@
 package com.example.tbcexercises.feature_login.presentation.login_screen
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tbcexercises.core.presentation.util.Constants.EMAIL_KEY
-import com.example.tbcexercises.core.presentation.util.Constants.REMEMBER_ME_KEY
 import com.example.tbcexercises.core.domain.util.Resource
+import com.example.tbcexercises.core.domain.util.Result
+import com.example.tbcexercises.core.presentation.util.PreferenceKeys.EMAIL_KEY
+import com.example.tbcexercises.core.presentation.util.PreferenceKeys.REMEMBER_ME_KEY
 import com.example.tbcexercises.feature_login.domain.use_case.LoginUseCaseWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -46,8 +46,6 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun login(email: String, password: String) {
-        if (!validateForm(email, password)) return
-
         viewModelScope.launch {
             loginUseCaseWrapper.loginUseCase(email, password).collect { result ->
                 when (result) {
@@ -58,7 +56,6 @@ class LoginViewModel @Inject constructor(
                     is Resource.Success -> {
                         _uiState.update { it.copy(isLoading = false) }
                         _uiEventChannel.send(LoginUiEvent.SuccessFullLogin)
-
                     }
 
                     is Resource.Error -> {
@@ -74,43 +71,29 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-
-    private fun validateForm(email: String, password: String): Boolean {
-        val emailResult = loginUseCaseWrapper.validateEmailUseCase(email)
-        val passwordResult = loginUseCaseWrapper.validatePasswordUseCase(password)
-
-        val hasError = !emailResult.successful || !passwordResult.successful
-
-        _uiState.update {
-            it.copy(
-                emailError = emailResult.errorMessage,
-                passwordError = passwordResult.errorMessage,
-                isValidForm = !hasError
-            )
-        }
-
-        return !hasError
-    }
-
     private fun validateEmail(email: String) {
-        val result = loginUseCaseWrapper.validateEmailUseCase(email)
-        Log.d("result", result.toString())
-        _uiState.update {
-            it.copy(
-                emailError = result.errorMessage,
-                isValidForm = result.successful && (_uiState.value.passwordError == null)
-
-            )
+        when (val result = loginUseCaseWrapper.validateEmailUseCase(email)) {
+            is Result.Error -> _uiState.update { it.copy(emailError = result.error) }
+            is Result.Success -> _uiState.update {
+                it.copy(
+                    emailError = null,
+                    isEmailValid = true,
+                    isValidForm = _uiState.value.isPasswordValid
+                )
+            }
         }
     }
 
     private fun validatePassword(password: String) {
-        val result = loginUseCaseWrapper.validatePasswordUseCase(password)
-        _uiState.update {
-            it.copy(
-                passwordError = result.errorMessage,
-                isValidForm = result.successful && (_uiState.value.emailError == null)
-            )
+        when (val result = loginUseCaseWrapper.validatePasswordUseCase(password)) {
+            is Result.Error -> _uiState.update { it.copy(passwordError = result.error) }
+            is Result.Success -> _uiState.update {
+                it.copy(
+                    passwordError = null,
+                    isPasswordValid = true,
+                    isValidForm = _uiState.value.isEmailValid
+                )
+            }
         }
     }
 }

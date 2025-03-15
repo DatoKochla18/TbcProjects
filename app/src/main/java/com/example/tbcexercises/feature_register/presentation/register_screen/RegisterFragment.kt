@@ -1,18 +1,17 @@
 package com.example.tbcexercises.feature_register.presentation.register_screen
 
 
-import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.tbcexercises.R
-import com.example.tbcexercises.core.domain.util.ErrorTypes
 import com.example.tbcexercises.core.presentation.base.BaseFragment
+import com.example.tbcexercises.core.presentation.extension.asStringResource
 import com.example.tbcexercises.core.presentation.extension.collectLastState
-import com.example.tbcexercises.core.presentation.extension.toMap
 import com.example.tbcexercises.core.presentation.extension.toast
 import com.example.tbcexercises.core.presentation.util.setViewsVisibility
 import com.example.tbcexercises.databinding.FragmentRegisterBinding
@@ -34,18 +33,20 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
     override fun listeners() {
         binding.btnRegister.setOnClickListener {
-            val email = binding.etEmail.text.toString()
-            val password = binding.etPassword.text.toString()
-            val passwordRepeat = binding.etPasswordRepeat.text.toString()
-
-            viewModel.onEvent(
-                RegisterValidationEvent.Register(
-                    email = email,
-                    password = password,
-                    repeatedPassword = passwordRepeat
-                )
-            )
+            register()
         }
+    }
+
+    private fun register() {
+        val email = binding.etEmail.text.toString()
+        val password = binding.etPassword.text.toString()
+
+        viewModel.onEvent(
+            RegisterValidationEvent.Register(
+                email = email,
+                password = password
+            )
+        )
     }
 
     private fun updateUiState(state: RegisterUiState) {
@@ -53,25 +54,18 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
 
         binding.txtEmailError.apply {
-            text = state.emailError?.let { getString(it.toMap()) }
-            visibility =
-                if (state.emailError == null || state.emailError == ErrorTypes.NON_VALIDATED)
-                    View.GONE else View.VISIBLE
+            text = state.emailError?.let { getString(it.asStringResource()) }
+            isVisible = state.emailError != null
         }
 
         binding.txtPasswordError.apply {
-            text = state.passwordError?.let { getString(it.toMap()) }
-            visibility =
-                if (state.passwordError == null || state.passwordError == ErrorTypes.NON_VALIDATED)
-                    View.GONE else View.VISIBLE
+            text = state.passwordError?.let { getString(it.asStringResource()) }
+            isVisible = state.passwordError != null
         }
         binding.txtPasswordRepeatError.apply {
-            text = state.repeatedPasswordError?.let { getString(it.toMap()) }
-            visibility =
-                if (state.repeatedPasswordError == null ||
-                    state.repeatedPasswordError == ErrorTypes.NON_VALIDATED
-                )
-                    View.GONE else View.VISIBLE
+            text = state.repeatedPasswordError?.let { getString(it.asStringResource()) }
+            isVisible = state.repeatedPasswordError != null
+
         }
 
         binding.btnRegister.apply {

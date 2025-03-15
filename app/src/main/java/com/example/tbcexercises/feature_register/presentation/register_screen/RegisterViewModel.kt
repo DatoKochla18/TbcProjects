@@ -3,6 +3,7 @@ package com.example.tbcexercises.feature_register.presentation.register_screen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbcexercises.core.domain.util.Resource
+import com.example.tbcexercises.core.domain.util.Result
 import com.example.tbcexercises.feature_register.domain.use_case.RegisterUseWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -29,8 +30,7 @@ class RegisterViewModel @Inject constructor(
         when (event) {
             is RegisterValidationEvent.Register -> register(
                 event.email,
-                event.password,
-                event.repeatedPassword
+                event.password
             )
 
             is RegisterValidationEvent.ValidateEmail -> validateEmail(event.email)
@@ -42,9 +42,7 @@ class RegisterViewModel @Inject constructor(
         }
     }
 
-    private fun register(email: String, password: String, repeatPassword: String) {
-        if (!validateForm(email, password, repeatPassword)) return
-
+    private fun register(email: String, password: String) {
         viewModelScope.launch {
             registerUseWrapper.registerUseCase(email, password).collect { result ->
                 when (result) {
@@ -71,46 +69,29 @@ class RegisterViewModel @Inject constructor(
         }
     }
 
-    private fun validateForm(email: String, password: String, repeatPassword: String): Boolean {
-        val emailResult = registerUseWrapper.validateEmailUseCase(email)
-        val passwordResult = registerUseWrapper.validatePasswordUseCase(password)
-        val repeatPasswordResult =
-            registerUseWrapper.validateRepeatPasswordUseCase(password, repeatPassword)
-        val hasError =
-            !emailResult.successful || !passwordResult.successful || !repeatPasswordResult.successful
-
-        _uiState.update {
-            it.copy(
-                emailError = emailResult.errorMessage,
-                passwordError = passwordResult.errorMessage,
-                isValidForm = !hasError
-            )
-        }
-
-        return !hasError
-    }
-
     private fun validateEmail(email: String) {
-        val result = registerUseWrapper.validateEmailUseCase(email)
-        _uiState.update {
-            it.copy(
-                emailError = result.errorMessage,
-                isValidForm = result.successful && (
-                        _uiState.value.passwordError == null
-                                && _uiState.value.repeatedPasswordError == null)
-            )
+        when (val result = registerUseWrapper.validateEmailUseCase(email)) {
+            is Result.Error -> _uiState.update { it.copy(emailError = result.error) }
+            is Result.Success -> _uiState.update {
+                it.copy(
+                    emailError = null, isEmailValid = true, isValidForm =
+                    _uiState.value.isPasswordValid
+                            && _uiState.value.isRepeatedPasswordValid
+                )
+            }
         }
     }
 
     private fun validatePassword(password: String) {
-        val result = registerUseWrapper.validatePasswordUseCase(password)
-        _uiState.update {
-            it.copy(
-                passwordError = result.errorMessage,
-                isValidForm = result.successful && (
-                        _uiState.value.emailError == null
-                                && _uiState.value.repeatedPasswordError == null)
-            )
+        when (val result = registerUseWrapper.validatePasswordUseCase(password)) {
+            is Result.Error -> _uiState.update { it.copy(passwordError = result.error) }
+            is Result.Success -> _uiState.update {
+                it.copy(
+                    passwordError = null, isPasswordValid = true, isValidForm =
+                    _uiState.value.isEmailValid
+                            && _uiState.value.isRepeatedPasswordValid
+                )
+            }
         }
     }
 
@@ -120,13 +101,15 @@ class RegisterViewModel @Inject constructor(
                 password = password,
                 repeatedPassword = repeatPassword
             )
-        _uiState.update {
-            it.copy(
-                repeatedPasswordError = result.errorMessage,
-                isValidForm = result.successful && (
-                        _uiState.value.emailError == null
-                                && _uiState.value.passwordError == null)
-            )
+        when (result) {
+            is Result.Error -> _uiState.update { it.copy(repeatedPasswordError = result.error) }
+            is Result.Success -> _uiState.update {
+                it.copy(
+                    repeatedPasswordError = null, isRepeatedPasswordValid = true, isValidForm =
+                    _uiState.value.isEmailValid
+                            && _uiState.value.isPasswordValid
+                )
+            }
         }
     }
 }
