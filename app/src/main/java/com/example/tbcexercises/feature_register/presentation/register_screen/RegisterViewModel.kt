@@ -2,7 +2,6 @@ package com.example.tbcexercises.feature_register.presentation.register_screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tbcexercises.core.domain.util.Resource
 import com.example.tbcexercises.core.domain.util.Result
 import com.example.tbcexercises.feature_register.domain.use_case.RegisterUseWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -46,23 +45,19 @@ class RegisterViewModel @Inject constructor(
         viewModelScope.launch {
             registerUseWrapper.registerUseCase(email, password).collect { result ->
                 when (result) {
-                    is Resource.Loading -> {
-                        _uiState.update { it.copy(isLoading = true) }
-                    }
-
-                    is Resource.Success -> {
-                        _uiState.update { it.copy(isLoading = false) }
-                        _uiEventChannel.send(RegisterUiEvent.NavigateToLoginScreen)
-
-                    }
-
-                    is Resource.Error -> {
+                    is Result.Error -> {
                         _uiState.update {
                             it.copy(
                                 isLoading = false,
                             )
                         }
-                        _uiEventChannel.send(RegisterUiEvent.ShowToast(result.message))
+                        _uiEventChannel.send(RegisterUiEvent.ShowToast(result.error))
+                    }
+
+                    is Result.Success -> {
+                        _uiState.update { it.copy(isLoading = false) }
+                        _uiEventChannel.send(RegisterUiEvent.NavigateToLoginScreen)
+
                     }
                 }
             }

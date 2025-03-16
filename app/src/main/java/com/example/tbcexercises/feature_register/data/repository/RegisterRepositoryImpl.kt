@@ -2,7 +2,8 @@ package com.example.tbcexercises.feature_register.data.repository
 
 import com.example.tbcexercises.core.data.remote.request.AuthRequest
 import com.example.tbcexercises.core.domain.model.Profile
-import com.example.tbcexercises.core.domain.util.Resource
+import com.example.tbcexercises.core.domain.util.Result
+import com.example.tbcexercises.core.domain.util.error.NetworkError
 import com.example.tbcexercises.core.utils.handleNetworkRequest
 import com.example.tbcexercises.core.utils.mapData
 import com.example.tbcexercises.feature_register.data.mapper.toProfile
@@ -14,7 +15,7 @@ import javax.inject.Inject
 
 class RegisterRepositoryImpl @Inject constructor(private val registerApi: RegisterApi) :
     RegisterRepository {
-    override fun register(email: String, password: String): Flow<Resource<Profile>> {
+    override fun register(email: String, password: String): Flow<Result<Profile, NetworkError>> {
         return handleNetworkRequest(
             apiCall = {
                 registerApi.register(

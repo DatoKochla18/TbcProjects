@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.tbcexercises.R
 import com.example.tbcexercises.core.presentation.base.BaseFragment
+import com.example.tbcexercises.core.presentation.extension.asString
 import com.example.tbcexercises.core.presentation.extension.asStringResource
 import com.example.tbcexercises.core.presentation.extension.collectLastState
 import com.example.tbcexercises.core.presentation.extension.toast
@@ -62,7 +63,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                 binding.etEmail.text.toString()
             )
 
-            is LoginUiEvent.ShowToast -> toast(event.message)
+            is LoginUiEvent.ShowToast -> toast(event.message.asString(requireContext()))
         }
     }
 
@@ -82,7 +83,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         registerListeners()
 
         binding.apply {
-            etEmail.doAfterTextChanged { text->
+            etEmail.doAfterTextChanged { text ->
                 viewModel.onEvent(LoginValidationEvent.ValidateEmail(text.toString()))
             }
 
@@ -94,7 +95,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                 val email = binding.etEmail.text.toString()
                 val password = binding.etPassword.text.toString()
                 viewModel.onEvent(
-                    LoginValidationEvent.LoginValidation(
+                    LoginValidationEvent.Login(
                         email = email,
                         password = password
                     )

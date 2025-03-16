@@ -1,31 +1,39 @@
 package com.example.tbcexercises.core.utils
 
-import com.example.tbcexercises.core.domain.util.Resource
+import com.example.tbcexercises.core.domain.util.Result
+import com.example.tbcexercises.core.domain.util.RootError
+import com.example.tbcexercises.core.domain.util.error.NetworkError
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import okio.IOException
 import retrofit2.Response
 
 fun <T> handleNetworkRequest(
     apiCall: suspend () -> Response<T>,
-): Flow<Resource<T>> = flow {
+): Flow<Result<T, NetworkError>> = flow {
     try {
-        emit(Resource.Loading)
         val response = apiCall()
 
         if (response.isSuccessful) {
             response.body()?.let { data ->
-                emit(Resource.Success(data))
-            } ?: emit(Resource.Error(""))
+                emit(Result.Success(data))
+            } ?: emit(Result.Error(NetworkError.EmptyResponse))
         } else {
-            emit(Resource.Error(response.message()))
+            val error = when (response.code()) {
+                401 -> NetworkError.InvalidCredentials
+                404 -> NetworkError.UserNotFound
+                else -> NetworkError.HttpError(response.code(), response.errorBody()?.string())
+            }
+            emit(Result.Error(error))
         }
+    } catch (e: IOException) {
+        emit(Result.Error(NetworkError.ConnectionError))
     } catch (e: Exception) {
-        emit(Resource.Error(e.localizedMessage ?: ""))
+        emit(Result.Error(NetworkError.ServerError(e)))
     }
 }
 
-fun <T, R> Resource<T>.mapData(transform: (T) -> R): Resource<R> = when (this) {
-    is Resource.Success -> Resource.Success(transform(data))
-    is Resource.Error -> Resource.Error(message)
-    is Resource.Loading -> Resource.Loading
+fun <T, R, E : RootError> Result<T, E>.mapData(transform: (T) -> R): Result<R, E> = when (this) {
+    is Result.Success -> Result.Success(transform(data))
+    is Result.Error -> Result.Error(error)
 }

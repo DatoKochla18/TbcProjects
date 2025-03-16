@@ -2,7 +2,6 @@ package com.example.tbcexercises.feature_login.presentation.login_screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tbcexercises.core.domain.util.Resource
 import com.example.tbcexercises.core.domain.util.Result
 import com.example.tbcexercises.core.presentation.util.PreferenceKeys.EMAIL_KEY
 import com.example.tbcexercises.core.presentation.util.PreferenceKeys.REMEMBER_ME_KEY
@@ -39,32 +38,29 @@ class LoginViewModel @Inject constructor(
 
     fun onEvent(event: LoginValidationEvent) {
         when (event) {
-            is LoginValidationEvent.LoginValidation -> login(event.email, event.password)
+            is LoginValidationEvent.Login -> login(event.email, event.password)
             is LoginValidationEvent.ValidateEmail -> validateEmail(event.email)
             is LoginValidationEvent.ValidatePassword -> validatePassword(event.password)
         }
     }
 
     private fun login(email: String, password: String) {
+        _uiState.update { it.copy(isLoading = true) }
         viewModelScope.launch {
             loginUseCaseWrapper.loginUseCase(email, password).collect { result ->
                 when (result) {
-                    is Resource.Loading -> {
-                        _uiState.update { it.copy(isLoading = true) }
-                    }
-
-                    is Resource.Success -> {
-                        _uiState.update { it.copy(isLoading = false) }
-                        _uiEventChannel.send(LoginUiEvent.SuccessFullLogin)
-                    }
-
-                    is Resource.Error -> {
+                    is Result.Error -> {
                         _uiState.update {
                             it.copy(
                                 isLoading = false,
                             )
                         }
-                        _uiEventChannel.send(LoginUiEvent.ShowToast(result.message))
+                        _uiEventChannel.send(LoginUiEvent.ShowToast(result.error))
+                    }
+
+                    is Result.Success -> {
+                        _uiState.update { it.copy(isLoading = false) }
+                        _uiEventChannel.send(LoginUiEvent.SuccessFullLogin)
                     }
                 }
             }

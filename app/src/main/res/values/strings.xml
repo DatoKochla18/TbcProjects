@@ -27,4 +27,9 @@
     <string name="the_password_needs_to_consist_of_at_least_8_characters">*  The password needs to consist of at least 8 characters</string>
     <string name="the_password_needs_to_contain_at_least_one_letter_and_digit">* The password needs to contain at least one letter and digit</string>
     <string name="password_should_be_same">* Password should be same</string>
+    <string name="connection_problem_try_again">Connection Problem try again</string>
+    <string name="empty_response_fire_backend">Empty response fire backend</string>
+    <string name="http_error">%1$s</string>
+    <string name="invalid_credintials">Invalid Credintials</string>
+    <string name="user_not_found">User not found</string>
 </resources>

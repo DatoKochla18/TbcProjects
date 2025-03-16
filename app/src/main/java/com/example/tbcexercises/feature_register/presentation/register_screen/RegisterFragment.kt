@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.tbcexercises.R
 import com.example.tbcexercises.core.presentation.base.BaseFragment
+import com.example.tbcexercises.core.presentation.extension.asString
 import com.example.tbcexercises.core.presentation.extension.asStringResource
 import com.example.tbcexercises.core.presentation.extension.collectLastState
 import com.example.tbcexercises.core.presentation.extension.toast
@@ -90,7 +91,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
             }
 
             is RegisterUiEvent.ShowToast -> {
-                toast(event.message)
+                toast(event.message.asString(requireContext()))
             }
         }
     }
