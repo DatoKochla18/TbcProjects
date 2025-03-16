@@ -56,14 +56,14 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         }
     }
 
-    private fun getEvents(event: LoginUiEvent) {
+    private fun getEvents(event: LoginSideEffect) {
         when (event) {
-            is LoginUiEvent.SuccessFullLogin -> onSuccessFullLogin(
+            is LoginSideEffect.SuccessFullLogin -> onSuccessFullLogin(
                 binding.cbRememberMe.isChecked,
                 binding.etEmail.text.toString()
             )
 
-            is LoginUiEvent.ShowToast -> toast(event.message.asString(requireContext()))
+            is LoginSideEffect.ShowToast -> toast(event.message.asString(requireContext()))
         }
     }
 

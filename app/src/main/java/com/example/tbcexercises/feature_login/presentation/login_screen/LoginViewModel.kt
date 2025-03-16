@@ -32,7 +32,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private val _uiEventChannel = Channel<LoginUiEvent>()
+    private val _uiEventChannel = Channel<LoginSideEffect>()
     val uiEvents = _uiEventChannel.receiveAsFlow()
 
 
@@ -55,12 +55,12 @@ class LoginViewModel @Inject constructor(
                                 isLoading = false,
                             )
                         }
-                        _uiEventChannel.send(LoginUiEvent.ShowToast(result.error))
+                        _uiEventChannel.send(LoginSideEffect.ShowToast(result.error))
                     }
 
                     is Result.Success -> {
                         _uiState.update { it.copy(isLoading = false) }
-                        _uiEventChannel.send(LoginUiEvent.SuccessFullLogin)
+                        _uiEventChannel.send(LoginSideEffect.SuccessFullLogin)
                     }
                 }
             }

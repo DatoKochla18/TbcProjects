@@ -21,7 +21,7 @@ class RegisterViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(RegisterUiState())
     val uiState: StateFlow<RegisterUiState> = _uiState
 
-    private val _uiEventChannel = Channel<RegisterUiEvent>()
+    private val _uiEventChannel = Channel<RegisterSideEffect>()
     val uiEvents = _uiEventChannel.receiveAsFlow()
 
 
@@ -51,12 +51,12 @@ class RegisterViewModel @Inject constructor(
                                 isLoading = false,
                             )
                         }
-                        _uiEventChannel.send(RegisterUiEvent.ShowToast(result.error))
+                        _uiEventChannel.send(RegisterSideEffect.ShowToast(result.error))
                     }
 
                     is Result.Success -> {
                         _uiState.update { it.copy(isLoading = false) }
-                        _uiEventChannel.send(RegisterUiEvent.NavigateToLoginScreen)
+                        _uiEventChannel.send(RegisterSideEffect.NavigateToLoginScreen)
 
                     }
                 }

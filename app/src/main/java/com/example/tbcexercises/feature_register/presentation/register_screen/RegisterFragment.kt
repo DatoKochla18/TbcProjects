@@ -79,9 +79,10 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         }
     }
 
-    private fun getEvents(event: RegisterUiEvent) {
+    private fun getEvents(event: RegisterSideEffect) {
         when (event) {
-            RegisterUiEvent.NavigateToLoginScreen -> {
+            RegisterSideEffect.NavigateToLoginScreen -> {
+
                 val email = binding.etEmail.text.toString()
                 val password = binding.etPassword.text.toString()
                 showLoadingScreen(false)
@@ -90,7 +91,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                 findNavController().popBackStack()
             }
 
-            is RegisterUiEvent.ShowToast -> {
+            is RegisterSideEffect.ShowToast -> {
                 toast(event.message.asString(requireContext()))
             }
         }

@@ -4,7 +4,7 @@ import com.example.tbcexercises.core.data.remote.request.AuthRequest
 import com.example.tbcexercises.core.domain.model.Profile
 import com.example.tbcexercises.core.domain.util.Result
 import com.example.tbcexercises.core.domain.util.error.NetworkError
-import com.example.tbcexercises.core.utils.handleNetworkRequest
+import com.example.tbcexercises.core.utils.ApiHelper
 import com.example.tbcexercises.core.utils.mapData
 import com.example.tbcexercises.feature_register.data.mapper.toProfile
 import com.example.tbcexercises.feature_register.data.remote.service.RegisterApi
@@ -13,10 +13,16 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class RegisterRepositoryImpl @Inject constructor(private val registerApi: RegisterApi) :
+class RegisterRepositoryImpl @Inject constructor(
+    private val registerApi: RegisterApi,
+    private val apiHelper: ApiHelper,
+) :
     RegisterRepository {
-    override fun register(email: String, password: String): Flow<Result<Profile, NetworkError>> {
-        return handleNetworkRequest(
+    override  fun register(
+        email: String,
+        password: String,
+    ): Flow<Result<Profile, NetworkError>> {
+        return apiHelper.handleNetworkRequestAsFlow(
             apiCall = {
                 registerApi.register(
                     AuthRequest(
@@ -25,8 +31,6 @@ class RegisterRepositoryImpl @Inject constructor(private val registerApi: Regist
                     )
                 )
             }
-        ).map { resource ->
-            resource.mapData { it.toProfile() }
-        }
+        ).map { it.mapData { registerResponse -> registerResponse.toProfile() } }
     }
 }

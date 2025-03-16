@@ -1,6 +1,7 @@
 package com.example.tbcexercises.core.di
 
 import com.example.tbcexercises.BuildConfig
+import com.example.tbcexercises.core.utils.ApiHelper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -44,4 +45,7 @@ object RemoteModule {
 
         return retrofit
     }
+
+    @Provides
+    fun provideApiHelper(): ApiHelper = ApiHelper()
 }
