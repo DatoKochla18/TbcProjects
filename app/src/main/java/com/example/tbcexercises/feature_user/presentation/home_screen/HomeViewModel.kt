@@ -5,7 +5,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.paging.cachedIn
+import androidx.paging.map
 import com.example.tbcexercises.feature_user.domain.use_case.GetUsersUseCase
+import com.example.tbcexercises.feature_user.presentation.mapper.toPresentation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
@@ -33,11 +35,11 @@ class HomeViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            delay(2000L)
+            delay(1000L)
             usersFlow.collectLatest { pagingData ->
-                _uiState.update {
-                    it.copy(
-                        users = pagingData,
+                _uiState.update { homeUiState ->
+                    homeUiState.copy(
+                        users = pagingData.map { it.toPresentation() },
                         isLoading = false,
                         errorMessage = null
                     )
@@ -55,10 +57,12 @@ class HomeViewModel @Inject constructor(
             }
 
             is LoadState.Error -> {
-                val errorMsg = refreshState.error.localizedMessage ?: "Unknown error"
+                val errorMsg = refreshState.error.localizedMessage
                 _uiState.update { it.copy(isLoading = false, errorMessage = errorMsg) }
                 viewModelScope.launch {
-                    _events.send(HomeEvent.ShowError(errorMsg))
+                    errorMsg?.let {
+                        _events.send(HomeEvent.ShowError(it))
+                    }
                 }
             }
 

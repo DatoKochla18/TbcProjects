@@ -22,7 +22,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     private val viewModel: LoginViewModel by viewModels()
 
     override fun start() {
-
+        listeners()
         collectLastState(viewModel.uiState) { state ->
             updateUi(state)
         }
@@ -58,10 +58,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
     private fun getEvents(event: LoginSideEffect) {
         when (event) {
-            is LoginSideEffect.SuccessFullLogin -> onSuccessFullLogin(
-                binding.cbRememberMe.isChecked,
-                binding.etEmail.text.toString()
-            )
+            is LoginSideEffect.SuccessFullLogin -> onSuccessFullLogin(binding.cbRememberMe.isChecked)
 
             is LoginSideEffect.ShowToast -> toast(event.message.asString(requireContext()))
         }
@@ -79,27 +76,20 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         }
     }
 
-    override fun listeners() {
+    private fun listeners() {
         registerListeners()
 
         binding.apply {
             etEmail.doAfterTextChanged { text ->
-                viewModel.onEvent(LoginValidationEvent.ValidateEmail(text.toString()))
+                viewModel.onEvent(LoginEvent.ValidateEmail(text.toString()))
             }
 
             etPassword.doAfterTextChanged { text ->
-                viewModel.onEvent(LoginValidationEvent.ValidatePassword(text.toString()))
+                viewModel.onEvent(LoginEvent.ValidatePassword(text.toString()))
             }
 
             btnLogin.setOnClickListener {
-                val email = binding.etEmail.text.toString()
-                val password = binding.etPassword.text.toString()
-                viewModel.onEvent(
-                    LoginValidationEvent.Login(
-                        email = email,
-                        password = password
-                    )
-                )
+                login()
             }
 
             txtRegister.setOnClickListener {
@@ -108,8 +98,20 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         }
     }
 
-    private fun onSuccessFullLogin(rememberMe: Boolean, email: String) {
-        viewModel.setSession(rememberMe, email)
+    private fun login() {
+        val email = binding.etEmail.text.toString()
+        val password = binding.etPassword.text.toString()
+        viewModel.onEvent(
+            LoginEvent.Login(
+                email = email,
+                password = password
+            )
+        )
+    }
+
+
+    private fun onSuccessFullLogin(rememberMe: Boolean) {
+        viewModel.saveRememberMe(rememberMe)
         findNavController().navigate(LoginFragmentDirections.actionGlobalHomeFragment())
     }
 

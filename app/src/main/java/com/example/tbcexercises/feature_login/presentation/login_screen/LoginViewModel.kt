@@ -3,8 +3,7 @@ package com.example.tbcexercises.feature_login.presentation.login_screen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbcexercises.core.domain.util.Result
-import com.example.tbcexercises.core.presentation.util.PreferenceKeys.EMAIL_KEY
-import com.example.tbcexercises.core.presentation.util.PreferenceKeys.REMEMBER_ME_KEY
+import com.example.tbcexercises.core.domain.util.PreferenceKeys.REMEMBER_ME_KEY
 import com.example.tbcexercises.feature_login.domain.use_case.LoginUseCaseWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -25,10 +24,9 @@ class LoginViewModel @Inject constructor(
         MutableStateFlow(LoginUiState())
     val uiState: StateFlow<LoginUiState> = _uiState
 
-    fun setSession(rememberMe: Boolean, email: String) {
+    fun saveRememberMe(rememberMe: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             loginUseCaseWrapper.saveValueToLocalStorageUseCase(REMEMBER_ME_KEY, rememberMe)
-            loginUseCaseWrapper.saveValueToLocalStorageUseCase(EMAIL_KEY, email)
         }
     }
 
@@ -36,11 +34,11 @@ class LoginViewModel @Inject constructor(
     val uiEvents = _uiEventChannel.receiveAsFlow()
 
 
-    fun onEvent(event: LoginValidationEvent) {
+    fun onEvent(event: LoginEvent) {
         when (event) {
-            is LoginValidationEvent.Login -> login(event.email, event.password)
-            is LoginValidationEvent.ValidateEmail -> validateEmail(event.email)
-            is LoginValidationEvent.ValidatePassword -> validatePassword(event.password)
+            is LoginEvent.Login -> login(event.email, event.password)
+            is LoginEvent.ValidateEmail -> validateEmail(event.email)
+            is LoginEvent.ValidatePassword -> validatePassword(event.password)
         }
     }
 
@@ -50,16 +48,11 @@ class LoginViewModel @Inject constructor(
             loginUseCaseWrapper.loginUseCase(email, password).collect { result ->
                 when (result) {
                     is Result.Error -> {
-                        _uiState.update {
-                            it.copy(
-                                isLoading = false,
-                            )
-                        }
+                        _uiState.update { it.copy(isLoading = false) }
                         _uiEventChannel.send(LoginSideEffect.ShowToast(result.error))
                     }
 
                     is Result.Success -> {
-                        _uiState.update { it.copy(isLoading = false) }
                         _uiEventChannel.send(LoginSideEffect.SuccessFullLogin)
                     }
                 }

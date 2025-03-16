@@ -3,7 +3,7 @@ package com.example.tbcexercises.feature_register.presentation.register_screen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbcexercises.core.domain.util.Result
-import com.example.tbcexercises.feature_register.domain.use_case.RegisterUseWrapper
+import com.example.tbcexercises.feature_register.domain.use_case.RegisterUseCaseWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
-    private val registerUseWrapper: RegisterUseWrapper,
+    private val registerUseCaseWrapper: RegisterUseCaseWrapper,
 ) :
     ViewModel() {
     private val _uiState = MutableStateFlow(RegisterUiState())
@@ -25,16 +25,16 @@ class RegisterViewModel @Inject constructor(
     val uiEvents = _uiEventChannel.receiveAsFlow()
 
 
-    fun onEvent(event: RegisterValidationEvent) {
+    fun onEvent(event: RegisterEvent) {
         when (event) {
-            is RegisterValidationEvent.Register -> register(
+            is RegisterEvent.Register -> register(
                 event.email,
                 event.password
             )
 
-            is RegisterValidationEvent.ValidateEmail -> validateEmail(event.email)
-            is RegisterValidationEvent.ValidatePassword -> validatePassword(event.password)
-            is RegisterValidationEvent.ValidateRepeatedPassword -> validateRepeatPassword(
+            is RegisterEvent.ValidateEmail -> validateEmail(event.email)
+            is RegisterEvent.ValidatePassword -> validatePassword(event.password)
+            is RegisterEvent.ValidateRepeatedPassword -> validateRepeatPassword(
                 event.password,
                 event.repeatedPassword
             )
@@ -43,7 +43,7 @@ class RegisterViewModel @Inject constructor(
 
     private fun register(email: String, password: String) {
         viewModelScope.launch {
-            registerUseWrapper.registerUseCase(email, password).collect { result ->
+            registerUseCaseWrapper.registerUseCase(email, password).collect { result ->
                 when (result) {
                     is Result.Error -> {
                         _uiState.update {
@@ -55,9 +55,7 @@ class RegisterViewModel @Inject constructor(
                     }
 
                     is Result.Success -> {
-                        _uiState.update { it.copy(isLoading = false) }
                         _uiEventChannel.send(RegisterSideEffect.NavigateToLoginScreen)
-
                     }
                 }
             }
@@ -65,7 +63,7 @@ class RegisterViewModel @Inject constructor(
     }
 
     private fun validateEmail(email: String) {
-        when (val result = registerUseWrapper.validateEmailUseCase(email)) {
+        when (val result = registerUseCaseWrapper.validateEmailUseCase(email)) {
             is Result.Error -> _uiState.update { it.copy(emailError = result.error) }
             is Result.Success -> _uiState.update {
                 it.copy(
@@ -78,7 +76,7 @@ class RegisterViewModel @Inject constructor(
     }
 
     private fun validatePassword(password: String) {
-        when (val result = registerUseWrapper.validatePasswordUseCase(password)) {
+        when (val result = registerUseCaseWrapper.validatePasswordUseCase(password)) {
             is Result.Error -> _uiState.update { it.copy(passwordError = result.error) }
             is Result.Success -> _uiState.update {
                 it.copy(
@@ -92,7 +90,7 @@ class RegisterViewModel @Inject constructor(
 
     private fun validateRepeatPassword(password: String, repeatPassword: String) {
         val result =
-            registerUseWrapper.validateRepeatPasswordUseCase(
+            registerUseCaseWrapper.validateRepeatPasswordUseCase(
                 password = password,
                 repeatedPassword = repeatPassword
             )

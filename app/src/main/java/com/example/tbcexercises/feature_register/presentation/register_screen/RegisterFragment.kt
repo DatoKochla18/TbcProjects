@@ -21,8 +21,10 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterBinding::inflate) {
     private val viewModel: RegisterViewModel by viewModels()
+
     override fun start() {
         setupTextWatchers()
+        listeners()
         collectLastState(viewModel.uiState) { state ->
             updateUiState(state)
         }
@@ -32,7 +34,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         }
     }
 
-    override fun listeners() {
+    private fun listeners() {
         binding.btnRegister.setOnClickListener {
             register()
         }
@@ -43,7 +45,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         val password = binding.etPassword.text.toString()
 
         viewModel.onEvent(
-            RegisterValidationEvent.Register(
+            RegisterEvent.Register(
                 email = email,
                 password = password
             )
@@ -101,15 +103,15 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
         binding.apply {
             etEmail.doAfterTextChanged {
-                viewModel.onEvent(RegisterValidationEvent.ValidateEmail(it.toString()))
+                viewModel.onEvent(RegisterEvent.ValidateEmail(it.toString()))
             }
             etPassword.doAfterTextChanged {
-                viewModel.onEvent(RegisterValidationEvent.ValidatePassword(it.toString()))
+                viewModel.onEvent(RegisterEvent.ValidatePassword(it.toString()))
             }
             etPasswordRepeat.doAfterTextChanged {
                 viewModel.onEvent(
 
-                    RegisterValidationEvent.ValidateRepeatedPassword(
+                    RegisterEvent.ValidateRepeatedPassword(
                         binding.etPassword.text.toString(),
                         it.toString()
                     )

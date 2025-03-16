@@ -8,7 +8,7 @@ import androidx.room.withTransaction
 import com.example.tbcexercises.core.data.local.AppDatabase
 import com.example.tbcexercises.feature_user.data.local.entity.RemoteKeyEntity
 import com.example.tbcexercises.feature_user.data.local.entity.UserEntity
-import com.example.tbcexercises.feature_user.data.mapper.toUserEntity
+import com.example.tbcexercises.feature_user.data.mapper.toEntity
 import com.example.tbcexercises.feature_user.data.remote.service.UserApi
 import javax.inject.Inject
 
@@ -52,7 +52,7 @@ class UserRemoteMediator @Inject constructor(
         try {
             val apiResponse = userApi.getUsers(page)
 
-            val users = apiResponse.data.map { it.toUserEntity() }
+            val users = apiResponse.data.map { it.toEntity() }
             val endOfPaginationReached = users.isEmpty()
             appDatabase.withTransaction {
                 if (loadType == LoadType.REFRESH) {

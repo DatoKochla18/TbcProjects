@@ -6,7 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tbcexercises.core.presentation.extension.loadImg
 import com.example.tbcexercises.databinding.ItemUserBinding
-import com.example.tbcexercises.feature_user.domain.model.User
+import com.example.tbcexercises.feature_user.presentation.model.User
 
 class UserListAdapter() :
     PagingDataAdapter<User, UserListAdapter.UserListViewHolder>(UserDiffUtil) {

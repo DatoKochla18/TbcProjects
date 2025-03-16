@@ -1,7 +1,6 @@
 package com.example.tbcexercises.feature_user.presentation.home_screen
 
 
-import android.util.Log
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -42,11 +41,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 is HomeEvent.ShowError -> toast(event.message)
             }
         }
-
+        listeners()
 
     }
 
-    override fun listeners() {
+    private fun listeners() {
         binding.btnRetry.setOnClickListener {
             userListAdapter.retry()
         }
