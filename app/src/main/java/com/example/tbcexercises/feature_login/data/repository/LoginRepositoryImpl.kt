@@ -4,6 +4,7 @@ import com.example.tbcexercises.core.data.remote.request.AuthRequest
 import com.example.tbcexercises.core.data.remote.utils.ApiHelper
 import com.example.tbcexercises.core.data.remote.utils.mapData
 import com.example.tbcexercises.core.domain.manager.UserSessionManager
+import com.example.tbcexercises.core.domain.util.PreferenceKeys.EMAIL_KEY
 import com.example.tbcexercises.core.domain.util.PreferenceKeys.TOKEN_KEY
 import com.example.tbcexercises.core.domain.util.Result
 import com.example.tbcexercises.core.domain.util.error.NetworkError
@@ -32,6 +33,8 @@ class LoginRepositoryImpl @Inject constructor(
         }
         if (result is Result.Success) {
             userSessionManager.saveValue(TOKEN_KEY, result.data.token)
+            userSessionManager.saveValue(EMAIL_KEY, email)
+
         }
 
         return result.mapData { it.toDomain() }

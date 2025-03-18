@@ -1,6 +1,5 @@
 package com.example.tbcexercises.core.data.manager
 
-import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
@@ -16,7 +15,6 @@ class UserSessionManagerImpl @Inject constructor(
     override suspend fun <T> saveValue(key: Preferences.Key<T>, value: T) {
         dataStore.edit { preferences ->
             preferences[key] = value
-            Log.d("saved", preferences[key].toString())
         }
     }
 
