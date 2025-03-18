@@ -40,7 +40,8 @@ class CategoryAdapter :
                     LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
             }
 
-            val balls = (0..category.depth).map { Ball(it) }
+            val balls = if (category.depth == 0) listOf() else (0..<category.depth).map { Ball(it) }
+
             ballAdapter.submitList(balls.toList())
         }
     }

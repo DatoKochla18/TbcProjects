@@ -2,24 +2,24 @@ package com.example.tbcexercises.domain.use_case
 
 import com.example.tbcexercises.domain.model.GetCategories
 import com.example.tbcexercises.domain.repository.CategoryRepository
-import com.example.tbcexercises.utils.Resource
-import com.example.tbcexercises.utils.mapper
+import com.example.tbcexercises.domain.util.Resource
+import com.example.tbcexercises.data.remote.util.mapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 
 class SearchCategoriesUseCase @Inject constructor(
-    private val categoryRepository: CategoryRepository
+    private val categoryRepository: CategoryRepository,
 ) {
     operator fun invoke(query: String): Flow<Resource<List<GetCategories>>> {
         return categoryRepository.getCategories()
             .map { resource ->
                 resource.mapper { categories ->
                     if (query.isNotEmpty()) {
-                        searchInCategories(categories, query.lowercase())
+                        searchInCategories(categories, query.lowercase()).sortedBy { it.depth }
                     } else {
-                        categories
+                        listOf()
                     }
                 }
             }
@@ -27,16 +27,24 @@ class SearchCategoriesUseCase @Inject constructor(
 
     private fun searchInCategories(
         categories: List<GetCategories>,
-        query: String
+        query: String,
     ): List<GetCategories> {
-        return categories.mapNotNull { category ->
-            val matches = category.name.lowercase().contains(query)
-            val filteredChildren = searchInCategories(category.children, query)
-            if (matches || filteredChildren.isNotEmpty()) {
-                category.copy(children = filteredChildren)
-            } else {
-                null
+        return categories.flattenCategories().filter { it.name.lowercase().startsWith(query) }
+    }
+
+    private fun List<GetCategories>.flattenCategories(): List<GetCategories> {
+        val result = mutableListOf<GetCategories>()
+
+        fun addCategory(category: GetCategories) {
+            result.add(category)
+            category.children.forEach { child ->
+                addCategory(child)
             }
         }
+        for (category in this) {
+            addCategory(category)
+        }
+
+        return result
     }
 }

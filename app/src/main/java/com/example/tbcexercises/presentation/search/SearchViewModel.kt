@@ -3,20 +3,19 @@ package com.example.tbcexercises.presentation.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbcexercises.domain.use_case.SearchCategoriesUseCase
+import com.example.tbcexercises.domain.util.Resource
 import com.example.tbcexercises.presentation.mapper.toPresentation
-import com.example.tbcexercises.presentation.model.Category
-import com.example.tbcexercises.utils.Resource
-import com.example.tbcexercises.utils.mapper
+import com.example.tbcexercises.presentation.util.Constants.TIME_BEFORE_FIRING_REQUEST
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -25,22 +24,47 @@ class SearchViewModel @Inject constructor(
     private val searchCategoriesUseCase: SearchCategoriesUseCase,
 ) : ViewModel() {
 
-    // Holds the current search query. Start with empty string.
-    private val _searchQuery = MutableStateFlow("")
-    val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
+    private val _state = MutableStateFlow(SearchUiState())
+    val state = _state.asStateFlow()
 
-    // Expose UI state as a Flow of Resource<List<GetCategories>>
-    val categoriesState: StateFlow<Resource<List<Category>>> = _searchQuery
-        .debounce(300) // wait 300ms for user to finish typing
-        .distinctUntilChanged()
-        .flatMapLatest { query ->
-            // Every time the query changes, fire a network request.
-            searchCategoriesUseCase(query).map { it.mapper { it.map { it.toPresentation() } } }
+    private val _uiEvent = Channel<SearchSideEffects>()
+    val uiEvent = _uiEvent.receiveAsFlow()
+
+
+    private var searchJob: Job? = null
+
+    fun onEvent(event: SearchUiEvent) {
+        when (event) {
+            is SearchUiEvent.SearchCategories -> getCategories(event.query)
         }
-        .stateIn(viewModelScope, SharingStarted.Lazily, Resource.Loading)
+    }
 
-    // Call this whenever the search text changes in your UI.
-    fun onSearchTextChanged(query: String) {
-        _searchQuery.value = query
+    private fun getCategories(query: String) {
+
+
+        searchJob?.cancel()
+
+        searchJob = viewModelScope.launch {
+            delay(TIME_BEFORE_FIRING_REQUEST)
+            _state.update { it.copy(isLoading = true, categories = emptyList()) }
+            searchCategoriesUseCase(query).collectLatest { resource ->
+                when (resource) {
+                    is Resource.Error -> {
+                        _state.update { it.copy(isLoading = false) }
+                        _uiEvent.send(SearchSideEffects.ShowError(resource.message))
+                    }
+
+                    is Resource.Success -> _state.update { searchUiState ->
+                        searchUiState.copy(
+                            categories = resource.data
+                                .map {
+                                    it.toPresentation()
+                                },
+                            isLoading = false,
+                        )
+                    }
+                }
+            }
+        }
     }
 }

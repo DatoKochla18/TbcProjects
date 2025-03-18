@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface CategoryService {
 
-    @GET("5809d42b-8d66-46ee-8bc4-4dae26fd5258")
+    @GET("499e0ffd-db69-4955-8d86-86ee60755b9c")
     suspend fun getCategories(): Response<List<CategoryResponse>>
 }
