@@ -31,6 +31,13 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         }
     }
 
+    override fun listeners() {
+        binding.etSearch.doAfterTextChanged { editable ->
+
+            viewModel.onEvent(SearchUiEvent.SearchCategories(editable.toString()))
+        }
+    }
+
     private fun updateUi(state: SearchUiState) {
         categoryAdapter.submitList(state.categories.toList())
 
@@ -47,10 +54,4 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         }
     }
 
-    override fun listeners() {
-        binding.etSearch.doAfterTextChanged { editable ->
-
-            viewModel.onEvent(SearchUiEvent.SearchCategories(editable.toString()))
-        }
-    }
 }

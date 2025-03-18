@@ -5,5 +5,5 @@ data class GetCategories(
     val id: String,
     val name: String,
     val children: List<GetCategories>,
-    val depth: Int = 0,
+    val depth: Int,
 )

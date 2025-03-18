@@ -35,16 +35,19 @@ class SearchCategoriesUseCase @Inject constructor(
     private fun List<GetCategories>.flattenCategories(): List<GetCategories> {
         val result = mutableListOf<GetCategories>()
 
-        fun addCategory(category: GetCategories) {
-            result.add(category)
-            category.children.forEach { child ->
-                addCategory(child)
-            }
-        }
+
         for (category in this) {
-            addCategory(category)
+            addCategory(category, result)
         }
 
         return result
     }
+
+    private fun addCategory(category: GetCategories, result: MutableList<GetCategories>) {
+        result.add(category)
+        category.children.forEach { child ->
+            addCategory(child, result)
+        }
+    }
+
 }

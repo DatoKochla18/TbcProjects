@@ -1,5 +1,6 @@
 package com.example.tbcexercises.di
 
+import com.example.tbcexercises.BuildConfig
 import com.example.tbcexercises.data.remote.service.CategoryService
 import dagger.Module
 import dagger.Provides
@@ -13,7 +14,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import javax.inject.Singleton
 
-const val BASE_URL = "https://run.mocky.io/v3/"
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -33,11 +33,15 @@ object RemoteModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(client:OkHttpClient): Retrofit {
+    fun provideRetrofit(client: OkHttpClient): Retrofit {
         val json = Json { ignoreUnknownKeys = true }
         val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .apply {                     this.client(client)
+            .baseUrl(BuildConfig.BASE_URL)
+            .apply {
+                if (BuildConfig.DEBUG) {
+                    this.client(client)
+
+                }
             }
             .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
             .build()
