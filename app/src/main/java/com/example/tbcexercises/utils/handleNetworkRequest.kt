@@ -20,3 +20,12 @@ fun <T> handleNetworkRequest(apiCall: suspend () -> Response<T>): Flow<Resource<
         emit(Resource.Error(e.localizedMessage ?: ""))
     }
 }
+
+
+fun <T, R> Resource<T>.mapper(map: (T) -> R): Resource<R> {
+    return when (this) {
+        is Resource.Loading -> Resource.Loading
+        is Resource.Success -> Resource.Success(map(this.data))
+        is Resource.Error -> Resource.Error(this.message)
+    }
+}
