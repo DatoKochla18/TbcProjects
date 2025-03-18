@@ -1,4 +1,4 @@
-package com.example.tbcexercises.presentation.search.category_adapter
+package com.example.tbcexercises.presentation.screen.search.category_adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.tbcexercises.presentation.model.Category

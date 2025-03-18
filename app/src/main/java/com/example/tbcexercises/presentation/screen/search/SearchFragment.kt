@@ -1,6 +1,5 @@
-package com.example.tbcexercises.presentation.search
+package com.example.tbcexercises.presentation.screen.search
 
-import android.util.Log
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
@@ -9,8 +8,7 @@ import com.example.tbcexercises.databinding.FragmentSearchBinding
 import com.example.tbcexercises.presentation.base.BaseFragment
 import com.example.tbcexercises.presentation.extension.collectLastFlow
 import com.example.tbcexercises.presentation.extension.toast
-import com.example.tbcexercises.presentation.search.category_adapter.CategoryAdapter
-import com.example.tbcexercises.presentation.util.Constants.TIME_BEFORE_FIRING_REQUEST
+import com.example.tbcexercises.presentation.screen.search.category_adapter.CategoryAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,13 +32,12 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     private fun updateUi(state: SearchUiState) {
-        Log.d("state", state.toString())
+        categoryAdapter.submitList(state.categories.toList())
+
         binding.apply {
             progressBar.isVisible = state.isLoading
-            rvCategories.isVisible = !state.isLoading
+
         }
-        categoryAdapter.submitList(state.categories.toList())
-        Log.d("statedata", state.categories.toList().toString())
     }
 
     private fun setUpRecycler() {
@@ -50,16 +47,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         }
     }
 
-    private val searchRunnable = Runnable {
-        val query = binding.etSearch.text?.toString().orEmpty()
-        viewModel.onEvent(SearchUiEvent.SearchCategories(query))
-    }
-
     override fun listeners() {
         binding.etSearch.doAfterTextChanged { editable ->
-            Log.d("stateChangedText", editable.toString())
-            binding.etSearch.removeCallbacks(searchRunnable)
-            binding.etSearch.postDelayed(searchRunnable, TIME_BEFORE_FIRING_REQUEST)
+
+            viewModel.onEvent(SearchUiEvent.SearchCategories(editable.toString()))
         }
     }
 }

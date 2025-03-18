@@ -1,4 +1,4 @@
-package com.example.tbcexercises.presentation.search.balls_adapter
+package com.example.tbcexercises.presentation.screen.search.balls_adapter
 
 import androidx.recyclerview.widget.DiffUtil
 

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:padding="20dp"
-    tools:context=".presentation.search.SearchFragment">
+    tools:context=".presentation.screen.search.SearchFragment">
 
 
     <androidx.appcompat.widget.AppCompatEditText

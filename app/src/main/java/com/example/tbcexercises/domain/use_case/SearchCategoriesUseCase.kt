@@ -17,7 +17,7 @@ class SearchCategoriesUseCase @Inject constructor(
             .map { resource ->
                 resource.mapper { categories ->
                     if (query.isNotEmpty()) {
-                        searchInCategories(categories, query.lowercase()).sortedBy { it.depth }
+                        searchInCategories(categories, query.lowercase())
                     } else {
                         listOf()
                     }

@@ -1,4 +1,4 @@
-package com.example.tbcexercises.presentation.search
+package com.example.tbcexercises.presentation.screen.search
 
 import com.example.tbcexercises.presentation.model.Category
 

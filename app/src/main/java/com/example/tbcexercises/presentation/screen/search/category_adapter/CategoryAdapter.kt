@@ -1,4 +1,4 @@
-package com.example.tbcexercises.presentation.search.category_adapter
+package com.example.tbcexercises.presentation.screen.search.category_adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tbcexercises.databinding.ItemCategoryBinding
 import com.example.tbcexercises.presentation.model.Category
-import com.example.tbcexercises.presentation.search.balls_adapter.Ball
-import com.example.tbcexercises.presentation.search.balls_adapter.BallAdapter
+import com.example.tbcexercises.presentation.screen.search.balls_adapter.Ball
+import com.example.tbcexercises.presentation.screen.search.balls_adapter.BallAdapter
 
 class CategoryAdapter :
     ListAdapter<Category, CategoryAdapter.CategoryViewHolder>(CategoryDiffUtil) {

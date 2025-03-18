@@ -1,4 +1,4 @@
-package com.example.tbcexercises.presentation.search.balls_adapter
+package com.example.tbcexercises.presentation.screen.search.balls_adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tbcexercises.databinding.ItemBallsBinding
 
-class BallAdapter : ListAdapter<Ball,BallAdapter.BallViewHolder>(BallDiffUtil) {
+class BallAdapter : ListAdapter<Ball, BallAdapter.BallViewHolder>(BallDiffUtil) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BallViewHolder {
