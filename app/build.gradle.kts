@@ -11,7 +11,7 @@ plugins {
 
 android {
     namespace = "com.example.tbcexercises"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.tbcexercises"
@@ -67,7 +67,13 @@ dependencies {
     kapt(libs.hilt.compiler)
 
     implementation(libs.glide)
+
+    implementation(libs.androidx.camera.core)
+    implementation(libs.androidx.camera.camera2)
+    implementation(libs.androidx.camera.lifecycle)
+    implementation(libs.androidx.camera.view)
+    implementation(libs.androidx.camera.extensions)
 }
 kapt {
-    correctErrorTypes =  true
+    correctErrorTypes = true
 }
