@@ -51,14 +51,18 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(FragmentCameraBinding
             takePhoto()
         }
         binding.btnSwitchCamera.setOnClickListener {
-            currentLensFacing = if (currentLensFacing == CameraSelector.DEFAULT_BACK_CAMERA) {
-                CameraSelector.DEFAULT_FRONT_CAMERA
-            } else {
-                CameraSelector.DEFAULT_BACK_CAMERA
-            }
-
-            startCamera()
+            changeCameraOrientation()
         }
+    }
+
+    private fun changeCameraOrientation() {
+        currentLensFacing = if (currentLensFacing == CameraSelector.DEFAULT_BACK_CAMERA) {
+            CameraSelector.DEFAULT_FRONT_CAMERA
+        } else {
+            CameraSelector.DEFAULT_BACK_CAMERA
+        }
+
+        startCamera()
     }
 
     private fun checkCameraPermissions() {
@@ -84,10 +88,10 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(FragmentCameraBinding
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.camera_permission_required))
             .setMessage(getString(R.string.this_app_needs_access_to_your_camera_to_take_photos_please_grant_camera_permission))
-            .setPositiveButton("OK") { _, _ ->
+            .setPositiveButton(getString(R.string.ok)) { _, _ ->
                 permissionLauncher.launch(Manifest.permission.CAMERA)
             }
-            .setNegativeButton("Cancel") { dialog, _ ->
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
                 findNavController().popBackStack()
             }.setOnCancelListener {
@@ -100,10 +104,10 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(FragmentCameraBinding
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.camera_permission_required))
             .setMessage(getString(R.string.camera_access_is_required_to_use_this_feature_please_enable_camera_permissions_in_app_settings))
-            .setPositiveButton("Open Settings") { _, _ ->
+            .setPositiveButton(getString(R.string.open_settings)) { _, _ ->
                 openAppSettings()
             }
-            .setNegativeButton("Cancel") { dialog, _ ->
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
                 findNavController().popBackStack()
             }.setOnCancelListener {
@@ -143,7 +147,7 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(FragmentCameraBinding
                     imageCapture
                 )
             } catch (exc: Exception) {
-                Log.e("HOMEFRAGMENT", "Camera initialization failed", exc)
+                Log.d("HOMEFRAGMENT", exc.toString())
             }
         }, ContextCompat.getMainExecutor(requireContext()))
     }

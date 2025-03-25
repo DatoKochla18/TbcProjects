@@ -2,7 +2,6 @@ package com.example.tbcexercises.presentation.home_screen
 
 import android.graphics.Bitmap
 import android.os.Build
-import android.util.Log
 import androidx.navigation.fragment.findNavController
 import com.example.tbcexercises.R
 import com.example.tbcexercises.databinding.FragmentHomeBinding

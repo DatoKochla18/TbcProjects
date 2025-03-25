@@ -51,7 +51,7 @@ class PictureChooserFragment : BottomSheetDialogFragment() {
         }
 
         binding.btnFromGallery.setOnClickListener {
-            galleryLauncher.launch("image/*")
+            galleryLauncher.launch(GALLERY_MIMETYPE)
         }
     }
 
@@ -68,5 +68,9 @@ class PictureChooserFragment : BottomSheetDialogFragment() {
             @Suppress("DEPRECATION")
             MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
         }
+    }
+
+    companion object {
+        const val GALLERY_MIMETYPE = "image/*"
     }
 }

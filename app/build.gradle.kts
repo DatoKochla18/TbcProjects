@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.safeargs)
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    alias(libs.plugins.google.gms.google.services)
 
 
 }
@@ -53,10 +54,11 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.firebase.messaging)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
+    implementation(libs.firebase.analytics)
     implementation(libs.retrofit)
     implementation(libs.okhttp)
     implementation(libs.converter.kotlinx.serialization)
