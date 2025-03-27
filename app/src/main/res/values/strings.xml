@@ -14,4 +14,5 @@
     <string name="cancel">Cancel</string>
     <string name="open_settings">Open Settings</string>
     <string name="fcm_default_channel">FCM_DEFAULT_CHANNEL</string>
+    <string name="add_to_firebase">Add To Firebase</string>
 </resources>

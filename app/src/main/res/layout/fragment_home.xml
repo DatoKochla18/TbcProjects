@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
     tools:context=".presentation.home_screen.HomeFragment">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgPhoto"
         android:layout_width="0dp"
         android:layout_height="200dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -19,9 +20,23 @@
         android:id="@+id/btnAddPhoto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:text="@string/add_photo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imgPhoto" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnUploadToFirebase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="@string/add_to_firebase"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnAddPhoto" />
+
+    <include android:id="@+id/progressBar"
+        layout="@layout/screen_loader"
+        android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -55,6 +55,7 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.firebase.messaging)
+    implementation(libs.firebase.storage)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -75,6 +76,12 @@ dependencies {
     implementation(libs.androidx.camera.lifecycle)
     implementation(libs.androidx.camera.view)
     implementation(libs.androidx.camera.extensions)
+
+    implementation(libs.androidx.work.runtime.ktx)
+
+    implementation(libs.androidx.hilt.work)
+    kapt(libs.androidx.hilt.compiler)
+
 }
 kapt {
     correctErrorTypes = true

@@ -199,5 +199,4 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(FragmentCameraBinding
             }
         )
     }
-
 }
