@@ -41,8 +41,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     private fun getSideEffects(homeUiSideEffect: HomeUiSideEffect) {
         when (homeUiSideEffect) {
-            HomeUiSideEffect.FailedUpload -> binding.root.showSnackBar("Upload failed")
-            HomeUiSideEffect.SuccessfulUpload -> binding.root.showSnackBar("Upload successful")
+            HomeUiSideEffect.FailedUpload -> binding.root.showSnackBar("Upload fai")
+            HomeUiSideEffect.SuccessfulUpload -> binding.root.showSnackBar("Upload suc")
         }
     }
 

@@ -1,10 +1,11 @@
-package com.example.tbcexercises
+package com.example.tbcexercises.presentation.service
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import com.example.tbcexercises.R
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
@@ -21,12 +22,13 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     private fun showNotification(notification: RemoteMessage.Notification) {
 
-        val notificationBuilder = NotificationCompat.Builder(this, getString(R.string.fcm_default_channel))
-            .setSmallIcon(R.drawable.ic_launcher_background)
-            .setContentTitle(notification.title)
-            .setContentText(notification.body)
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .setAutoCancel(true)
+        val notificationBuilder =
+            NotificationCompat.Builder(this, getString(R.string.fcm_default_channel))
+                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setContentTitle(notification.title)
+                .setContentText(notification.body)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true)
 
         val notificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

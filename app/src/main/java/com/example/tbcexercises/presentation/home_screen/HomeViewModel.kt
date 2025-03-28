@@ -2,6 +2,7 @@ package com.example.tbcexercises.presentation.home_screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
@@ -39,7 +40,11 @@ class HomeViewModel @Inject constructor(
                     .setInputData(workDataOf("file_path" to event.file.absolutePath))
                     .build()
 
-                workManager.enqueue(uploadRequest)
+                workManager.enqueueUniqueWork(
+                    "upload_work",
+                    ExistingWorkPolicy.KEEP,
+                    uploadRequest
+                )
 
                 viewModelScope.launch {
                     workManager.getWorkInfoByIdFlow(uploadRequest.id)
