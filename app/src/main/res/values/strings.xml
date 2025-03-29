@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">TbcExercises</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="connection_error_plz_try_again">Connection Error plz try again</string>
+    <string name="empty_response_try_again">Empty Response try again</string>
+    <string name="http_error_something_went_wrong">Http Error something went wrong</string>
+    <string name="nikas_backend_aint_backing">Nikas backend aint backing</string>
+    <string name="transfer_internally">Transfer Internally</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="sell">Sell</string>
+    <string name="choose_account">Choose Account</string>
+    <string name="account_number">Account Number</string>
+    <string name="personal_number">Personal Number</string>
+    <string name="phone_number">Phone Number</string>
 </resources>

@@ -1,7 +1,7 @@
 package com.example.tbcexercises.di
 
-import com.example.tbcexercises.data.repository.ItemRepositoryImpl
-import com.example.tbcexercises.domain.repository.ItemRepository
+import com.example.tbcexercises.data.repository.CardRepositoryImpl
+import com.example.tbcexercises.domain.repository.CardRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,5 +14,5 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindItemRepository(impl: ItemRepositoryImpl): ItemRepository
+    abstract fun bindItemRepository(impl: CardRepositoryImpl): CardRepository
 }
