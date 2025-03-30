@@ -14,8 +14,7 @@
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_background" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txtMoneyType"
@@ -23,7 +22,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="1dp"
-        android:text="Cash"
         android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@id/imgCardLogo"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +33,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="1dp"
-        android:text="350 l"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/imgCardLogo"
@@ -46,7 +43,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:text="sdkfljsdklfjkljfldsfjdjsdfldslkf"
         android:textAlignment="textEnd"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"

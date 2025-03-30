@@ -1,6 +1,8 @@
 package com.example.tbcexercises.di
 
+import com.example.tbcexercises.data.remote.service.CardCheckService
 import com.example.tbcexercises.data.remote.service.CardService
+import com.example.tbcexercises.data.remote.service.CourseService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -49,4 +51,15 @@ object RemoteModule {
         return retrofit.create(CardService::class.java)
     }
 
+
+    @Provides
+    @Singleton
+    fun provideGetCardCheckService(retrofit: Retrofit): CardCheckService {
+        return retrofit.create(CardCheckService::class.java)
+    }
+    @Provides
+    @Singleton
+    fun provideCourseService(retrofit: Retrofit): CourseService {
+        return retrofit.create(CourseService::class.java)
+    }
 }

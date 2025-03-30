@@ -1,13 +1,16 @@
 package com.example.tbcexercises.presentation.screen.bottom_sheet_from_account
 
+import android.os.Bundle
+import android.util.Log
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tbcexercises.databinding.FragmentFromAccountBinding
 import com.example.tbcexercises.presentation.base.BaseBottomSheetDialog
 import com.example.tbcexercises.presentation.extension.collectLatestFlow
 import com.example.tbcexercises.presentation.extension.showSnackBar
-import com.example.tbcexercises.presentation.screen.bottom_sheet_from_account.card_account_adapter.CardAdapter
+import com.example.tbcexercises.presentation.screen.common.card_account_adapter.CardAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -15,7 +18,18 @@ import dagger.hilt.android.AndroidEntryPoint
 class FromAccountFragment :
     BaseBottomSheetDialog<FragmentFromAccountBinding>(FragmentFromAccountBinding::inflate) {
     private val viewmodel: FromAccountViewModel by viewModels()
-    private val cardAccountAdapter by lazy { CardAdapter() }
+    private val cardAccountAdapter by lazy {
+        CardAdapter(
+            onClick = {
+                Log.d("executed", "executed")
+                val result = Bundle().apply {
+                    putParcelable("from_account", it)
+                }
+                parentFragmentManager.setFragmentResult("from_requestKey", result)
+                findNavController().navigateUp()
+            }
+        )
+    }
 
     override fun start() {
         viewmodel.onEvent(FromAccountEvent.GetCards)

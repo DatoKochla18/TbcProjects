@@ -1,4 +1,4 @@
-package com.example.tbcexercises.presentation.screen.bottom_sheet_from_account.card_account_adapter
+package com.example.tbcexercises.presentation.screen.common.card_account_adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.tbcexercises.presentation.model.Card

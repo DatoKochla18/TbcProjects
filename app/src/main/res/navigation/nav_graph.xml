@@ -13,10 +13,18 @@
         <action
             android:id="@+id/action_homeFragment_to_fromAccountFragment"
             app:destination="@id/fromAccountFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_toAccountFragment"
+            app:destination="@id/toAccountFragment" />
     </fragment>
     <dialog
         android:id="@+id/fromAccountFragment"
         android:name="com.example.tbcexercises.presentation.screen.bottom_sheet_from_account.FromAccountFragment"
         android:label="fragment_from_account"
         tools:layout="@layout/fragment_from_account" />
+    <dialog
+        android:id="@+id/toAccountFragment"
+        android:name="com.example.tbcexercises.presentation.screen.bottom_sheet_to_account.ToAccountFragment"
+        android:label="fragment_to_account"
+        tools:layout="@layout/fragment_to_account" />
 </navigation>

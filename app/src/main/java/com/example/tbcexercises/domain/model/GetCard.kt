@@ -8,4 +8,6 @@ data class GetCard(
     val valueType: String,
     val balance: Int,
     val cardLogo: String?,
+    val phoneNumber: String = "",
+    val personalNumber: String = "",
 )

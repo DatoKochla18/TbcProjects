@@ -11,7 +11,15 @@
     <string name="to">To</string>
     <string name="sell">Sell</string>
     <string name="choose_account">Choose Account</string>
-    <string name="account_number">Account Number</string>
-    <string name="personal_number">Personal Number</string>
-    <string name="phone_number">Phone Number</string>
+    <string name="account_number">AccountNum</string>
+    <string name="personal_number">PersonalNum</string>
+    <string name="phone_number">PhoneNum</string>
+    <string name="type">Type…</string>
+    <string name="it_should_be_23_charachter_long">It should be 22 charachter long</string>
+    <string name="personal_number_must_be_11_charachter_long">Personal Number must be 11 charachter long</string>
+    <string name="it_should_be_all_digits">It should be all digits</string>
+    <string name="it_should_be_9_charachters_long">it should be 9 charachters long</string>
+    <string name="search">Search</string>
+    <string name="opps_bad_card">Opps bad card</string>
+    <string name="cash">"@"Cash</string>
 </resources>
