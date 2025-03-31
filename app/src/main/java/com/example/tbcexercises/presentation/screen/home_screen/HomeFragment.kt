@@ -47,7 +47,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private fun updateUiState(uiState: HomeUiState) {
         Log.d("homeuiState", uiState.toString())
         binding.apply {
-            itemToMoneyValue.etEnterMoney.setText(uiState.moneyRight.toString())
+            itemToMoneyValue.etEnterMoney.apply {
+                isFocusable = false
+                isClickable = false
+                setText(uiState.moneyRight.toString())
+            }
+
+            itemToMoneyValue.txtMoneyType.text = uiState.toAccount?.valueTypeFormatted
+
+            itemFromMoneyValue.txtMoneyType.text = uiState.fromAccount?.valueTypeFormatted
 
             itemFromMoneyValue.root.isVisible = uiState.showSecondMoneyConverter
 
@@ -80,6 +88,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         }
 
     }
+
 
     override fun listeners() {
         binding.itemFromAccountCard.root.setOnClickListener {

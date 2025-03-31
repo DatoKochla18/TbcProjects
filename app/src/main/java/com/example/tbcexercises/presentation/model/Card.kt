@@ -8,11 +8,13 @@ data class Card(
     val accountName: String,
     val accountNumber: String,
     val valueType: String,
+    val valueTypeFormatted: String,
     val balance: Int,
     val cardLogo: String?,
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
+        parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: "",

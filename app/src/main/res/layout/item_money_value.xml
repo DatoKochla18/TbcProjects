@@ -23,4 +23,14 @@
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtSell" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtMoneyType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/etEnterMoney"
+        app:layout_constraintStart_toEndOf="@id/etEnterMoney"
+        app:layout_constraintTop_toTopOf="@id/etEnterMoney" />
 </androidx.constraintlayout.widget.ConstraintLayout>
