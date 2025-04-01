@@ -1,134 +1,96 @@
 package com.example.tbcexercises.feature_login.presentation.login_screen
 
 
-import android.util.Log
-import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
-import androidx.core.widget.doAfterTextChanged
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.tbcexercises.R
-import com.example.tbcexercises.core.presentation.base.BaseFragment
 import com.example.tbcexercises.core.presentation.extension.asString
-import com.example.tbcexercises.core.presentation.extension.asStringResource
-import com.example.tbcexercises.core.presentation.extension.collectLastState
-import com.example.tbcexercises.core.presentation.extension.toast
-import com.example.tbcexercises.core.presentation.util.setViewsVisibility
-import com.example.tbcexercises.databinding.FragmentLoginBinding
+import com.example.tbcexercises.feature_login.presentation.compose.LoginScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
+class LoginFragment : Fragment() {
     private val viewModel: LoginViewModel by viewModels()
+    private lateinit var composeView: ComposeView
 
-    override fun start() {
-        listeners()
-        collectLastState(viewModel.uiState) { state ->
-            updateUi(state)
-        }
-        collectLastState(viewModel.uiEvents) { event ->
-            getEvents(event)
-        }
 
-    }
-
-    private fun updateUi(state: LoginUiState) {
-        Log.d("state", state.toString())
-        showLoadingScreen(state.isLoading)
-
-        binding.txtEmailError.apply {
-            text = state.emailError?.let { getString(it.asStringResource()) }
-            isVisible = state.emailError != null
-        }
-
-        binding.txtPasswordError.apply {
-            text = state.passwordError?.let { getString(it.asStringResource()) }
-            isVisible = state.passwordError != null
-        }
-
-        binding.btnLogin.apply {
-            isEnabled = state.isValidForm
-            background = if (state.isValidForm) {
-                ContextCompat.getDrawable(requireContext(), R.drawable.rounded_cyan_button)
-            } else {
-                ContextCompat.getDrawable(requireContext(), R.drawable.rounded_light_cyan_button)
-            }
-        }
-    }
-
-    private fun getEvents(event: LoginSideEffect) {
-        when (event) {
-            is LoginSideEffect.SuccessFullLogin -> onSuccessFullLogin(binding.cbRememberMe.isChecked)
-
-            is LoginSideEffect.ShowToast -> toast(event.message.asString(requireContext()))
-        }
-    }
-
-    private fun registerListeners() {
-        parentFragmentManager.setFragmentResultListener("authData", this) { _, bundle ->
-            val email = bundle.getString("email")
-            val password = bundle.getString("password")
-
-            binding.apply {
-                etEmail.setText(email)
-                etPassword.setText(password)
-            }
-        }
-    }
-
-    private fun listeners() {
-        registerListeners()
-
-        binding.apply {
-            etEmail.doAfterTextChanged { text ->
-                viewModel.onEvent(LoginEvent.ValidateEmail(text.toString()))
-            }
-
-            etPassword.doAfterTextChanged { text ->
-                viewModel.onEvent(LoginEvent.ValidatePassword(text.toString()))
-            }
-
-            btnLogin.setOnClickListener {
-                login()
-            }
-
-            txtRegister.setOnClickListener {
-                findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
-            }
-        }
-    }
-
-    private fun login() {
-        val email = binding.etEmail.text.toString()
-        val password = binding.etPassword.text.toString()
-        viewModel.onEvent(
-            LoginEvent.Login(
-                email = email,
-                password = password
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View {
+        return ComposeView(requireContext()).apply {
+            setViewCompositionStrategy(
+                ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
             )
-        )
-    }
-
-
-    private fun onSuccessFullLogin(rememberMe: Boolean) {
-        viewModel.saveRememberMe(rememberMe)
-        findNavController().navigate(LoginFragmentDirections.actionGlobalHomeFragment())
-    }
-
-    private fun showLoadingScreen(isLoading: Boolean) {
-        binding.apply {
-            setViewsVisibility(
-                isLoading,
-                progressBar,
-                etEmail,
-                btnLogin,
-                txtRememberMe,
-                cbRememberMe,
-                textInputLayout,
-                txtRegister,
-                txtEmailError,
-                txtPasswordError
-            )
+        }.also {
+            composeView = it
         }
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        composeView.setContent {
+            val snackbarHostState = remember { SnackbarHostState() }
+            val uiState = viewModel.uiState
+
+            LaunchedEffect(key1 = true) {
+                viewModel.uiEvents.collect { event ->
+                    when (event) {
+                        is LoginSideEffect.SuccessFullLogin -> {
+                            viewModel.saveRememberMe(uiState.rememberMe)
+                            findNavController().navigate(LoginFragmentDirections.actionGlobalHomeFragment())
+                        }
+
+                        is LoginSideEffect.ShowSnackBar -> {
+                            snackbarHostState.showSnackbar(
+                                message = event.message.asString(requireContext())
+                            )
+                        }
+                    }
+                }
+            }
+
+            // Wrap your UI inside a Scaffold that includes the SnackbarHost.
+            Scaffold(
+                snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
+            ) { pad ->
+                pad
+                LoginScreen(
+                    uiState = uiState,
+                    onEmailChanged = { viewModel.onEvent(LoginEvent.OnEmailChanged(it)) },
+                    onPasswordChanged = { viewModel.onEvent(LoginEvent.OnPasswordChanged(it)) },
+                    updateRememberMe = { viewModel.onEvent(LoginEvent.SwitchCheckBoxStatus) },
+                    login = { email, password ->
+                        viewModel.onEvent(
+                            LoginEvent.Login(
+                                email,
+                                password
+                            )
+                        )
+                    },
+                    navigateToRegisterScreen = {
+                        findNavController().navigate(
+                            LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
+                        )
+                    },
+                    onShowPasswordChanged = { viewModel.onEvent(LoginEvent.SwitchShowPasswordStatus) },
+                    // if LoginScreen accepts a modifier
+                )
+            }
+        }
+    }
+
 }
