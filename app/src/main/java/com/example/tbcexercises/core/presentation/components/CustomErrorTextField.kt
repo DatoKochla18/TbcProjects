@@ -16,7 +16,6 @@ fun CustomErrorTextField(text: String, modifier: Modifier = Modifier) {
         color = Color.Red,
         fontSize = 12.sp,
         modifier = modifier
-            .padding(top = 4.dp)
-
+            .padding(start = 20.dp, end = 20.dp)
     )
 }

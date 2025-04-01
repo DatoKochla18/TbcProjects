@@ -36,8 +36,7 @@
         <fragment
             android:id="@+id/loginFragment"
             android:name="com.example.tbcexercises.feature_login.presentation.login_screen.LoginFragment"
-            android:label="fragment_login"
-            tools:layout="@layout/fragment_login">
+            android:label="fragment_login">
 
             <action
                 android:id="@+id/action_loginFragment_to_registerFragment"

@@ -2,6 +2,7 @@ package com.example.tbcexercises.core.presentation.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -13,12 +14,18 @@ import androidx.compose.ui.unit.dp
 
 
 @Composable
-fun CustomButton(text: String, isEnabled: Boolean = false, onClick: () -> Unit) {
+fun CustomButton(
+    modifier: Modifier = Modifier,
+    text: String,
+    isEnabled: Boolean = false,
+    onClick: () -> Unit,
+) {
     Button(
         onClick = { onClick() },
         modifier = Modifier
             .fillMaxWidth()
-            .height(48.dp),
+            .height(48.dp)
+            .padding(horizontal = 20.dp),
         enabled = isEnabled,
         colors = ButtonDefaults.buttonColors(
             containerColor = if (isEnabled) Color.Cyan else Color.Cyan.copy(alpha = 0.5f),

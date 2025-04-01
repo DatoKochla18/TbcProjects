@@ -1,19 +1,14 @@
-package com.example.tbcexercises.feature_login.presentation.compose
+package com.example.tbcexercises.feature_register.presentation.compose
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
@@ -26,32 +21,30 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tbcexercises.R
-import com.example.tbcexercises.core.domain.util.error.EmailError
-import com.example.tbcexercises.core.domain.util.error.PasswordError
 import com.example.tbcexercises.core.presentation.components.CustomButton
 import com.example.tbcexercises.core.presentation.components.CustomErrorTextField
 import com.example.tbcexercises.core.presentation.components.CustomPasswordField
 import com.example.tbcexercises.core.presentation.extension.asStringResource
-import com.example.tbcexercises.feature_login.presentation.login_screen.LoginUiState
+import com.example.tbcexercises.feature_register.presentation.register_screen.RegisterUiState
 
 @Composable
-fun LoginScreen(
-    uiState: LoginUiState,
+fun RegisterScreen(
+    uiState: RegisterUiState,
     onEmailChanged: (String) -> Unit,
     onPasswordChanged: (String) -> Unit,
-    updateRememberMe: (Boolean) -> Unit,
-    login: (String, String) -> Unit,
-    navigateToRegisterScreen: () -> Unit,
+    onRepeatPasswordChanged: (String) -> Unit,
+    register: (String, String) -> Unit,
     onShowPasswordChanged: () -> Unit,
 ) {
+
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White),
+
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
         if (uiState.isLoading) {
             Box(
                 modifier = Modifier
@@ -63,7 +56,7 @@ fun LoginScreen(
             }
         } else {
             Text(
-                text = stringResource(id = R.string.login),
+                text = stringResource(id = R.string.register),
                 fontSize = 24.sp,
                 color = Color.Black,
                 modifier = Modifier.padding(bottom = 20.dp, top = 10.dp)
@@ -90,7 +83,7 @@ fun LoginScreen(
                     stringResource(uiState.emailError.asStringResource()),
                     Modifier
                         .align(Alignment.Start)
-                        .padding(top = 4.dp)
+                        .padding(start = 8.dp, top = 4.dp)
                 )
             }
 
@@ -115,65 +108,46 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
-                verticalAlignment = Alignment.CenterVertically
+            CustomPasswordField(
+                currentValue = uiState.repeatPassword,
+                label = stringResource(R.string.repeat_password),
+                isError = uiState.repeatedPasswordError != null,
+                toShowPassword = uiState.showPassword,
+                onShowPasswordChanged = onShowPasswordChanged
+            ) { onRepeatPasswordChanged(it) }
+
+            if (uiState.repeatedPasswordError != null) {
+                CustomErrorTextField(
+                    stringResource(uiState.repeatedPasswordError.asStringResource()),
+                    Modifier
+                        .align(Alignment.Start)
+                        .padding(start = 8.dp, top = 4.dp)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+
+
+
+            CustomButton(
+                text = stringResource(R.string.register),
+                isEnabled = uiState.isValidForm
             ) {
-                Text(
-                    text = stringResource(id = R.string.remember_me),
-                    color = Color.Black
-                )
-                Checkbox(
-                    checked = uiState.rememberMe,
-                    onCheckedChange = { updateRememberMe(it) },
-                    colors = CheckboxDefaults.colors(
-                        checkedColor = MaterialTheme.colorScheme.primary,
-                        uncheckedColor = Color.Black
-                    )
-                )
+                register(uiState.email, uiState.password)
             }
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            CustomButton(text = stringResource(R.string.login), isEnabled = uiState.isValidForm) {
-                login(uiState.email, uiState.password)
-            }
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Text(
-                text = stringResource(id = R.string.don_t_have_account_sign_up),
-                color = Color.Black,
-                modifier = Modifier.clickable {
-                    navigateToRegisterScreen()
-                }
-            )
-
         }
     }
 }
 
 @Preview
 @Composable
-fun LoginScreenPreview() {
-    LoginScreen(
-        uiState = LoginUiState(
-            showPassword = true,
-            isLoading = true,
-            isValidForm = true,
-            emailError = EmailError.INVALID_EMAIL,
-            passwordError = PasswordError.SHORT_PASSWORD,
-            password = "sakdl",
-            rememberMe = true
-        ),
+fun RegisterScreenPreview() {
+    RegisterScreen(uiState = RegisterUiState(isLoading = true),
+        onShowPasswordChanged = {},
         onEmailChanged = {},
         onPasswordChanged = {},
-        navigateToRegisterScreen = {},
-        updateRememberMe = {},
-        login = { a, b -> },
-
-        ) { }
+        onRepeatPasswordChanged = {},
+        register = { a, b -> }
+    )
 }
-

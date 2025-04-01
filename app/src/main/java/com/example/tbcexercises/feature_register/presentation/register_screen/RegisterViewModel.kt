@@ -1,15 +1,21 @@
 package com.example.tbcexercises.feature_register.presentation.register_screen
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbcexercises.core.domain.util.Result
 import com.example.tbcexercises.feature_register.domain.use_case.RegisterUseCaseWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.drop
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,11 +24,62 @@ class RegisterViewModel @Inject constructor(
     private val registerUseCaseWrapper: RegisterUseCaseWrapper,
 ) :
     ViewModel() {
-    private val _uiState = MutableStateFlow(RegisterUiState())
-    val uiState: StateFlow<RegisterUiState> = _uiState
+
+    var uiState by mutableStateOf(RegisterUiState())
+        private set
 
     private val _uiEventChannel = Channel<RegisterSideEffect>()
     val uiEvents = _uiEventChannel.receiveAsFlow()
+
+    init {
+        snapshotFlow { uiState.email }
+            .drop(1)
+            .map { registerUseCaseWrapper.validateEmailUseCase(it) }
+            .onEach { result ->
+                uiState = when (result) {
+                    is Result.Error -> uiState.copy(emailError = result.error)
+                    is Result.Success -> uiState.copy(
+                        emailError = null,
+                        isEmailValid = true,
+                        isValidForm = uiState.isPasswordValid && uiState.isRepeatedPasswordValid
+                    )
+                }
+            }
+            .launchIn(viewModelScope)
+        snapshotFlow { uiState.password }
+            .drop(1)
+            .map { registerUseCaseWrapper.validatePasswordUseCase(it) }
+            .onEach { result ->
+                uiState = when (result) {
+                    is Result.Error -> uiState.copy(passwordError = result.error)
+                    is Result.Success -> uiState.copy(
+                        passwordError = null,
+                        isPasswordValid = true,
+                        isValidForm = uiState.isEmailValid && uiState.isRepeatedPasswordValid
+                    )
+                }
+            }
+            .launchIn(viewModelScope)
+        snapshotFlow { uiState.repeatPassword }
+            .drop(1)
+            .map {
+                registerUseCaseWrapper.validateRepeatPasswordUseCase(
+                    password = uiState.password,
+                    repeatedPassword = it
+                )
+            }
+            .onEach { result ->
+                uiState = when (result) {
+                    is Result.Error -> uiState.copy(repeatedPasswordError = result.error)
+                    is Result.Success -> uiState.copy(
+                        repeatedPasswordError = null,
+                        isRepeatedPasswordValid = true,
+                        isValidForm = uiState.isPasswordValid && uiState.isEmailValid
+                    )
+                }
+            }
+            .launchIn(viewModelScope)
+    }
 
 
     fun onEvent(event: RegisterEvent) {
@@ -32,76 +89,45 @@ class RegisterViewModel @Inject constructor(
                 event.password
             )
 
-            is RegisterEvent.ValidateEmail -> validateEmail(event.email)
-            is RegisterEvent.ValidatePassword -> validatePassword(event.password)
-            is RegisterEvent.ValidateRepeatedPassword -> validateRepeatPassword(
-                event.password,
-                event.repeatedPassword
-            )
+            is RegisterEvent.OnEmailChanged -> {
+                uiState = uiState.copy(email = event.email)
+            }
+
+            is RegisterEvent.OnPasswordChanged -> {
+                uiState = uiState.copy(password = event.password)
+            }
+
+            is RegisterEvent.OnRepeatedPasswordChanged -> {
+                uiState = uiState.copy(repeatPassword = event.repeatedPassword)
+            }
+
+            RegisterEvent.OnShowPasswordChanged -> {
+                uiState = uiState.copy(showPassword = !uiState.showPassword)
+            }
         }
     }
 
     private fun register(email: String, password: String) {
         viewModelScope.launch {
+            uiState = uiState.copy(isLoading = true)
             registerUseCaseWrapper.registerUseCase(email, password).collect { result ->
                 when (result) {
                     is Result.Error -> {
-                        _uiState.update {
-                            it.copy(
-                                isLoading = false,
-                            )
-                        }
-                        _uiEventChannel.send(RegisterSideEffect.ShowToast(result.error))
+                        uiState = uiState.copy(
+                            isLoading = false,
+                        )
+                        _uiEventChannel.send(RegisterSideEffect.ShowError(result.error))
                     }
 
                     is Result.Success -> {
-                        _uiEventChannel.send(RegisterSideEffect.NavigateToLoginScreen)
+                        _uiEventChannel.send(
+                            RegisterSideEffect.NavigateToLoginScreen(
+                                email,
+                                password
+                            )
+                        )
                     }
                 }
-            }
-        }
-    }
-
-    private fun validateEmail(email: String) {
-        when (val result = registerUseCaseWrapper.validateEmailUseCase(email)) {
-            is Result.Error -> _uiState.update { it.copy(emailError = result.error) }
-            is Result.Success -> _uiState.update {
-                it.copy(
-                    emailError = null, isEmailValid = true, isValidForm =
-                    _uiState.value.isPasswordValid
-                            && _uiState.value.isRepeatedPasswordValid
-                )
-            }
-        }
-    }
-
-    private fun validatePassword(password: String) {
-        when (val result = registerUseCaseWrapper.validatePasswordUseCase(password)) {
-            is Result.Error -> _uiState.update { it.copy(passwordError = result.error) }
-            is Result.Success -> _uiState.update {
-                it.copy(
-                    passwordError = null, isPasswordValid = true, isValidForm =
-                    _uiState.value.isEmailValid
-                            && _uiState.value.isRepeatedPasswordValid
-                )
-            }
-        }
-    }
-
-    private fun validateRepeatPassword(password: String, repeatPassword: String) {
-        val result =
-            registerUseCaseWrapper.validateRepeatPasswordUseCase(
-                password = password,
-                repeatedPassword = repeatPassword
-            )
-        when (result) {
-            is Result.Error -> _uiState.update { it.copy(repeatedPasswordError = result.error) }
-            is Result.Success -> _uiState.update {
-                it.copy(
-                    repeatedPasswordError = null, isRepeatedPasswordValid = true, isValidForm =
-                    _uiState.value.isEmailValid
-                            && _uiState.value.isPasswordValid
-                )
             }
         }
     }

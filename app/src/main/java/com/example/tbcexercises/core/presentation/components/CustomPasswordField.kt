@@ -1,6 +1,7 @@
 package com.example.tbcexercises.core.presentation.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
@@ -14,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun CustomPasswordField(
@@ -29,7 +31,8 @@ fun CustomPasswordField(
         onValueChange = { onValueChange(it) },
         label = { Text(label) },
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp),
         singleLine = true,
         visualTransformation = if (toShowPassword) VisualTransformation.None else PasswordVisualTransformation(),
         trailingIcon = {

@@ -1,138 +1,110 @@
 package com.example.tbcexercises.feature_register.presentation.register_screen
 
 
-import androidx.core.content.ContextCompat
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.os.bundleOf
-import androidx.core.view.isVisible
-import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.tbcexercises.R
-import com.example.tbcexercises.core.presentation.base.BaseFragment
 import com.example.tbcexercises.core.presentation.extension.asString
-import com.example.tbcexercises.core.presentation.extension.asStringResource
-import com.example.tbcexercises.core.presentation.extension.collectLastState
-import com.example.tbcexercises.core.presentation.extension.toast
-import com.example.tbcexercises.core.presentation.util.setViewsVisibility
-import com.example.tbcexercises.databinding.FragmentRegisterBinding
+import com.example.tbcexercises.feature_register.presentation.compose.RegisterScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterBinding::inflate) {
+class RegisterFragment : Fragment() {
     private val viewModel: RegisterViewModel by viewModels()
 
-    override fun start() {
-        setupTextWatchers()
-        listeners()
-        collectLastState(viewModel.uiState) { state ->
-            updateUiState(state)
-        }
+    private lateinit var composeView: ComposeView
 
-        collectLastState(viewModel.uiEvents) { event ->
-            getEvents(event)
-        }
-    }
 
-    private fun listeners() {
-        binding.btnRegister.setOnClickListener {
-            register()
-        }
-    }
-
-    private fun register() {
-        val email = binding.etEmail.text.toString()
-        val password = binding.etPassword.text.toString()
-
-        viewModel.onEvent(
-            RegisterEvent.Register(
-                email = email,
-                password = password
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View {
+        return ComposeView(requireContext()).apply {
+            setViewCompositionStrategy(
+                ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
             )
-        )
-    }
-
-    private fun updateUiState(state: RegisterUiState) {
-        showLoadingScreen(state.isLoading)
-
-
-        binding.txtEmailError.apply {
-            text = state.emailError?.let { getString(it.asStringResource()) }
-            isVisible = state.emailError != null
-        }
-
-        binding.txtPasswordError.apply {
-            text = state.passwordError?.let { getString(it.asStringResource()) }
-            isVisible = state.passwordError != null
-        }
-        binding.txtPasswordRepeatError.apply {
-            text = state.repeatedPasswordError?.let { getString(it.asStringResource()) }
-            isVisible = state.repeatedPasswordError != null
-
-        }
-
-        binding.btnRegister.apply {
-            isEnabled = state.isValidForm
-            background = if (state.isValidForm) {
-                ContextCompat.getDrawable(requireContext(), R.drawable.rounded_cyan_button)
-            } else {
-                ContextCompat.getDrawable(requireContext(), R.drawable.rounded_light_cyan_button)
-            }
+        }.also {
+            composeView = it
         }
     }
 
-    private fun getEvents(event: RegisterSideEffect) {
-        when (event) {
-            RegisterSideEffect.NavigateToLoginScreen -> {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-                val email = binding.etEmail.text.toString()
-                val password = binding.etPassword.text.toString()
-                showLoadingScreen(false)
-                val authData = bundleOf("email" to email, "password" to password)
-                setFragmentResult("authData", authData)
-                findNavController().popBackStack()
-            }
+        composeView.setContent {
+            val snackBarHostState = remember { SnackbarHostState() }
+            val uiState = viewModel.uiState
 
-            is RegisterSideEffect.ShowToast -> {
-                toast(event.message.asString(requireContext()))
-            }
+            SideEffectListener(snackBarHostState)
+
+            UiSetUp(snackBarHostState, uiState)
         }
     }
 
-    private fun setupTextWatchers() {
-
-        binding.apply {
-            etEmail.doAfterTextChanged {
-                viewModel.onEvent(RegisterEvent.ValidateEmail(it.toString()))
-            }
-            etPassword.doAfterTextChanged {
-                viewModel.onEvent(RegisterEvent.ValidatePassword(it.toString()))
-            }
-            etPasswordRepeat.doAfterTextChanged {
-                viewModel.onEvent(
-
-                    RegisterEvent.ValidateRepeatedPassword(
-                        binding.etPassword.text.toString(),
-                        it.toString()
+    @Composable
+    private fun UiSetUp(snackBarHostState: SnackbarHostState, uiState: RegisterUiState) {
+        Scaffold(
+            snackbarHost = { SnackbarHost(hostState = snackBarHostState) }
+        ) { pad ->
+            pad
+            RegisterScreen(
+                uiState = uiState,
+                onEmailChanged = { viewModel.onEvent(RegisterEvent.OnEmailChanged(it)) },
+                onPasswordChanged = { viewModel.onEvent(RegisterEvent.OnPasswordChanged(it)) },
+                onRepeatPasswordChanged = {
+                    viewModel.onEvent(
+                        RegisterEvent.OnRepeatedPasswordChanged(
+                            it
+                        )
                     )
-                )
-            }
+                },
+                register = { email, password ->
+                    viewModel.onEvent(
+                        RegisterEvent.Register(
+                            email,
+                            password
+                        )
+                    )
+                },
+                onShowPasswordChanged = { viewModel.onEvent(RegisterEvent.OnShowPasswordChanged) },
+            )
         }
     }
 
-    private fun showLoadingScreen(isLoading: Boolean) {
-        binding.apply {
-            setViewsVisibility(
-                isLoading,
-                progressBar,
-                etEmail,
-                btnRegister,
-                textInputLayout,
-                textInputLayoutRepeat,
-                txtPasswordError,
-                txtEmailError,
-                txtPasswordRepeatError
-            )
+    @Composable
+    private fun SideEffectListener(snackBarHostState: SnackbarHostState) {
+        LaunchedEffect(key1 = true) {
+            viewModel.uiEvents.collect { event ->
+                when (event) {
+                    is RegisterSideEffect.NavigateToLoginScreen -> {
+                        val authData =
+                            bundleOf("email" to event.email, "password" to event.password)
+                        setFragmentResult("authData", authData)
+                        findNavController().popBackStack()
+                    }
+
+                    is RegisterSideEffect.ShowError -> {
+                        snackBarHostState.showSnackbar(
+                            message = event.message.asString(requireContext())
+                        )
+                    }
+                }
+            }
         }
     }
 }

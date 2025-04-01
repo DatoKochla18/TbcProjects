@@ -81,6 +81,8 @@ class LoginViewModel @Inject constructor(
 
             is LoginEvent.OnEmailChanged -> uiState = uiState.copy(email = event.email)
             is LoginEvent.OnPasswordChanged -> uiState = uiState.copy(password = event.password)
+            is LoginEvent.GetResultFromRegister -> uiState =
+                uiState.copy(email = event.email, password = event.password)
         }
     }
 

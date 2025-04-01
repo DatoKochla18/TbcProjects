@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.ComposeView
@@ -42,52 +43,78 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        registerListeners()
+
         composeView.setContent {
-            val snackbarHostState = remember { SnackbarHostState() }
+            val snackBarHostState = remember { SnackbarHostState() }
             val uiState = viewModel.uiState
 
-            LaunchedEffect(key1 = true) {
-                viewModel.uiEvents.collect { event ->
-                    when (event) {
-                        is LoginSideEffect.SuccessFullLogin -> {
-                            viewModel.saveRememberMe(uiState.rememberMe)
-                            findNavController().navigate(LoginFragmentDirections.actionGlobalHomeFragment())
-                        }
+            SideEffectsListener(snackBarHostState, uiState)
 
-                        is LoginSideEffect.ShowSnackBar -> {
-                            snackbarHostState.showSnackbar(
-                                message = event.message.asString(requireContext())
-                            )
-                        }
+            UiSetUp(snackBarHostState, uiState)
+
+        }
+    }
+
+    @Composable
+    private fun UiSetUp(snackBarHostState: SnackbarHostState, uiState: LoginUiState) {
+        Scaffold(
+            snackbarHost = { SnackbarHost(hostState = snackBarHostState) }
+        ) { pad ->
+            pad
+            LoginScreen(
+                uiState = uiState,
+                onEmailChanged = { viewModel.onEvent(LoginEvent.OnEmailChanged(it)) },
+                onPasswordChanged = { viewModel.onEvent(LoginEvent.OnPasswordChanged(it)) },
+                updateRememberMe = { viewModel.onEvent(LoginEvent.SwitchCheckBoxStatus) },
+                login = { email, password ->
+                    viewModel.onEvent(
+                        LoginEvent.Login(
+                            email,
+                            password
+                        )
+                    )
+                },
+                navigateToRegisterScreen = {
+                    findNavController().navigate(
+                        LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
+                    )
+                },
+                onShowPasswordChanged = { viewModel.onEvent(LoginEvent.SwitchShowPasswordStatus) },
+            )
+        }
+    }
+
+    @Composable
+    private fun SideEffectsListener(snackBarHostState: SnackbarHostState, uiState: LoginUiState) {
+        LaunchedEffect(key1 = true) {
+            viewModel.uiEvents.collect { event ->
+                when (event) {
+                    is LoginSideEffect.SuccessFullLogin -> {
+                        viewModel.saveRememberMe(uiState.rememberMe)
+                        findNavController().navigate(LoginFragmentDirections.actionGlobalHomeFragment())
+                    }
+
+                    is LoginSideEffect.ShowSnackBar -> {
+                        snackBarHostState.showSnackbar(
+                            message = event.message.asString(requireContext())
+                        )
                     }
                 }
             }
+        }
+    }
 
-            // Wrap your UI inside a Scaffold that includes the SnackbarHost.
-            Scaffold(
-                snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
-            ) { pad ->
-                pad
-                LoginScreen(
-                    uiState = uiState,
-                    onEmailChanged = { viewModel.onEvent(LoginEvent.OnEmailChanged(it)) },
-                    onPasswordChanged = { viewModel.onEvent(LoginEvent.OnPasswordChanged(it)) },
-                    updateRememberMe = { viewModel.onEvent(LoginEvent.SwitchCheckBoxStatus) },
-                    login = { email, password ->
-                        viewModel.onEvent(
-                            LoginEvent.Login(
-                                email,
-                                password
-                            )
-                        )
-                    },
-                    navigateToRegisterScreen = {
-                        findNavController().navigate(
-                            LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
-                        )
-                    },
-                    onShowPasswordChanged = { viewModel.onEvent(LoginEvent.SwitchShowPasswordStatus) },
-                    // if LoginScreen accepts a modifier
+    private fun registerListeners() {
+        parentFragmentManager.setFragmentResultListener("authData", this) { _, bundle ->
+            val email = bundle.getString("email")
+            val password = bundle.getString("password")
+            if (email != null && password != null) {
+                viewModel.onEvent(
+                    LoginEvent.GetResultFromRegister(
+                        email,
+                        password
+                    )
                 )
             }
         }
