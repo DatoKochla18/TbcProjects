@@ -1,9 +1,8 @@
-package com.example.tbcexercises.feature_login.presentation.di
+package com.example.tbcexercises.feature_login.di
 
 import com.example.tbcexercises.core.domain.use_case.SaveValueToLocalStorageUseCase
 import com.example.tbcexercises.core.domain.use_case.validation.ValidateEmailUseCase
 import com.example.tbcexercises.core.domain.use_case.validation.ValidatePasswordUseCase
-import com.example.tbcexercises.feature_login.domain.repository.LoginRepository
 import com.example.tbcexercises.feature_login.domain.use_case.LoginUseCase
 import com.example.tbcexercises.feature_login.domain.use_case.LoginUseCaseWrapper
 import dagger.Module
@@ -14,10 +13,6 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 object LoginUseCaseModule {
-    @Provides
-    fun provideLoginUserCase(loginRepository: LoginRepository): LoginUseCase {
-        return LoginUseCase(loginRepository)
-    }
 
     @Provides
     fun provideLoginUserCaseWrapper(

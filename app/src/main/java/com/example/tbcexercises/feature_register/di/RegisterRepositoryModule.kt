@@ -1,4 +1,4 @@
-package com.example.tbcexercises.feature_register.data.di
+package com.example.tbcexercises.feature_register.di
 
 import com.example.tbcexercises.feature_register.data.repository.RegisterRepositoryImpl
 import com.example.tbcexercises.feature_register.domain.repository.RegisterRepository

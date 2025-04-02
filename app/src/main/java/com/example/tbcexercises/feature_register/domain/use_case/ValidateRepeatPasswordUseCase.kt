@@ -2,8 +2,9 @@ package com.example.tbcexercises.feature_register.domain.use_case
 
 import com.example.tbcexercises.core.domain.util.Result
 import com.example.tbcexercises.core.domain.util.error.RepeatPasswordError
+import javax.inject.Inject
 
-class ValidateRepeatPasswordUseCase {
+class ValidateRepeatPasswordUseCase@Inject constructor() {
     operator fun invoke(
         password: String,
         repeatedPassword: String,

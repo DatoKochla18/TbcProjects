@@ -1,4 +1,4 @@
-package com.example.tbcexercises.feature_user.data.di
+package com.example.tbcexercises.feature_user.di
 
 import com.example.tbcexercises.feature_user.data.remote.service.UserApi
 import dagger.Module

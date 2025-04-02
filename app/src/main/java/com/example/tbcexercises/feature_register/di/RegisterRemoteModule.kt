@@ -1,4 +1,4 @@
-package com.example.tbcexercises.feature_register.data.di
+package com.example.tbcexercises.feature_register.di
 
 import com.example.tbcexercises.feature_register.data.remote.service.RegisterService
 import dagger.Module

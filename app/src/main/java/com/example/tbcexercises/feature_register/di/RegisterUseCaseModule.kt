@@ -1,8 +1,7 @@
-package com.example.tbcexercises.feature_register.presentation.di
+package com.example.tbcexercises.feature_register.di
 
 import com.example.tbcexercises.core.domain.use_case.validation.ValidateEmailUseCase
 import com.example.tbcexercises.core.domain.use_case.validation.ValidatePasswordUseCase
-import com.example.tbcexercises.feature_register.domain.repository.RegisterRepository
 import com.example.tbcexercises.feature_register.domain.use_case.RegisterUseCase
 import com.example.tbcexercises.feature_register.domain.use_case.RegisterUseCaseWrapper
 import com.example.tbcexercises.feature_register.domain.use_case.ValidateRepeatPasswordUseCase
@@ -15,15 +14,6 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object RegisterUseCaseModule {
 
-    @Provides
-    fun provideRegisterUserCase(registerRepository: RegisterRepository): RegisterUseCase {
-        return RegisterUseCase(registerRepository)
-    }
-
-    @Provides
-    fun provideValidatePasswordUseCase(): ValidatePasswordUseCase {
-        return ValidatePasswordUseCase()
-    }
 
     @Provides
     fun provideRegisterUseCaseWrapper(

@@ -2,9 +2,10 @@ package com.example.tbcexercises.core.domain.use_case.validation
 
 import com.example.tbcexercises.core.domain.util.Result
 import com.example.tbcexercises.core.domain.util.error.PasswordError
+import javax.inject.Inject
 
 
-class ValidatePasswordUseCase {
+class ValidatePasswordUseCase@Inject constructor() {
     operator fun invoke(password: String): Result<Unit, PasswordError> {
         if (password.length < 8) {
             return Result.Error(PasswordError.SHORT_PASSWORD)

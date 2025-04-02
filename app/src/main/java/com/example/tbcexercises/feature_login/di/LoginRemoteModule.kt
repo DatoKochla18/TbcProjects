@@ -1,4 +1,4 @@
-package com.example.tbcexercises.feature_login.data.di
+package com.example.tbcexercises.feature_login.di
 
 import com.example.tbcexercises.feature_login.data.remote.service.LoginService
 import dagger.Module

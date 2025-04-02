@@ -1,4 +1,4 @@
-package com.example.tbcexercises.core.data.di
+package com.example.tbcexercises.core.di
 
 import android.content.Context
 import androidx.datastore.core.DataStore

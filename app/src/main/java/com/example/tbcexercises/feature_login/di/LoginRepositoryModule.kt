@@ -1,4 +1,4 @@
-package com.example.tbcexercises.feature_login.data.di
+package com.example.tbcexercises.feature_login.di
 
 import com.example.tbcexercises.feature_login.data.repository.LoginRepositoryImpl
 import com.example.tbcexercises.feature_login.domain.repository.LoginRepository

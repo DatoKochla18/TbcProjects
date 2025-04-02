@@ -1,4 +1,4 @@
-package com.example.tbcexercises.core.data.di
+package com.example.tbcexercises.core.di
 
 import com.example.tbcexercises.BuildConfig
 import com.example.tbcexercises.core.data.remote.utils.ApiHelper
