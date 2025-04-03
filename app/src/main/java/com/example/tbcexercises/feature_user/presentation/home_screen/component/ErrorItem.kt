@@ -11,24 +11,27 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.example.tbcexercises.R
+import com.example.tbcexercises.core.presentation.resource.Colors
+import com.example.tbcexercises.core.presentation.resource.Dimens
 
 @Composable
 fun ErrorItem(message: String, onClickRetry: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(Dimens.SCREEN_HORIZONTAL)
             .clickable { onClickRetry() },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = message, color = Color.Red)
-        Spacer(modifier = Modifier.height(8.dp))
+        Text(text = message, color = Colors.RED)
+
+        Spacer(modifier = Modifier.height(Dimens.SPACING_LOW))
+
         Button(onClick = onClickRetry) {
             Text(text = stringResource(R.string.retry))
         }
+
     }
 }

@@ -13,49 +13,62 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
+import com.example.tbcexercises.R
+import com.example.tbcexercises.core.presentation.resource.Colors
+import com.example.tbcexercises.core.presentation.resource.Dimens
 import com.example.tbcexercises.feature_user.presentation.model.User
 
 @Composable
 fun UserItem(user: User) {
     Row(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = Dimens.SCREEN_TOP)
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
                 .data(user.avatar)
                 .crossfade(true)
                 .build(),
+            placeholder = painterResource(R.drawable.person),
+            error = painterResource(R.drawable.person),
             contentDescription = "User Avatar",
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .size(120.dp)
-                .clip(RoundedCornerShape(8.dp))
+                .size(Dimens.USER_ITEM_SIZE)
+                .clip(RoundedCornerShape(Dimens.ROUNDED_CORNER_LOW))
         )
 
         Column(
             modifier = Modifier
-                .padding(start = 12.dp)
                 .align(Alignment.CenterVertically)
         ) {
             Text(
                 text = user.email,
-                fontSize = 16.sp,
-                color = Color.Black
+                fontSize = Dimens.TEXT_SIZE_MEDIUM,
+                color = Colors.BLACK
             )
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(Dimens.SPACING_LOW))
             Text(
+                modifier = Modifier.padding(start = Dimens.USER_ITEM_START),
                 text = user.fullName,
-                fontSize = 16.sp,
-                color = Color.Black
+                fontSize = Dimens.TEXT_SIZE_MEDIUM,
+                color = Colors.BLACK
+
             )
         }
     }
+}
+
+@Preview
+@Composable
+fun UserItemPreview() {
+    UserItem(User(1, "sdfkjlsdf", "sdjfklsdf", "sfkldj"))
 }

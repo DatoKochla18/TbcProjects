@@ -1,5 +1,6 @@
-package com.example.tbcexercises.feature_login.presentation.compose
+package com.example.tbcexercises.feature_login.presentation.login_screen
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -13,35 +14,32 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.example.tbcexercises.R
 import com.example.tbcexercises.core.domain.util.error.EmailError
 import com.example.tbcexercises.core.domain.util.error.PasswordError
 import com.example.tbcexercises.core.presentation.components.CustomButton
 import com.example.tbcexercises.core.presentation.components.CustomErrorTextField
 import com.example.tbcexercises.core.presentation.components.CustomPasswordField
+import com.example.tbcexercises.core.presentation.extension.CollectAsUiEvents
 import com.example.tbcexercises.core.presentation.extension.asString
 import com.example.tbcexercises.core.presentation.extension.asStringResource
-import com.example.tbcexercises.feature_login.presentation.login_screen.LoginEvent
-import com.example.tbcexercises.feature_login.presentation.login_screen.LoginSideEffect
-import com.example.tbcexercises.feature_login.presentation.login_screen.LoginUiState
-import com.example.tbcexercises.feature_login.presentation.login_screen.LoginViewModel
+import com.example.tbcexercises.core.presentation.resource.Colors
+import com.example.tbcexercises.core.presentation.resource.Dimens
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -73,28 +71,27 @@ fun LoginScreen(
     navigateToHomeScreen: () -> Unit,
     scaffoldState: SnackbarHostState,
 ) {
+    Log.d("uistate", uiState.toString())
     val context = LocalContext.current
 
-    LaunchedEffect(key1 = true) {
-        uiEvents.collect { event ->
-            when (event) {
-                is LoginSideEffect.ShowSnackBar -> {
-                    scaffoldState.showSnackbar(
-                        message = event.message.asString(context),
-                        duration = SnackbarDuration.Short
-                    )
-                }
+    uiEvents.CollectAsUiEvents { event ->
+        when (event) {
+            is LoginSideEffect.ShowSnackBar -> {
+                scaffoldState.showSnackbar(
+                    message = event.message.asString(context),
+                    duration = SnackbarDuration.Short
+                )
+            }
 
-                LoginSideEffect.SuccessFullLogin -> {
-                    navigateToHomeScreen()
-                }
+            LoginSideEffect.SuccessFullLogin -> {
+                navigateToHomeScreen()
             }
         }
     }
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White),
+            .background(Colors.WHITE),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
@@ -102,7 +99,7 @@ fun LoginScreen(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.Transparent),
+                    .background(Colors.WHITE),
                 contentAlignment = Alignment.Center
             ) {
                 CircularProgressIndicator()
@@ -110,9 +107,12 @@ fun LoginScreen(
         } else {
             Text(
                 text = stringResource(id = R.string.login),
-                fontSize = 24.sp,
-                color = Color.Black,
-                modifier = Modifier.padding(bottom = 20.dp, top = 10.dp)
+                fontSize = Dimens.TEXT_SIZE_LARGE,
+                color = Colors.BLACK,
+                modifier = Modifier.padding(
+                    bottom = Dimens.BOTTOM_SCREEN_TITLE,
+                    top = Dimens.SCREEN_TOP
+                )
             )
 
             OutlinedTextField(
@@ -121,13 +121,13 @@ fun LoginScreen(
                 label = { Text(stringResource(id = R.string.email)) },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
+                    .padding(horizontal = Dimens.SCREEN_HORIZONTAL),
                 singleLine = true,
                 isError = uiState.emailError != null,
                 colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = Color.Black,
-                    unfocusedBorderColor = Color.Gray,
-                    focusedTextColor = Color.Black
+                    focusedBorderColor = Colors.BLACK,
+                    unfocusedBorderColor = Colors.GRAY,
+                    focusedTextColor = Colors.BLACK
                 )
             )
 
@@ -136,7 +136,7 @@ fun LoginScreen(
                     stringResource(uiState.emailError.asStringResource()),
                     Modifier
                         .align(Alignment.Start)
-                        .padding(top = 4.dp)
+                        .padding(top = Dimens.ERROR_FIELD_TOP)
                 )
             }
 
@@ -155,43 +155,43 @@ fun LoginScreen(
                     stringResource(uiState.passwordError.asStringResource()),
                     Modifier
                         .align(Alignment.Start)
-                        .padding(start = 8.dp, top = 4.dp)
+                        .padding(top = Dimens.ERROR_FIELD_TOP)
                 )
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(Dimens.SPACING))
 
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
+                    .padding(horizontal = Dimens.SCREEN_HORIZONTAL),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     text = stringResource(id = R.string.remember_me),
-                    color = Color.Black
+                    color = Colors.BLACK
                 )
                 Checkbox(
                     checked = uiState.rememberMe,
                     onCheckedChange = { onEvent(LoginEvent.SwitchCheckBoxStatus) },
                     colors = CheckboxDefaults.colors(
-                        checkedColor = MaterialTheme.colorScheme.primary,
-                        uncheckedColor = Color.Black
+                        checkedColor = Colors.PURPLE,
+                        uncheckedColor = Colors.BLACK
                     )
                 )
             }
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(Dimens.SPACING))
 
             CustomButton(text = stringResource(R.string.login), isEnabled = uiState.isValidForm) {
                 onEvent(LoginEvent.Login(uiState.email, uiState.password))
             }
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(Dimens.SPACING_LOW))
 
             Text(
                 text = stringResource(id = R.string.don_t_have_account_sign_up),
-                color = Color.Black,
+                color = Colors.BLACK,
                 modifier = Modifier.clickable {
                     navigateToRegisterScreen()
                 }
@@ -207,7 +207,7 @@ fun LoginScreenPreview() {
     LoginScreen(
         uiState = LoginUiState(
             showPassword = true,
-            isLoading = true,
+            isLoading = false,
             isValidForm = true,
             emailError = EmailError.INVALID_EMAIL,
             passwordError = PasswordError.SHORT_PASSWORD,

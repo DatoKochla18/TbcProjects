@@ -10,7 +10,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
+import com.example.tbcexercises.core.presentation.resource.Colors
+import com.example.tbcexercises.core.presentation.resource.Dimens
 
 
 @Composable
@@ -24,14 +25,14 @@ fun CustomButton(
         onClick = { onClick() },
         modifier = Modifier
             .fillMaxWidth()
-            .height(48.dp)
-            .padding(horizontal = 20.dp),
+            .height(Dimens.BUTTON_HEIGHT)
+            .padding(horizontal = Dimens.SCREEN_HORIZONTAL),
         enabled = isEnabled,
         colors = ButtonDefaults.buttonColors(
-            containerColor = if (isEnabled) Color.Cyan else Color.Cyan.copy(alpha = 0.5f),
+            containerColor = if (isEnabled) Colors.CYAN else Colors.CYAN.copy(alpha = 0.5f),
             contentColor = Color.White
         ),
-        shape = RoundedCornerShape(8.dp)
+        shape = RoundedCornerShape(Dimens.ROUNDED_CORNER_LOW)
     ) {
         Text(text = text)
     }

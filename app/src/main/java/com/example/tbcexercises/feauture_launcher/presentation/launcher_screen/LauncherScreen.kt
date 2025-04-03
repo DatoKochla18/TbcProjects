@@ -10,9 +10,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.tbcexercises.R
+import com.example.tbcexercises.core.presentation.resource.Colors
 import kotlinx.coroutines.flow.combine
 
 @Composable
@@ -24,7 +26,7 @@ fun LauncherScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(Colors.WHITE)
     ) {
         val combinedState by viewModel.rememberMe
             .combine(viewModel.token) { rememberMe, token ->
@@ -36,10 +38,10 @@ fun LauncherScreen(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.White),
+                    .background(Colors.WHITE),
                 contentAlignment = Alignment.Center
             ) {
-                Text(text = "Launching...", color = Color.Black)
+                Text(text = stringResource(R.string.launching), color = Colors.BLACK)
             }
         } else {
             LaunchedEffect(combinedState) {

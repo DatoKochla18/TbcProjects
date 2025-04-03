@@ -12,10 +12,10 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.unit.dp
+import com.example.tbcexercises.core.presentation.resource.Colors
+import com.example.tbcexercises.core.presentation.resource.Dimens
 
 @Composable
 fun CustomPasswordField(
@@ -32,7 +32,7 @@ fun CustomPasswordField(
         label = { Text(label) },
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp),
+            .padding(horizontal = Dimens.SCREEN_HORIZONTAL),
         singleLine = true,
         visualTransformation = if (toShowPassword) VisualTransformation.None else PasswordVisualTransformation(),
         trailingIcon = {
@@ -44,9 +44,9 @@ fun CustomPasswordField(
         },
         isError = isError,
         colors = OutlinedTextFieldDefaults.colors(
-            focusedBorderColor = Color.Black,
-            unfocusedBorderColor = Color.Gray,
-            focusedTextColor = Color.Black
+            focusedBorderColor = Colors.BLACK,
+            unfocusedBorderColor = Colors.GRAY,
+            focusedTextColor = Colors.BLACK
         )
     )
 }

@@ -7,12 +7,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.tbcexercises.feature_login.presentation.compose.LoginScreenRoot
 import com.example.tbcexercises.feature_login.presentation.login_screen.LoginEvent
+import com.example.tbcexercises.feature_login.presentation.login_screen.LoginScreenRoot
 import com.example.tbcexercises.feature_login.presentation.login_screen.LoginViewModel
 import com.example.tbcexercises.feature_profile.presentation.profile_screen.ProfileScreenRoot
-import com.example.tbcexercises.feature_register.presentation.compose.RegisterRootScreen
-import com.example.tbcexercises.feature_user.presentation.home_screen.component.HomeScreenRoot
+import com.example.tbcexercises.feature_register.presentation.register_screen.RegisterRootScreen
+import com.example.tbcexercises.feature_user.presentation.home_screen.HomeScreenRoot
 import com.example.tbcexercises.feauture_launcher.presentation.launcher_screen.LauncherScreen
 import kotlinx.serialization.Serializable
 
@@ -93,7 +93,7 @@ fun AppNavigation(
         }
 
         composable<Register> {
-            RegisterRootScreen { email, password ->
+            RegisterRootScreen(scaffoldState = scaffoldState) { email, password ->
                 navController.previousBackStackEntry
                     ?.savedStateHandle
                     ?.set("email", email)

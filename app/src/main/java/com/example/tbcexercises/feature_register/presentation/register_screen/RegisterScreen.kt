@@ -1,4 +1,4 @@
-package com.example.tbcexercises.feature_register.presentation.compose
+package com.example.tbcexercises.feature_register.presentation.register_screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -11,41 +11,46 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.tbcexercises.R
 import com.example.tbcexercises.core.presentation.components.CustomButton
 import com.example.tbcexercises.core.presentation.components.CustomErrorTextField
 import com.example.tbcexercises.core.presentation.components.CustomPasswordField
+import com.example.tbcexercises.core.presentation.extension.CollectAsUiEvents
+import com.example.tbcexercises.core.presentation.extension.asString
 import com.example.tbcexercises.core.presentation.extension.asStringResource
-import com.example.tbcexercises.feature_register.presentation.register_screen.RegisterEvent
-import com.example.tbcexercises.feature_register.presentation.register_screen.RegisterSideEffect
-import com.example.tbcexercises.feature_register.presentation.register_screen.RegisterUiState
-import com.example.tbcexercises.feature_register.presentation.register_screen.RegisterViewModel
+import com.example.tbcexercises.core.presentation.resource.Colors
+import com.example.tbcexercises.core.presentation.resource.Dimens
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 @Composable
 fun RegisterRootScreen(
     viewModel: RegisterViewModel = hiltViewModel(),
+    scaffoldState: SnackbarHostState,
     navigateToLoginScreen: (String, String) -> Unit,
-) {
+
+    ) {
     RegisterScreen(
-        viewModel.uiState, onEvent = viewModel::onEvent, uiEvents = viewModel.uiEvents
-    ) { a, b ->
-        navigateToLoginScreen(
-            a, b
-        )
-    }
+        viewModel.uiState,
+        onEvent = viewModel::onEvent,
+        uiEvents = viewModel.uiEvents,
+        scaffoldState = scaffoldState,
+        navigateToLoginScreen = { email, password ->
+            navigateToLoginScreen(
+                email, password
+            )
+        }
+    )
 }
 
 @Composable
@@ -54,26 +59,29 @@ fun RegisterScreen(
     uiEvents: Flow<RegisterSideEffect>,
     onEvent: (RegisterEvent) -> Unit,
     navigateToLoginScreen: (String, String) -> Unit,
-) {
-    LaunchedEffect(key1 = true) {
-        uiEvents.collect { event ->
-            when (event) {
-                is RegisterSideEffect.NavigateToLoginScreen -> {
-                    navigateToLoginScreen(event.email, event.password)
-                }
+    scaffoldState: SnackbarHostState,
 
-                is RegisterSideEffect.ShowError -> {
+    ) {
+    val context = LocalContext.current
 
-                }
-            }
+    uiEvents.CollectAsUiEvents { event ->
+        when (event) {
+            is RegisterSideEffect.NavigateToLoginScreen -> navigateToLoginScreen(
+                event.email,
+                event.password
+            )
+
+            is RegisterSideEffect.ShowError -> scaffoldState.showSnackbar(
+                message = event.message.asString(context),
+                duration = SnackbarDuration.Short
+            )
         }
     }
-
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White),
+            .background(Colors.WHITE),
 
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -81,7 +89,7 @@ fun RegisterScreen(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.Transparent),
+                    .background(Colors.WHITE),
                 contentAlignment = Alignment.Center
             ) {
                 CircularProgressIndicator()
@@ -89,9 +97,12 @@ fun RegisterScreen(
         } else {
             Text(
                 text = stringResource(id = R.string.register),
-                fontSize = 24.sp,
-                color = Color.Black,
-                modifier = Modifier.padding(bottom = 20.dp, top = 10.dp)
+                fontSize = Dimens.TEXT_SIZE_LARGE,
+                color = Colors.BLACK,
+                modifier = Modifier.padding(
+                    bottom = Dimens.BOTTOM_SCREEN_TITLE,
+                    top = Dimens.SCREEN_TOP
+                )
             )
 
             OutlinedTextField(
@@ -100,13 +111,13 @@ fun RegisterScreen(
                 label = { Text(stringResource(id = R.string.email)) },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
+                    .padding(horizontal = Dimens.SCREEN_HORIZONTAL),
                 singleLine = true,
                 isError = uiState.emailError != null,
                 colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = Color.Black,
-                    unfocusedBorderColor = Color.Gray,
-                    focusedTextColor = Color.Black
+                    focusedBorderColor = Colors.BLACK,
+                    unfocusedBorderColor = Colors.GRAY,
+                    focusedTextColor = Colors.BLACK
                 )
             )
 
@@ -115,11 +126,11 @@ fun RegisterScreen(
                     stringResource(uiState.emailError.asStringResource()),
                     Modifier
                         .align(Alignment.Start)
-                        .padding(start = 8.dp, top = 4.dp)
+                        .padding(top = Dimens.ERROR_FIELD_TOP)
                 )
             }
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(Dimens.SPACING))
 
             CustomPasswordField(currentValue = uiState.password,
                 label = stringResource(R.string.password),
@@ -136,11 +147,11 @@ fun RegisterScreen(
                     stringResource(uiState.passwordError.asStringResource()),
                     Modifier
                         .align(Alignment.Start)
-                        .padding(start = 8.dp, top = 4.dp)
+                        .padding(top = Dimens.ERROR_FIELD_TOP)
                 )
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(Dimens.SPACING))
 
             CustomPasswordField(currentValue = uiState.repeatPassword,
                 label = stringResource(R.string.repeat_password),
@@ -157,13 +168,11 @@ fun RegisterScreen(
                     stringResource(uiState.repeatedPasswordError.asStringResource()),
                     Modifier
                         .align(Alignment.Start)
-                        .padding(start = 8.dp, top = 4.dp)
+                        .padding(top = Dimens.ERROR_FIELD_TOP)
                 )
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
-
-
+            Spacer(modifier = Modifier.height(Dimens.SPACING))
 
 
             CustomButton(
@@ -181,5 +190,6 @@ fun RegisterScreenPreview() {
     RegisterScreen(uiState = RegisterUiState(isLoading = true),
         onEvent = {},
         uiEvents = flow { },
+        scaffoldState = SnackbarHostState(),
         navigateToLoginScreen = { a, b -> })
 }

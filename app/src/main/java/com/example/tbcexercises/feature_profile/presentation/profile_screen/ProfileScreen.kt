@@ -11,14 +11,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.tbcexercises.R
 import com.example.tbcexercises.core.presentation.components.CustomButton
+import com.example.tbcexercises.core.presentation.resource.Colors
+import com.example.tbcexercises.core.presentation.resource.Dimens
 
 @Composable
 fun ProfileScreenRoot(
@@ -42,17 +42,18 @@ fun ProfileScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
-            .padding(20.dp),
+            .background(Colors.WHITE)
+            .padding(Dimens.SCREEN_HORIZONTAL),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text(
             text = email,
-            color = Color.Black,
-            fontSize = 32.sp
+            color = Colors.BLACK,
+            fontSize = Dimens.TEXT_SIZE_LARGE
         )
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(Dimens.SPACING))
+
         CustomButton(text = stringResource(R.string.log_out), isEnabled = true) {
             clearUserSession()
             onLogOutClick()

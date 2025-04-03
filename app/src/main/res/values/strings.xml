@@ -32,4 +32,6 @@
     <string name="http_error">%1$s</string>
     <string name="invalid_credintials">Invalid Credintials</string>
     <string name="user_not_found">User not found</string>
+    <string name="launching">Launching...</string>
+    <string name="home">Home</string>
 </resources>

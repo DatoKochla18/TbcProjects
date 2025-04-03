@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -18,13 +19,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Scaffold { padding ->
-                val snackbarHostState = remember { SnackbarHostState() }
+            val snackBarHostState = remember { SnackbarHostState() }
 
+            Scaffold(
+                snackbarHost = { SnackbarHost(hostState = snackBarHostState) }
+            ) { padding ->
                 AppNavigation(
                     navController = rememberNavController(),
                     modifier = Modifier.padding(padding),
-                    scaffoldState = snackbarHostState
+                    scaffoldState = snackBarHostState
                 )
             }
         }
