@@ -16,35 +16,81 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.tbcexercises.R
 import com.example.tbcexercises.core.domain.util.error.EmailError
 import com.example.tbcexercises.core.domain.util.error.PasswordError
 import com.example.tbcexercises.core.presentation.components.CustomButton
 import com.example.tbcexercises.core.presentation.components.CustomErrorTextField
 import com.example.tbcexercises.core.presentation.components.CustomPasswordField
+import com.example.tbcexercises.core.presentation.extension.asString
 import com.example.tbcexercises.core.presentation.extension.asStringResource
+import com.example.tbcexercises.feature_login.presentation.login_screen.LoginEvent
+import com.example.tbcexercises.feature_login.presentation.login_screen.LoginSideEffect
 import com.example.tbcexercises.feature_login.presentation.login_screen.LoginUiState
+import com.example.tbcexercises.feature_login.presentation.login_screen.LoginViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+
+@Composable
+fun LoginScreenRoot(
+    viewModel: LoginViewModel = hiltViewModel(),
+    navigateToRegisterScreen: () -> Unit,
+    navigateToHomeScreen: () -> Unit,
+    scaffoldState: SnackbarHostState,
+) {
+
+
+    LoginScreen(
+        viewModel.uiState,
+        onEvent = viewModel::onEvent,
+        uiEvents = viewModel.uiEvents,
+        navigateToRegisterScreen = navigateToRegisterScreen,
+        navigateToHomeScreen = navigateToHomeScreen,
+        scaffoldState = scaffoldState
+    )
+}
 
 @Composable
 fun LoginScreen(
     uiState: LoginUiState,
-    onEmailChanged: (String) -> Unit,
-    onPasswordChanged: (String) -> Unit,
-    updateRememberMe: (Boolean) -> Unit,
-    login: (String, String) -> Unit,
+    onEvent: (LoginEvent) -> Unit,
+    uiEvents: Flow<LoginSideEffect>,
     navigateToRegisterScreen: () -> Unit,
-    onShowPasswordChanged: () -> Unit,
+    navigateToHomeScreen: () -> Unit,
+    scaffoldState: SnackbarHostState,
 ) {
+    val context = LocalContext.current
 
+    LaunchedEffect(key1 = true) {
+        uiEvents.collect { event ->
+            when (event) {
+                is LoginSideEffect.ShowSnackBar -> {
+                    scaffoldState.showSnackbar(
+                        message = event.message.asString(context),
+                        duration = SnackbarDuration.Short
+                    )
+                }
+
+                LoginSideEffect.SuccessFullLogin -> {
+                    navigateToHomeScreen()
+                }
+            }
+        }
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -71,7 +117,7 @@ fun LoginScreen(
 
             OutlinedTextField(
                 value = uiState.email,
-                onValueChange = { onEmailChanged(it) },
+                onValueChange = { onEvent(LoginEvent.OnEmailChanged(it)) },
                 label = { Text(stringResource(id = R.string.email)) },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -101,8 +147,8 @@ fun LoginScreen(
                 label = stringResource(R.string.password),
                 isError = uiState.passwordError != null,
                 toShowPassword = uiState.showPassword,
-                onShowPasswordChanged = onShowPasswordChanged
-            ) { onPasswordChanged(it) }
+                onShowPasswordChanged = { onEvent(LoginEvent.SwitchShowPasswordStatus) }
+            ) { onEvent(LoginEvent.OnPasswordChanged(it)) }
 
             if (uiState.passwordError != null) {
                 CustomErrorTextField(
@@ -127,7 +173,7 @@ fun LoginScreen(
                 )
                 Checkbox(
                     checked = uiState.rememberMe,
-                    onCheckedChange = { updateRememberMe(it) },
+                    onCheckedChange = { onEvent(LoginEvent.SwitchCheckBoxStatus) },
                     colors = CheckboxDefaults.colors(
                         checkedColor = MaterialTheme.colorScheme.primary,
                         uncheckedColor = Color.Black
@@ -138,7 +184,7 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(20.dp))
 
             CustomButton(text = stringResource(R.string.login), isEnabled = uiState.isValidForm) {
-                login(uiState.email, uiState.password)
+                onEvent(LoginEvent.Login(uiState.email, uiState.password))
             }
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -168,12 +214,8 @@ fun LoginScreenPreview() {
             password = "sakdl",
             rememberMe = true
         ),
-        onEmailChanged = {},
-        onPasswordChanged = {},
-        navigateToRegisterScreen = {},
-        updateRememberMe = {},
-        login = { a, b -> },
-
-        ) { }
+        onEvent = {}, navigateToRegisterScreen = {},
+        uiEvents = flow { }, navigateToHomeScreen = {}, scaffoldState = SnackbarHostState()
+    )
 }
 

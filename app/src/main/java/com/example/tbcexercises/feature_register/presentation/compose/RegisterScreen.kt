@@ -13,6 +13,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,22 +21,53 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.tbcexercises.R
 import com.example.tbcexercises.core.presentation.components.CustomButton
 import com.example.tbcexercises.core.presentation.components.CustomErrorTextField
 import com.example.tbcexercises.core.presentation.components.CustomPasswordField
 import com.example.tbcexercises.core.presentation.extension.asStringResource
+import com.example.tbcexercises.feature_register.presentation.register_screen.RegisterEvent
+import com.example.tbcexercises.feature_register.presentation.register_screen.RegisterSideEffect
 import com.example.tbcexercises.feature_register.presentation.register_screen.RegisterUiState
+import com.example.tbcexercises.feature_register.presentation.register_screen.RegisterViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+
+@Composable
+fun RegisterRootScreen(
+    viewModel: RegisterViewModel = hiltViewModel(),
+    navigateToLoginScreen: (String, String) -> Unit,
+) {
+    RegisterScreen(
+        viewModel.uiState, onEvent = viewModel::onEvent, uiEvents = viewModel.uiEvents
+    ) { a, b ->
+        navigateToLoginScreen(
+            a, b
+        )
+    }
+}
 
 @Composable
 fun RegisterScreen(
     uiState: RegisterUiState,
-    onEmailChanged: (String) -> Unit,
-    onPasswordChanged: (String) -> Unit,
-    onRepeatPasswordChanged: (String) -> Unit,
-    register: (String, String) -> Unit,
-    onShowPasswordChanged: () -> Unit,
+    uiEvents: Flow<RegisterSideEffect>,
+    onEvent: (RegisterEvent) -> Unit,
+    navigateToLoginScreen: (String, String) -> Unit,
 ) {
+    LaunchedEffect(key1 = true) {
+        uiEvents.collect { event ->
+            when (event) {
+                is RegisterSideEffect.NavigateToLoginScreen -> {
+                    navigateToLoginScreen(event.email, event.password)
+                }
+
+                is RegisterSideEffect.ShowError -> {
+
+                }
+            }
+        }
+    }
 
 
     Column(
@@ -64,7 +96,7 @@ fun RegisterScreen(
 
             OutlinedTextField(
                 value = uiState.email,
-                onValueChange = { onEmailChanged(it) },
+                onValueChange = { onEvent(RegisterEvent.OnEmailChanged(it)) },
                 label = { Text(stringResource(id = R.string.email)) },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -89,13 +121,15 @@ fun RegisterScreen(
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            CustomPasswordField(
-                currentValue = uiState.password,
+            CustomPasswordField(currentValue = uiState.password,
                 label = stringResource(R.string.password),
                 isError = uiState.passwordError != null,
                 toShowPassword = uiState.showPassword,
-                onShowPasswordChanged = onShowPasswordChanged
-            ) { onPasswordChanged(it) }
+                onShowPasswordChanged = { onEvent(RegisterEvent.OnShowPasswordChanged) }) {
+                onEvent(
+                    RegisterEvent.OnPasswordChanged(it)
+                )
+            }
 
             if (uiState.passwordError != null) {
                 CustomErrorTextField(
@@ -108,13 +142,15 @@ fun RegisterScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            CustomPasswordField(
-                currentValue = uiState.repeatPassword,
+            CustomPasswordField(currentValue = uiState.repeatPassword,
                 label = stringResource(R.string.repeat_password),
                 isError = uiState.repeatedPasswordError != null,
                 toShowPassword = uiState.showPassword,
-                onShowPasswordChanged = onShowPasswordChanged
-            ) { onRepeatPasswordChanged(it) }
+                onShowPasswordChanged = { onEvent(RegisterEvent.OnShowPasswordChanged) }) {
+                onEvent(
+                    RegisterEvent.OnRepeatedPasswordChanged(it)
+                )
+            }
 
             if (uiState.repeatedPasswordError != null) {
                 CustomErrorTextField(
@@ -131,10 +167,9 @@ fun RegisterScreen(
 
 
             CustomButton(
-                text = stringResource(R.string.register),
-                isEnabled = uiState.isValidForm
+                text = stringResource(R.string.register), isEnabled = uiState.isValidForm
             ) {
-                register(uiState.email, uiState.password)
+                onEvent(RegisterEvent.Register(uiState.email, uiState.password))
             }
         }
     }
@@ -144,10 +179,7 @@ fun RegisterScreen(
 @Composable
 fun RegisterScreenPreview() {
     RegisterScreen(uiState = RegisterUiState(isLoading = true),
-        onShowPasswordChanged = {},
-        onEmailChanged = {},
-        onPasswordChanged = {},
-        onRepeatPasswordChanged = {},
-        register = { a, b -> }
-    )
+        onEvent = {},
+        uiEvents = flow { },
+        navigateToLoginScreen = { a, b -> })
 }
