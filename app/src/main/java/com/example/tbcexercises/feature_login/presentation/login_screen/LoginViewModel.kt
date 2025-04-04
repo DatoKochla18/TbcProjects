@@ -23,17 +23,10 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginUseCaseWrapper: LoginUseCaseWrapper,
-) :
-    ViewModel() {
+) : ViewModel() {
 
     var uiState by mutableStateOf(LoginUiState())
         private set
-
-    fun saveRememberMe(rememberMe: Boolean) {
-        viewModelScope.launch(Dispatchers.IO) {
-            loginUseCaseWrapper.saveValueToLocalStorageUseCase(REMEMBER_ME_KEY, rememberMe)
-        }
-    }
 
     private val _uiEventChannel = Channel<LoginSideEffect>()
     val uiEvents = _uiEventChannel.receiveAsFlow()
@@ -97,10 +90,20 @@ class LoginViewModel @Inject constructor(
                     }
 
                     is Result.Success -> {
+                        if (uiState.rememberMe) {
+                            saveUserCredentials()
+                        }
+                        uiState = uiState.copy(isLoading = false)
                         _uiEventChannel.send(LoginSideEffect.SuccessFullLogin)
                     }
                 }
             }
+        }
+    }
+
+    private fun saveUserCredentials() {
+        viewModelScope.launch(Dispatchers.IO) {
+            loginUseCaseWrapper.saveValueToLocalStorageUseCase(REMEMBER_ME_KEY, uiState.rememberMe)
         }
     }
 }

@@ -7,6 +7,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.tbcexercises.core.presentation.extension.getValue
+import com.example.tbcexercises.core.presentation.extension.setValue
 import com.example.tbcexercises.feature_login.presentation.login_screen.LoginEvent
 import com.example.tbcexercises.feature_login.presentation.login_screen.LoginScreenRoot
 import com.example.tbcexercises.feature_login.presentation.login_screen.LoginViewModel
@@ -38,6 +40,9 @@ fun AppNavigation(
     scaffoldState: SnackbarHostState,
     modifier: Modifier = Modifier,
 ) {
+    val EMAIL = "email"
+    val PASSWORD = "password"
+
     NavHost(
         navController = navController,
         startDestination = Launcher,
@@ -72,8 +77,8 @@ fun AppNavigation(
 
 
         composable<Login> { entry ->
-            val email = entry.savedStateHandle.get<String>("email")
-            val password = entry.savedStateHandle.get<String>("password")
+            val email = entry.getValue<String>(EMAIL)
+            val password = entry.getValue<String>(PASSWORD)
 
             val viewModel: LoginViewModel = hiltViewModel()
 
@@ -94,16 +99,15 @@ fun AppNavigation(
 
         composable<Register> {
             RegisterRootScreen(scaffoldState = scaffoldState) { email, password ->
-                navController.previousBackStackEntry
-                    ?.savedStateHandle
-                    ?.set("email", email)
-                navController.previousBackStackEntry
-                    ?.savedStateHandle
-                    ?.set("password", password)
+                navController.apply {
+                    previousBackStackEntry?.setValue(EMAIL, email)
+                    previousBackStackEntry?.setValue(PASSWORD, password)
 
+                }
                 navController.popBackStack()
             }
         }
 
     }
+
 }

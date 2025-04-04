@@ -21,7 +21,7 @@ object Dimens {
 
     val BUTTON_HEIGHT = 48.dp
 
-    val USER_ITEM_START = 4.dp
+    val USER_ITEM_START = 12.dp
 
     //-----------SP-----------------------------------
     val TEXT_SIZE_MEDIUM = 16.sp

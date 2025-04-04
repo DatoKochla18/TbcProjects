@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import com.example.tbcexercises.R
 import com.example.tbcexercises.core.presentation.resource.Colors
 import com.example.tbcexercises.core.presentation.resource.Dimens
@@ -34,4 +35,10 @@ fun ErrorItem(message: String, onClickRetry: () -> Unit) {
         }
 
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ErrorItemPreview() {
+    ErrorItem("Ronaldo the Goat") { }
 }

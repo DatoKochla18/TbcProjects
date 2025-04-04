@@ -1,5 +1,6 @@
 package com.example.tbcexercises.feature_user.presentation.home_screen.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -31,11 +32,10 @@ fun UserItem(user: User) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = Dimens.SCREEN_TOP)
+            .background(Colors.WHITE)
     ) {
         AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(user.avatar)
-                .crossfade(true)
+            model = ImageRequest.Builder(LocalContext.current).data(user.avatar).crossfade(true)
                 .build(),
             placeholder = painterResource(R.drawable.person),
             error = painterResource(R.drawable.person),
@@ -49,25 +49,21 @@ fun UserItem(user: User) {
         Column(
             modifier = Modifier
                 .align(Alignment.CenterVertically)
+                .padding(start = Dimens.USER_ITEM_START),
         ) {
             Text(
-                text = user.email,
-                fontSize = Dimens.TEXT_SIZE_MEDIUM,
-                color = Colors.BLACK
+                text = user.email, fontSize = Dimens.TEXT_SIZE_MEDIUM, color = Colors.BLACK
             )
             Spacer(modifier = Modifier.height(Dimens.SPACING_LOW))
             Text(
-                modifier = Modifier.padding(start = Dimens.USER_ITEM_START),
-                text = user.fullName,
-                fontSize = Dimens.TEXT_SIZE_MEDIUM,
-                color = Colors.BLACK
+                text = user.fullName, fontSize = Dimens.TEXT_SIZE_MEDIUM, color = Colors.BLACK
 
             )
         }
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun UserItemPreview() {
     UserItem(User(1, "sdfkjlsdf", "sdjfklsdf", "sfkldj"))

@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -51,28 +50,30 @@ fun HomeScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(Colors.WHITE)
             .padding(
                 horizontal = Dimens.SCREEN_HORIZONTAL, vertical = Dimens.SCREEN_TOP
             )
+
     ) {
-        Row(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Colors.WHITE)
-                .padding(horizontal = Dimens.SCREEN_HORIZONTAL),
-            verticalAlignment = Alignment.CenterVertically
+                .padding(horizontal = Dimens.SCREEN_HORIZONTAL)
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.person),
                 contentDescription = "User Icon",
                 modifier = Modifier
                     .size(Dimens.PROFILE_ICON_SIZE)
+                    .align(Alignment.CenterStart)
                     .clickable { navigateToProfileScreen() }
             )
+
             Text(
-                stringResource(R.string.home),
+                text = stringResource(R.string.home),
                 fontSize = Dimens.TEXT_SIZE_LARGE,
-                modifier = Modifier.align(Alignment.CenterVertically)
+                modifier = Modifier.align(Alignment.Center)
             )
         }
 
