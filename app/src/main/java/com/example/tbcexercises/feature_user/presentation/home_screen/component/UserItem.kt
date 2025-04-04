@@ -15,12 +15,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import coil3.compose.AsyncImage
-import coil3.request.ImageRequest
-import coil3.request.crossfade
 import com.example.tbcexercises.R
 import com.example.tbcexercises.core.presentation.resource.Colors
 import com.example.tbcexercises.core.presentation.resource.Dimens
@@ -35,8 +32,7 @@ fun UserItem(user: User) {
             .background(Colors.WHITE)
     ) {
         AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current).data(user.avatar).crossfade(true)
-                .build(),
+            model = user.avatar,
             placeholder = painterResource(R.drawable.person),
             error = painterResource(R.drawable.person),
             contentDescription = "User Avatar",
