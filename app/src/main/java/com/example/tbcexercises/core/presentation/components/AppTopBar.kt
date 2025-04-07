@@ -15,10 +15,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.tbcexercises.navigation.NavigationConfig
-import com.example.tbcexercises.navigation.NavigationRoutes
 import com.example.tbcexercises.R
 import com.example.tbcexercises.core.presentation.resource.Colors
+import com.example.tbcexercises.navigation.NavigationConfig
+import com.example.tbcexercises.navigation.NavigationRoutes
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
