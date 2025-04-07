@@ -111,6 +111,16 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.coil.network.okhttp)
 
+
+    //tests
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("io.mockk:mockk:1.13.5")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    testImplementation("app.cash.turbine:turbine:1.0.0")
+
+
+
+
 }
 kapt {
     correctErrorTypes = true

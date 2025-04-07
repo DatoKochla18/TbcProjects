@@ -7,6 +7,7 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbcexercises.core.domain.util.Result
+import com.example.tbcexercises.core.presentation.extension.asStringResource
 import com.example.tbcexercises.feature_register.domain.use_case.RegisterUseCaseWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -116,7 +117,7 @@ class RegisterViewModel @Inject constructor(
                         uiState = uiState.copy(
                             isLoading = false,
                         )
-                        _uiEventChannel.send(RegisterSideEffect.ShowError(result.error))
+                        _uiEventChannel.send(RegisterSideEffect.ShowError(result.error.asStringResource()))
                     }
 
                     is Result.Success -> {

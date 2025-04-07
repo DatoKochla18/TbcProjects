@@ -26,7 +26,6 @@ import com.example.tbcexercises.core.presentation.components.CustomButton
 import com.example.tbcexercises.core.presentation.components.CustomErrorTextField
 import com.example.tbcexercises.core.presentation.components.CustomPasswordField
 import com.example.tbcexercises.core.presentation.extension.CollectAsUiEvents
-import com.example.tbcexercises.core.presentation.extension.asString
 import com.example.tbcexercises.core.presentation.extension.asStringResource
 import com.example.tbcexercises.core.presentation.resource.Colors
 import com.example.tbcexercises.core.presentation.resource.Dimens
@@ -72,7 +71,7 @@ fun RegisterScreen(
             )
 
             is RegisterSideEffect.ShowError -> scaffoldState.showSnackbar(
-                message = event.message.asString(context),
+                message = context.getString(event.message),
                 duration = SnackbarDuration.Short
             )
         }
@@ -95,15 +94,6 @@ fun RegisterScreen(
                 CircularProgressIndicator()
             }
         } else {
-            Text(
-                text = stringResource(id = R.string.register),
-                fontSize = Dimens.TEXT_SIZE_LARGE,
-                color = Colors.BLACK,
-                modifier = Modifier.padding(
-                    bottom = Dimens.BOTTOM_SCREEN_TITLE,
-                    top = Dimens.SCREEN_TOP
-                )
-            )
 
             OutlinedTextField(
                 value = uiState.email,
@@ -187,7 +177,7 @@ fun RegisterScreen(
 @Preview
 @Composable
 fun RegisterScreenPreview() {
-    RegisterScreen(uiState = RegisterUiState(isLoading = true),
+    RegisterScreen(uiState = RegisterUiState(isLoading = false),
         onEvent = {},
         uiEvents = flow { },
         scaffoldState = SnackbarHostState(),

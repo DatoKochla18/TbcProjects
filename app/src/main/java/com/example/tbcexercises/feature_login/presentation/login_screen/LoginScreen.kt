@@ -27,8 +27,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.example.tbcexercises.R
 import com.example.tbcexercises.core.domain.util.error.EmailError
 import com.example.tbcexercises.core.domain.util.error.PasswordError
@@ -36,7 +34,6 @@ import com.example.tbcexercises.core.presentation.components.CustomButton
 import com.example.tbcexercises.core.presentation.components.CustomErrorTextField
 import com.example.tbcexercises.core.presentation.components.CustomPasswordField
 import com.example.tbcexercises.core.presentation.extension.CollectAsUiEvents
-import com.example.tbcexercises.core.presentation.extension.asString
 import com.example.tbcexercises.core.presentation.extension.asStringResource
 import com.example.tbcexercises.core.presentation.resource.Colors
 import com.example.tbcexercises.core.presentation.resource.Dimens
@@ -78,7 +75,7 @@ fun LoginScreen(
         when (event) {
             is LoginSideEffect.ShowSnackBar -> {
                 scaffoldState.showSnackbar(
-                    message = event.message.asString(context),
+                    message = context.getString(event.message),
                     duration = SnackbarDuration.Short
                 )
             }
@@ -105,15 +102,6 @@ fun LoginScreen(
                 CircularProgressIndicator()
             }
         } else {
-            Text(
-                text = stringResource(id = R.string.login),
-                fontSize = Dimens.TEXT_SIZE_LARGE,
-                color = Colors.BLACK,
-                modifier = Modifier.padding(
-                    bottom = Dimens.BOTTOM_SCREEN_TITLE,
-                    top = Dimens.SCREEN_TOP
-                )
-            )
 
             OutlinedTextField(
                 value = uiState.email,

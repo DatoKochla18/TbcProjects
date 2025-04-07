@@ -34,4 +34,7 @@
     <string name="user_not_found">User not found</string>
     <string name="launching">Launching...</string>
     <string name="home">Home</string>
+    <string name="back">Back</string>
+    <string name="toggle_password_visibility">Toggle password visibility</string>
+    <string name="user_icon">User Icon</string>
 </resources>

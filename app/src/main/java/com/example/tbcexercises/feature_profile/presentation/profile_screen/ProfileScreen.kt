@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.tbcexercises.R
 import com.example.tbcexercises.core.presentation.components.CustomButton
@@ -21,6 +22,7 @@ import com.example.tbcexercises.core.presentation.extension.CollectAsUiEvents
 import com.example.tbcexercises.core.presentation.resource.Colors
 import com.example.tbcexercises.core.presentation.resource.Dimens
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun ProfileScreenRoot(
@@ -79,4 +81,14 @@ fun ProfileScreen(
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun ProfileScreenPreview() {
+    ProfileScreen(
+        uiState = ProfileUiState(email = ""),
+        uiSideEffect = flowOf(),
+        onEvent = {},
+        navigateToLoginScreen = {})
 }

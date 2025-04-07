@@ -1,6 +1,5 @@
 package com.example.tbcexercises.core.presentation.extension
 
-import android.content.Context
 import com.example.tbcexercises.R
 import com.example.tbcexercises.core.domain.util.error.EmailError
 import com.example.tbcexercises.core.domain.util.error.NetworkError
@@ -30,24 +29,24 @@ fun RepeatPasswordError.asStringResource(): Int {
 }
 
 
-fun NetworkError.asString(context: Context): String {
+fun NetworkError.asStringResource(): Int {
     return when (this) {
         NetworkError.ConnectionError ->
-            context.getString(R.string.connection_problem_try_again)
+            R.string.connection_problem_try_again
 
         NetworkError.EmptyResponse ->
-            context.getString(R.string.empty_response_fire_backend)
+            R.string.empty_response_fire_backend
 
         is NetworkError.HttpError ->
-            context.getString(R.string.http_error, this.body)
+            R.string.http_error
 
         NetworkError.InvalidCredentials ->
-            context.getString(R.string.invalid_credentials)
+            R.string.invalid_credentials
 
         is NetworkError.ServerError ->
-            context.getString(R.string.server_error)
+            R.string.server_error
 
         NetworkError.UserNotFound ->
-            context.getString(R.string.user_not_found)
+            R.string.user_not_found
     }
 }

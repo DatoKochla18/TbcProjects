@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbcexercises.core.domain.util.PreferenceKeys.REMEMBER_ME_KEY
 import com.example.tbcexercises.core.domain.util.Result
+import com.example.tbcexercises.core.presentation.extension.asStringResource
 import com.example.tbcexercises.feature_login.domain.use_case.LoginUseCaseWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -86,7 +87,7 @@ class LoginViewModel @Inject constructor(
                 when (result) {
                     is Result.Error -> {
                         uiState = uiState.copy(isLoading = false)
-                        _uiEventChannel.send(LoginSideEffect.ShowSnackBar(result.error))
+                        _uiEventChannel.send(LoginSideEffect.ShowSnackBar(result.error.asStringResource()))
                     }
 
                     is Result.Success -> {

@@ -12,7 +12,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -63,17 +62,11 @@ fun HomeScreen(
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.person),
-                contentDescription = "User Icon",
+                contentDescription = stringResource(R.string.user_icon),
                 modifier = Modifier
                     .size(Dimens.PROFILE_ICON_SIZE)
                     .align(Alignment.CenterStart)
                     .clickable { navigateToProfileScreen() }
-            )
-
-            Text(
-                text = stringResource(R.string.home),
-                fontSize = Dimens.TEXT_SIZE_LARGE,
-                modifier = Modifier.align(Alignment.Center)
             )
         }
 

@@ -12,8 +12,10 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import com.example.tbcexercises.R
 import com.example.tbcexercises.core.presentation.resource.Colors
 import com.example.tbcexercises.core.presentation.resource.Dimens
 
@@ -39,7 +41,10 @@ fun CustomPasswordField(
             val icon =
                 if (toShowPassword) Icons.Default.Visibility else Icons.Default.VisibilityOff
             IconButton(onClick = { onShowPasswordChanged() }) {
-                Icon(imageVector = icon, contentDescription = "Toggle password visibility")
+                Icon(
+                    imageVector = icon,
+                    contentDescription = stringResource(R.string.toggle_password_visibility)
+                )
             }
         },
         isError = isError,
