@@ -1,29 +1,23 @@
 package com.example.tbcexercises.feature_user.presentation.home_screen
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
-import com.example.tbcexercises.R
 import com.example.tbcexercises.core.presentation.resource.Colors
 import com.example.tbcexercises.core.presentation.resource.Dimens
 import com.example.tbcexercises.feature_user.presentation.home_screen.component.ErrorItem
@@ -33,18 +27,15 @@ import com.example.tbcexercises.feature_user.presentation.model.User
 @Composable
 fun HomeScreenRoot(
     viewModel: HomeViewModel = hiltViewModel(),
-    navigateToProfileScreen: () -> Unit,
 ) {
     HomeScreen(
         viewModel.users.collectAsLazyPagingItems(),
-        navigateToProfileScreen = navigateToProfileScreen
     )
 }
 
 @Composable
 fun HomeScreen(
     usersPagingItems: LazyPagingItems<User>,
-    navigateToProfileScreen: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -55,20 +46,6 @@ fun HomeScreen(
             )
 
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = Dimens.SCREEN_HORIZONTAL)
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.person),
-                contentDescription = stringResource(R.string.user_icon),
-                modifier = Modifier
-                    .size(Dimens.PROFILE_ICON_SIZE)
-                    .align(Alignment.CenterStart)
-                    .clickable { navigateToProfileScreen() }
-            )
-        }
 
         LazyColumn(
             modifier = Modifier

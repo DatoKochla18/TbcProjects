@@ -2,44 +2,36 @@ package com.example.tbcexercises.navigation
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.composable
-import com.example.tbcexercises.feature_profile.presentation.profile_screen.ProfileScreenRoot
-import com.example.tbcexercises.feature_user.presentation.home_screen.HomeScreenRoot
-import com.example.tbcexercises.feauture_launcher.presentation.launcher_screen.LauncherScreen
+import com.example.tbcexercises.feature_login.presentation.Login
+import com.example.tbcexercises.feature_profile.presentation.Profile
+import com.example.tbcexercises.feature_profile.presentation.profileGraph
+import com.example.tbcexercises.feature_user.presentation.Home
+import com.example.tbcexercises.feature_user.presentation.homeGraph
+import com.example.tbcexercises.feauture_launcher.presentation.Launcher
+import com.example.tbcexercises.feauture_launcher.presentation.launcherGraph
 
 fun NavGraphBuilder.mainNavigation(navController: NavHostController) {
 
 
-    composable<NavigationRoutes.Main.Launcher> {
-        LauncherScreen(
-            navigateToLoginScreen = {
-                navController.navigate(
-                    NavigationRoutes.Auth.Login(null, null)
-                ) { popUpTo<NavigationRoutes.Main.Launcher> { inclusive = true } }
-            },
-            navigateToHomeScreen = {
-                navController.navigate(NavigationRoutes.Main.Home) {
-                    popUpTo<NavigationRoutes.Main.Launcher> { inclusive = true }
-                }
+    launcherGraph(
+        navigateToLogin = {
+            navController.navigate(
+                Login(null, null)
+            ) { popUpTo<Launcher> { inclusive = true } }
+        },
+        navigateToHome = {
+            navController.navigate(Home) {
+                popUpTo<Launcher> { inclusive = true }
             }
-        )
-    }
+        }
+    )
 
+    homeGraph()
 
-    composable<NavigationRoutes.Main.Home> {
-        HomeScreenRoot(
-            navigateToProfileScreen = {
-                navController.navigate(NavigationRoutes.Main.Profile)
-            }
-        )
-    }
-
-    composable<NavigationRoutes.Main.Profile> {
-        ProfileScreenRoot {
-            navController.navigate(NavigationRoutes.Auth.Login(email = null, password = null)) {
-                popUpTo<NavigationRoutes.Main.Home> {
-                    inclusive = true
-                }
+    profileGraph {
+        navController.navigate(Login(email = null, password = null)) {
+            popUpTo<Home> {
+                inclusive = true
             }
         }
     }
