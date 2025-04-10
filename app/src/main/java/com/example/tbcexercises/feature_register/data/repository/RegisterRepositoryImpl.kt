@@ -3,7 +3,7 @@ package com.example.tbcexercises.feature_register.data.repository
 import com.example.tbcexercises.core.data.remote.request.AuthRequest
 import com.example.tbcexercises.core.data.remote.utils.ApiHelper
 import com.example.tbcexercises.core.data.remote.utils.mapData
-import com.example.tbcexercises.core.domain.util.Result
+import com.example.tbcexercises.core.domain.util.Resource
 import com.example.tbcexercises.core.domain.util.error.NetworkError
 import com.example.tbcexercises.feature_register.data.mapper.toDomain
 import com.example.tbcexercises.feature_register.data.remote.service.RegisterService
@@ -21,7 +21,7 @@ class RegisterRepositoryImpl @Inject constructor(
     override fun register(
         email: String,
         password: String,
-    ): Flow<Result<GetProfileRegistered, NetworkError>> {
+    ): Flow<Resource<GetProfileRegistered, NetworkError>> {
         return apiHelper.handleNetworkRequestAsFlow(
             apiCall = {
                 registerService.register(

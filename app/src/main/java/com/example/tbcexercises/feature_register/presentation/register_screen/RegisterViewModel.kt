@@ -6,12 +6,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tbcexercises.core.domain.util.Result
+import com.example.tbcexercises.core.domain.util.Resource
 import com.example.tbcexercises.core.presentation.extension.asStringResource
 import com.example.tbcexercises.feature_register.domain.use_case.RegisterUseCaseWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
@@ -38,8 +37,8 @@ class RegisterViewModel @Inject constructor(
             .map { registerUseCaseWrapper.validateEmailUseCase(it) }
             .onEach { result ->
                 uiState = when (result) {
-                    is Result.Error -> uiState.copy(emailError = result.error)
-                    is Result.Success -> uiState.copy(
+                    is Resource.Error -> uiState.copy(emailError = result.error)
+                    is Resource.Success -> uiState.copy(
                         emailError = null,
                         isEmailValid = true,
                         isValidForm = uiState.isPasswordValid && uiState.isRepeatedPasswordValid
@@ -52,8 +51,8 @@ class RegisterViewModel @Inject constructor(
             .map { registerUseCaseWrapper.validatePasswordUseCase(it) }
             .onEach { result ->
                 uiState = when (result) {
-                    is Result.Error -> uiState.copy(passwordError = result.error)
-                    is Result.Success -> uiState.copy(
+                    is Resource.Error -> uiState.copy(passwordError = result.error)
+                    is Resource.Success -> uiState.copy(
                         passwordError = null,
                         isPasswordValid = true,
                         isValidForm = uiState.isEmailValid && uiState.isRepeatedPasswordValid
@@ -71,8 +70,8 @@ class RegisterViewModel @Inject constructor(
             }
             .onEach { result ->
                 uiState = when (result) {
-                    is Result.Error -> uiState.copy(repeatedPasswordError = result.error)
-                    is Result.Success -> uiState.copy(
+                    is Resource.Error -> uiState.copy(repeatedPasswordError = result.error)
+                    is Resource.Success -> uiState.copy(
                         repeatedPasswordError = null,
                         isRepeatedPasswordValid = true,
                         isValidForm = uiState.isPasswordValid && uiState.isEmailValid
@@ -113,14 +112,14 @@ class RegisterViewModel @Inject constructor(
             uiState = uiState.copy(isLoading = true)
             registerUseCaseWrapper.registerUseCase(email, password).collect { result ->
                 when (result) {
-                    is Result.Error -> {
+                    is Resource.Error -> {
                         uiState = uiState.copy(
                             isLoading = false,
                         )
                         _uiEventChannel.send(RegisterSideEffect.ShowError(result.error.asStringResource()))
                     }
 
-                    is Result.Success -> {
+                    is Resource.Success -> {
                         _uiEventChannel.send(
                             RegisterSideEffect.NavigateToLoginScreen(
                                 email,

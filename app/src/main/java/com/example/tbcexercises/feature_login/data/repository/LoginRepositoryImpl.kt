@@ -6,7 +6,7 @@ import com.example.tbcexercises.core.data.remote.utils.mapData
 import com.example.tbcexercises.core.domain.manager.UserSessionManager
 import com.example.tbcexercises.core.domain.util.PreferenceKeys.EMAIL_KEY
 import com.example.tbcexercises.core.domain.util.PreferenceKeys.TOKEN_KEY
-import com.example.tbcexercises.core.domain.util.Result
+import com.example.tbcexercises.core.domain.util.Resource
 import com.example.tbcexercises.core.domain.util.error.NetworkError
 import com.example.tbcexercises.feature_login.data.mapper.toDomain
 import com.example.tbcexercises.feature_login.data.remote.service.LoginService
@@ -22,7 +22,7 @@ class LoginRepositoryImpl @Inject constructor(
     override suspend fun login(
         email: String,
         password: String,
-    ): Result<GetProfileLogin, NetworkError> {
+    ): Resource<GetProfileLogin, NetworkError> {
         val result = apiHelper.handleNetworkRequestAsSuspend {
             loginService.login(
                 AuthRequest(
@@ -31,7 +31,7 @@ class LoginRepositoryImpl @Inject constructor(
                 )
             )
         }
-        if (result is Result.Success) {
+        if (result is Resource.Success) {
             userSessionManager.saveValue(TOKEN_KEY, result.data.token)
             userSessionManager.saveValue(EMAIL_KEY, email)
 

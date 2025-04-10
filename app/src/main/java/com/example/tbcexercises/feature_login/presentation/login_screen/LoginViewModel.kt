@@ -7,7 +7,7 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbcexercises.core.domain.util.PreferenceKeys.REMEMBER_ME_KEY
-import com.example.tbcexercises.core.domain.util.Result
+import com.example.tbcexercises.core.domain.util.Resource
 import com.example.tbcexercises.core.presentation.extension.asStringResource
 import com.example.tbcexercises.feature_login.domain.use_case.LoginUseCaseWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,65 +32,66 @@ class LoginViewModel @Inject constructor(
     private val _uiEventChannel = Channel<LoginSideEffect>()
     val uiEvents = _uiEventChannel.receiveAsFlow()
 
-    init {
-        snapshotFlow { uiState.email }
-            .drop(1)
-            .map { loginUseCaseWrapper.validateEmailUseCase(it) }
-            .onEach { result ->
-                uiState = when (result) {
-                    is Result.Error -> uiState.copy(emailError = result.error)
-                    is Result.Success -> uiState.copy(
-                        emailError = null,
-                        isEmailValid = true,
-                        isValidForm = uiState.isPasswordValid
-                    )
-                }
-            }
-            .launchIn(viewModelScope)
 
-        snapshotFlow { uiState.password }
-            .drop(1)
-            .map { loginUseCaseWrapper.validatePasswordUseCase(it) }
-            .onEach { result ->
-                uiState = when (result) {
-                    is Result.Error -> uiState.copy(passwordError = result.error)
-                    is Result.Success -> uiState.copy(
-                        passwordError = null,
-                        isPasswordValid = true,
-                        isValidForm = uiState.isEmailValid
-                    )
-                }
-            }
-            .launchIn(viewModelScope)
-    }
+
 
     fun onEvent(event: LoginEvent) {
         when (event) {
             is LoginEvent.Login -> login(event.email, event.password)
+
             LoginEvent.SwitchCheckBoxStatus -> uiState =
                 uiState.copy(rememberMe = !uiState.rememberMe)
 
             LoginEvent.SwitchShowPasswordStatus -> uiState =
                 uiState.copy(showPassword = !uiState.showPassword)
 
-            is LoginEvent.OnEmailChanged -> uiState = uiState.copy(email = event.email)
-            is LoginEvent.OnPasswordChanged -> uiState = uiState.copy(password = event.password)
+            is LoginEvent.OnEmailChanged -> {
+                uiState = uiState.copy(email = event.email)
+                viewModelScope.launch {
+                    val result = loginUseCaseWrapper.validateEmailUseCase(event.email)
+                    uiState = when (result) {
+                        is Resource.Error -> uiState.copy(emailError = result.error)
+                        is Resource.Success -> uiState.copy(
+                            emailError = null,
+                            isEmailValid = true,
+                            isValidForm = uiState.isPasswordValid
+                        )
+                    }
+                }
+            }
+
+            is LoginEvent.OnPasswordChanged -> {
+                uiState = uiState.copy(password = event.password)
+                viewModelScope.launch {
+                    val result = loginUseCaseWrapper.validatePasswordUseCase(event.password)
+                    uiState = when (result) {
+                        is Resource.Error -> uiState.copy(passwordError = result.error)
+                        is Resource.Success -> uiState.copy(
+                            passwordError = null,
+                            isPasswordValid = true,
+                            isValidForm = uiState.isEmailValid
+                        )
+                    }
+                }
+            }
+
             is LoginEvent.GetResultFromRegister -> uiState =
                 uiState.copy(email = event.email, password = event.password)
         }
     }
+
 
     private fun login(email: String, password: String) {
         uiState = uiState.copy(isLoading = true)
         viewModelScope.launch {
             loginUseCaseWrapper.loginUseCase(email, password).collect { result ->
                 when (result) {
-                    is Result.Error -> {
+                    is Resource.Error -> {
                         uiState = uiState.copy(isLoading = false)
                         _uiEventChannel.send(LoginSideEffect.ShowSnackBar(result.error.asStringResource()))
                     }
 
-                    is Result.Success -> {
+                    is Resource.Success -> {
                         if (uiState.rememberMe) {
                             saveUserCredentials()
                         }

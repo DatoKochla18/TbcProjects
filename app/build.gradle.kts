@@ -72,6 +72,8 @@ dependencies {
     implementation(libs.androidx.runtime.livedata)
     implementation(libs.androidx.ui.tooling)
     implementation(libs.androidx.material.icons.extended)
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.7.8")
+    androidTestImplementation("androidx.compose.ui:ui-test-manifest:1.7.8")
 
 
 
@@ -118,6 +120,12 @@ dependencies {
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
     testImplementation("app.cash.turbine:turbine:1.0.0")
 
+    androidTestImplementation("junit:junit:4.13.2")
+    androidTestImplementation("io.mockk:mockk:1.13.5")
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    androidTestImplementation("app.cash.turbine:turbine:1.0.0")
+
+    testImplementation(libs.truth)
 
 
 }
