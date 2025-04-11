@@ -12,12 +12,12 @@ object Register
 
 
 fun NavGraphBuilder.registerGraph(
-    scaffoldState: SnackbarHostState,
+    snackBarHostState: SnackbarHostState,
     onRegister: (String, String) -> Unit,
 ) {
 
     composable<Register> {
-        RegisterRootScreen(scaffoldState = scaffoldState) { email, password ->
+        RegisterRootScreen(snackBarHostState = snackBarHostState) { email, password ->
             onRegister(email, password)
         }
     }

@@ -25,7 +25,7 @@ import com.example.tbcexercises.navigation.BottomNavigationManager.topLevelRoute
 @Composable
 fun AppNavigation(
     navController: NavHostController,
-    scaffoldState: SnackbarHostState,
+    snackBarHostState: SnackbarHostState,
 ) {
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -44,7 +44,7 @@ fun AppNavigation(
                 toShowAppBarBackButton
             ) { navController.popBackStack() }
         },
-        snackbarHost = { SnackbarHost(hostState = scaffoldState) },
+        snackbarHost = { SnackbarHost(hostState = snackBarHostState) },
         bottomBar = {
             if (toShowBottomBar) {
                 NavigationBar {
@@ -80,7 +80,7 @@ fun AppNavigation(
             startDestination = Launcher,
             modifier = Modifier.padding(innerPadding)
         ) {
-            authNavigation(navController, scaffoldState)
+            authNavigation(navController, snackBarHostState)
 
             mainNavigation(navController)
         }

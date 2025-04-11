@@ -19,7 +19,6 @@ class ValidateRepeatPasswordUseCaseTest {
         val result = validateRepeatPasswordUseCase(password, repeatedPassword)
 
         // Then
-        assertThat(result).isInstanceOf(Resource.Error::class.java)
         assertThat((result as Resource.Error).error).isEqualTo(RepeatPasswordError.BLANK_FIELD)
     }
 
@@ -33,7 +32,6 @@ class ValidateRepeatPasswordUseCaseTest {
         val result = validateRepeatPasswordUseCase(password, repeatedPassword)
 
         // Then
-        assertThat(result).isInstanceOf(Resource.Error::class.java)
         assertThat((result as Resource.Error).error).isEqualTo(RepeatPasswordError.NO_MATCH)
     }
 
@@ -47,7 +45,6 @@ class ValidateRepeatPasswordUseCaseTest {
         val result = validateRepeatPasswordUseCase(password, repeatedPassword)
 
         // Then
-        assertThat(result).isInstanceOf(Resource.Error::class.java)
         assertThat((result as Resource.Error).error).isEqualTo(RepeatPasswordError.NO_MATCH)
     }
 

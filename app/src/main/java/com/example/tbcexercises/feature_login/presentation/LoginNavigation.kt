@@ -19,7 +19,7 @@ data class Login(val email: String?, val password: String?)
 fun NavGraphBuilder.loginGraph(
     navigateToHomeScreen: () -> Unit,
     navigateToRegisterScreen: () -> Unit,
-    scaffoldState: SnackbarHostState,
+    snackBarHostState: SnackbarHostState,
 ) {
     composable<Login> { entry ->
         val email = entry.getValue<String>(EMAIL)
@@ -40,7 +40,7 @@ fun NavGraphBuilder.loginGraph(
             navigateToRegisterScreen = {
                 navigateToRegisterScreen()
             },
-            scaffoldState = scaffoldState
+            snackBarHostState = snackBarHostState
         )
     }
 }

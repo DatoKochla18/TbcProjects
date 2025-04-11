@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
             AppNavigation(
                 navController = navController,
-                scaffoldState = snackBarHostState
+                snackBarHostState = snackBarHostState
             )
         }
     }

@@ -35,7 +35,7 @@ import kotlinx.coroutines.flow.flow
 @Composable
 fun RegisterRootScreen(
     viewModel: RegisterViewModel = hiltViewModel(),
-    scaffoldState: SnackbarHostState,
+    snackBarHostState: SnackbarHostState,
     navigateToLoginScreen: (String, String) -> Unit,
 
     ) {
@@ -43,7 +43,7 @@ fun RegisterRootScreen(
         viewModel.uiState,
         onEvent = viewModel::onEvent,
         uiEvents = viewModel.uiEvents,
-        scaffoldState = scaffoldState,
+        snackBarHostState = snackBarHostState,
         navigateToLoginScreen = { email, password ->
             navigateToLoginScreen(
                 email, password
@@ -58,7 +58,7 @@ fun RegisterScreen(
     uiEvents: Flow<RegisterSideEffect>,
     onEvent: (RegisterEvent) -> Unit,
     navigateToLoginScreen: (String, String) -> Unit,
-    scaffoldState: SnackbarHostState,
+    snackBarHostState: SnackbarHostState,
 
     ) {
     val context = LocalContext.current
@@ -70,7 +70,7 @@ fun RegisterScreen(
                 event.password
             )
 
-            is RegisterSideEffect.ShowError -> scaffoldState.showSnackbar(
+            is RegisterSideEffect.ShowError -> snackBarHostState.showSnackbar(
                 message = context.getString(event.message),
                 duration = SnackbarDuration.Short
             )
@@ -180,6 +180,6 @@ fun RegisterScreenPreview() {
     RegisterScreen(uiState = RegisterUiState(isLoading = false),
         onEvent = {},
         uiEvents = flow { },
-        scaffoldState = SnackbarHostState(),
+        snackBarHostState = SnackbarHostState(),
         navigateToLoginScreen = { a, b -> })
 }

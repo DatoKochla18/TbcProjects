@@ -45,7 +45,7 @@ fun LoginScreenRoot(
     viewModel: LoginViewModel = hiltViewModel(),
     navigateToRegisterScreen: () -> Unit,
     navigateToHomeScreen: () -> Unit,
-    scaffoldState: SnackbarHostState,
+    snackBarHostState: SnackbarHostState,
 ) {
 
 
@@ -55,7 +55,7 @@ fun LoginScreenRoot(
         uiEvents = viewModel.uiEvents,
         navigateToRegisterScreen = navigateToRegisterScreen,
         navigateToHomeScreen = navigateToHomeScreen,
-        scaffoldState = scaffoldState
+        snackBarHostState = snackBarHostState
     )
 }
 
@@ -66,7 +66,7 @@ fun LoginScreen(
     uiEvents: Flow<LoginSideEffect>,
     navigateToRegisterScreen: () -> Unit,
     navigateToHomeScreen: () -> Unit,
-    scaffoldState: SnackbarHostState,
+    snackBarHostState: SnackbarHostState,
 ) {
     Log.d("uistate", uiState.toString())
     val context = LocalContext.current
@@ -74,7 +74,7 @@ fun LoginScreen(
     uiEvents.CollectAsUiEvents { event ->
         when (event) {
             is LoginSideEffect.ShowSnackBar -> {
-                scaffoldState.showSnackbar(
+                snackBarHostState.showSnackbar(
                     message = context.getString(event.message),
                     duration = SnackbarDuration.Short
                 )
@@ -203,7 +203,7 @@ fun LoginScreenPreview() {
             rememberMe = true
         ),
         onEvent = {}, navigateToRegisterScreen = {},
-        uiEvents = flow { }, navigateToHomeScreen = {}, scaffoldState = SnackbarHostState()
+        uiEvents = flow { }, navigateToHomeScreen = {}, snackBarHostState = SnackbarHostState()
     )
 }
 

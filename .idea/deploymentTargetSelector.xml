@@ -8,6 +8,9 @@
       <SelectionState runConfigName="loginScreen_initialState_displaysCorrectly()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
+      <SelectionState runConfigName="LoginScreenIntegrationTest">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
     </selectionStates>
   </component>
 </project>

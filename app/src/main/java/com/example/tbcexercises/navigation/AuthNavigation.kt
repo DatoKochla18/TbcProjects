@@ -15,7 +15,7 @@ const val PASSWORD = "password"
 
 fun NavGraphBuilder.authNavigation(
     navController: NavHostController,
-    scaffoldState: SnackbarHostState,
+    snackBarHostState: SnackbarHostState,
 ) {
 
 
@@ -29,11 +29,11 @@ fun NavGraphBuilder.authNavigation(
             navController.navigate(Register)
 
         },
-        scaffoldState = scaffoldState
+        snackBarHostState = snackBarHostState
     )
 
     registerGraph(
-        scaffoldState
+        snackBarHostState
     ) { email, password ->
         navController.apply {
             previousBackStackEntry?.setValue(EMAIL, email)

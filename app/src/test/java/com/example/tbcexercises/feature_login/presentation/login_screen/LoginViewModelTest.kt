@@ -27,22 +27,17 @@ import org.junit.Test
 @ExperimentalCoroutinesApi
 class LoginViewModelTest {
 
-    // Test dispatcher for controlled coroutine execution
     private val testDispatcher = StandardTestDispatcher()
 
-    // Mocks
     private lateinit var loginUseCaseWrapper: LoginUseCaseWrapper
     private lateinit var viewModel: LoginViewModel
 
     @Before
     fun setup() {
-        // Set main dispatcher for tests
         Dispatchers.setMain(testDispatcher)
 
-        // Create mock dependencies
         loginUseCaseWrapper = mockk(relaxed = true)
 
-        // Setup default mock behaviors
         coEvery { loginUseCaseWrapper.validateEmailUseCase(any()) } returns Resource.Success(Unit)
         coEvery { loginUseCaseWrapper.validatePasswordUseCase(any()) } returns Resource.Success(Unit)
         coEvery { loginUseCaseWrapper.loginUseCase(any(), any()) } returns flowOf(
@@ -51,7 +46,6 @@ class LoginViewModelTest {
             )
         )
 
-        // Initialize ViewModel
         viewModel = LoginViewModel(loginUseCaseWrapper)
     }
 
@@ -247,28 +241,32 @@ class LoginViewModelTest {
 
     @Test
     fun `isValidForm becomes true when both email and password are valid`() = runTest {
-        // Setup valid email
+        // Given
         val testEmail = "test@example.com"
         viewModel.onEvent(LoginEvent.OnEmailChanged(testEmail))
         testDispatcher.scheduler.advanceUntilIdle()
 
-        // Setup valid password
+        // Given
         val testPassword = "Password123"
+
+        //when
         viewModel.onEvent(LoginEvent.OnPasswordChanged(testPassword))
         testDispatcher.scheduler.advanceUntilIdle()
 
-        // Assert form validation
+        //Then
         assertThat(viewModel.uiState.isValidForm).isTrue()
     }
 
     @Test
     fun `isValidForm remains false when only email is valid`() = runTest {
-        // Setup valid email only
+        // Given
         val testEmail = "test@example.com"
+
+        //When
         viewModel.onEvent(LoginEvent.OnEmailChanged(testEmail))
         testDispatcher.scheduler.advanceUntilIdle()
 
-        // Assert form validation
+        //Then
         assertThat(viewModel.uiState.isValidForm).isFalse()
     }
 
@@ -297,10 +295,10 @@ class LoginViewModelTest {
     @Test
     fun `SwitchCheckBoxStatus event toggles rememberMe from true to false`() {
         // Given
-        viewModel.onEvent(LoginEvent.SwitchCheckBoxStatus) // Set to true first
+        viewModel.onEvent(LoginEvent.SwitchCheckBoxStatus)
 
         // When
-        viewModel.onEvent(LoginEvent.SwitchCheckBoxStatus) // Toggle back to false
+        viewModel.onEvent(LoginEvent.SwitchCheckBoxStatus)
 
         // Then
         assertThat(viewModel.uiState.rememberMe).isFalse()
@@ -354,11 +352,12 @@ class LoginViewModelTest {
         val testEmail = "test@example.com"
         val testPassword = "Password123"
 
-        // When/Then - collect side effects and trigger login
+        // When
         viewModel.uiEvents.test {
             viewModel.onEvent(LoginEvent.Login(testEmail, testPassword))
             testDispatcher.scheduler.advanceUntilIdle()
 
+            //Then
             assertThat(awaitItem()).isEqualTo(LoginSideEffect.SuccessFullLogin)
             cancelAndConsumeRemainingEvents()
         }
@@ -373,12 +372,13 @@ class LoginViewModelTest {
         coEvery { loginUseCaseWrapper.loginUseCase(testEmail, testPassword) } returns
                 flowOf(Resource.Error(loginError))
 
-        // When/Then - collect side effects and trigger login
+        // When
         viewModel.uiEvents.test {
             viewModel.onEvent(LoginEvent.Login(testEmail, testPassword))
             testDispatcher.scheduler.advanceUntilIdle()
 
             val effect = awaitItem()
+            //Then
             assertThat(effect).isInstanceOf(LoginSideEffect.ShowSnackBar::class.java)
             cancelAndConsumeRemainingEvents()
         }
@@ -393,12 +393,13 @@ class LoginViewModelTest {
         coEvery { loginUseCaseWrapper.loginUseCase(testEmail, testPassword) } returns
                 flowOf(Resource.Error(loginError))
 
-        // When/Then - collect side effects and trigger login
+        // When
         viewModel.uiEvents.test {
             viewModel.onEvent(LoginEvent.Login(testEmail, testPassword))
             testDispatcher.scheduler.advanceUntilIdle()
 
             val effect = awaitItem() as LoginSideEffect.ShowSnackBar
+            //Then
             assertThat(effect.message).isEqualTo(loginError.asStringResource())
             cancelAndConsumeRemainingEvents()
         }
@@ -430,7 +431,7 @@ class LoginViewModelTest {
         viewModel.onEvent(LoginEvent.Login(testEmail, testPassword))
         testDispatcher.scheduler.advanceUntilIdle()
 
-        // Then - verify save wasn't called
+        // Then
         coVerify(exactly = 0) {
             loginUseCaseWrapper.saveValueToLocalStorageUseCase(
                 key = REMEMBER_ME_KEY,
@@ -439,7 +440,6 @@ class LoginViewModelTest {
         }
     }
 
-    // GetResultFromRegister tests
 
     @Test
     fun `GetResultFromRegister event updates email state`() {

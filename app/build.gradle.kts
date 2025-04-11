@@ -15,6 +15,9 @@ android {
     namespace = "com.example.tbcexercises"
     compileSdk = 35
 
+
+
+
     defaultConfig {
         applicationId = "com.example.tbcexercises"
         minSdk = 24
@@ -57,6 +60,7 @@ android {
         kotlinCompilerExtensionVersion = "1.5.2"
     }
 }
+
 
 dependencies {
 

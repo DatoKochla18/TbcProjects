@@ -43,7 +43,6 @@ class LoginRepositoryImplTest {
     private val loginResponse = LoginResponse(token = testToken)
     private val expectedDomainModel = GetProfileLogin(token = testToken)
 
-    // Get the actual keys from the implementation
     private val userTokenKey = stringPreferencesKey("user_token")
     private val userEmailKey = stringPreferencesKey("user_email")
 
@@ -172,7 +171,6 @@ class LoginRepositoryImplTest {
             apiHelper.handleNetworkRequestAsSuspend<LoginResponse>(any())
         } returns Resource.Success(loginResponse)
 
-        // Specific mocking for each key
         coEvery { userSessionManager.saveValue(userTokenKey, testToken) } just Runs
         coEvery { userSessionManager.saveValue(userEmailKey, email) } just Runs
     }
