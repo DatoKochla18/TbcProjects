@@ -1,16 +1,14 @@
 package com.example.tbcexercises.di
 
 import com.example.tbcexercises.BuildConfig
+import com.example.tbcexercises.data.remote.service.BreedService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
-import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -53,4 +51,10 @@ object RemoteModule {
             .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
             .build()
     }
+
+
+    @Provides
+    @Singleton
+    fun provideBreedService(retrofit: Retrofit): BreedService =
+        retrofit.create(BreedService::class.java)
 }

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/breedDetailLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewBreed"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Breed Name"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="#000"
+        app:layout_constraintTop_toBottomOf="@id/imageViewBreed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewOrigin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Origin: Country"
+        app:layout_constraintTop_toBottomOf="@id/textViewName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewLifeSpan"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Life span: 10-12 years"
+        app:layout_constraintTop_toBottomOf="@id/textViewOrigin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewWeight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Weight: 3 - 6 kg"
+        app:layout_constraintTop_toBottomOf="@id/textViewLifeSpan"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewHeight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Height: 20 - 30 cm"
+        app:layout_constraintTop_toBottomOf="@id/textViewWeight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewTemperament"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Temperament: Friendly, Loyal, Energetic"
+        android:layout_marginTop="8dp"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/textViewHeight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
