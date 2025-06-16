@@ -2,4 +2,12 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="darker_white">#F4F4F4</color>
+    <color name="detail_location">#777E90</color>
+    <color name="selected_edit">#F80000</color>
+    <color name="unselected_edit">#F89D9D</color>
+    <color name="lighter_black">#121420</color>
+    <color name="addNewAddressColor">#343434</color>
+    <color name="gray">#4E4D4D</color>
+
 </resources>
