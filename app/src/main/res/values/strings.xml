@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">TbcExercises</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search">search</string>
+    <string name="browse_images">Browse Images</string>
+    <string name="try_again">try again</string>
+    <string name="you_don_t_have_internet_connection">you don\'t have internet connection</string>
+
+    <string name="connection_error">Connection Error</string>
+    <string name="empty_response">Empty Response</string>
+    <string name="server_error">Server Error</string>
+    <string name="unknown_error">Unknown Error</string>
+    <string name="browse_breed">Browse Breed</string>
+    <string name="image">Image</string>
+
 </resources>

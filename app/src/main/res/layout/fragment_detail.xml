@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageBadge"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:contentDescription="@string/image"
+            android:scaleType="centerCrop" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Title"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:textColor="@android:color/black" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textUserName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            android:textAppearance="?attr/textAppearanceBody2"
+            android:textColor="@android:color/darker_gray" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textDateCreated"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Date"
+            android:textAppearance="?attr/textAppearanceCaption"
+            android:textColor="@android:color/darker_gray" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text="Description"
+            android:textAppearance="?attr/textAppearanceBody2" />
+
+        <View
+            android:id="@+id/viewRgb"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:background="#FF0000" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.cardview.widget.CardView>

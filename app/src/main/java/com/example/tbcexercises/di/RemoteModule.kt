@@ -1,16 +1,14 @@
 package com.example.tbcexercises.di
 
 import com.example.tbcexercises.BuildConfig
+import com.example.tbcexercises.data.remote.service.ImageService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
-import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -28,8 +26,6 @@ object RemoteModule {
             addInterceptor { chain ->
                 val originalRequest = chain.request()
                 val requestWithHeaders = originalRequest.newBuilder()
-                    .header("accept", "application/json")
-                    .header("x-api-key", BuildConfig.API_KEY)
                     .build()
                 chain.proceed(requestWithHeaders)
             }
@@ -53,4 +49,9 @@ object RemoteModule {
             .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
             .build()
     }
+
+    @Provides
+    @Singleton
+    fun provideImageService(retrofit: Retrofit): ImageService =
+        retrofit.create(ImageService::class.java)
 }

@@ -1,7 +1,7 @@
 package com.example.tbcexercises.di
 
-import com.example.tbcexercises.data.repository.ImageRepositoryImpl
-import com.example.tbcexercises.domain.repository.ImageRepository
+import com.example.tbcexercises.data.manager.ConnectivityManagerImpl
+import com.example.tbcexercises.domain.manager.ConnectivityManager
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -10,9 +10,9 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class RepositoryModule {
+abstract class ManagerModule {
 
     @Binds
     @Singleton
-    abstract fun bindImageRepository(impl: ImageRepositoryImpl): ImageRepository
+    abstract fun bindImageModule(impl: ConnectivityManagerImpl): ConnectivityManager
 }

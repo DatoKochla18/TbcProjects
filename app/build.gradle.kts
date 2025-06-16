@@ -31,7 +31,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "API_KEY", "\"$apiKey\"")
-        buildConfigField("String", "API_URL", "\"https://api.thedogapi.com/v1/\"")
+        buildConfigField("String", "API_URL", "\"https://www.colourlovers.com/api/\"")
     }
 
     buildTypes {

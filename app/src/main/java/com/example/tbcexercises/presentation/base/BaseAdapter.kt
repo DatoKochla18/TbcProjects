@@ -9,7 +9,7 @@ import androidx.viewbinding.ViewBinding
 
 abstract class BaseAdapter<T : Any, VB : ViewBinding>(
     diffCallback: DiffUtil.ItemCallback<T>,
-    private val bindingInflater: (LayoutInflater, ViewGroup, Boolean) -> VB
+    private val bindingInflater: (LayoutInflater, ViewGroup, Boolean) -> VB,
 ) : ListAdapter<T, BaseAdapter<T, VB>.ViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -20,6 +20,7 @@ abstract class BaseAdapter<T : Any, VB : ViewBinding>(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind()
     }
+
     protected abstract fun bind(binding: VB, item: T)
 
     inner class ViewHolder(private val binding: VB) : RecyclerView.ViewHolder(binding.root) {
