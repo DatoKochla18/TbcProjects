@@ -1,0 +1,28 @@
+package com.example.tbcexercises.data.remote.utils
+
+import com.example.tbcexercises.domain.util.Resource
+import com.example.tbcexercises.domain.util.error.NetworkError
+import okio.IOException
+import retrofit2.Response
+import javax.inject.Inject
+
+class ApiHelper @Inject constructor() {
+    suspend fun <T> handleHttpRequest(
+        apiCall: suspend () -> Response<T>,
+    ): Resource<T, NetworkError> {
+        return try {
+            val response = apiCall()
+            if (response.isSuccessful) {
+                response.body()?.let { data ->
+                    Resource.Success(data)
+                } ?: Resource.Error(NetworkError.EmptyResponse)
+            } else {
+                Resource.Error(NetworkError.UnknownError)
+            }
+        } catch (e: IOException) {
+            Resource.Error(NetworkError.ConnectionError)
+        } catch (e: Exception) {
+            Resource.Error(NetworkError.ServerError(e))
+        }
+    }
+}
